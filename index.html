@@ -16,12 +16,14 @@
             --text-main: #f8fafc;
             --text-dim: #94a3b8;
             
+            /* Logic Colors */
             --sativa: #fbbf24;
             --hybrid: #a78bfa;
             --indica: #60a5fa;
             --oos: #f87171;
             --stock: #4ade80;
 
+            /* Material Flares */
             --medical: #10b981;
             --exotic: #ec4899;
             --mids: #94a3b8;
@@ -43,74 +45,77 @@
 
         h1 { 
             font-weight: 800;
-            font-size: 1.6rem; 
+            font-size: 1.5rem; 
             letter-spacing: -0.025em; 
-            margin: 20px 0 25px 0;
+            margin-bottom: 25px; 
+            margin-top: 20px;
             background: linear-gradient(to right, #fff, #64748b);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        /* MOBILE FIX: Wrapped Controls */
+        /* Responsive Controls */
         .controls { 
             display: flex; 
-            flex-wrap: wrap; /* Allows stacking on mobile */
-            gap: 12px; 
+            gap: 10px; 
             margin-bottom: 25px; 
             position: sticky; 
             top: 10px; 
             z-index: 100;
-            background: rgba(18, 20, 28, 0.95);
-            padding: 12px;
+            background: rgba(18, 20, 28, 0.9);
+            padding: 8px;
             backdrop-filter: blur(15px);
-            border-radius: 16px;
+            border-radius: 14px;
             border: 1px solid var(--border);
         }
 
         .search-input { 
-            flex: 1 1 200px; /* Grow to fill, but stack if less than 200px */
-            background: rgba(255,255,255,0.03); 
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 10px 15px; 
+            flex: 1;
+            min-width: 0; /* Prevents overflow on mobile */
+            background: transparent; 
+            border: none;
+            padding: 8px 12px; 
             color: white; 
             outline: none; 
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
 
         .sort-select { 
-            flex: 1 1 120px; /* Grow to fill, stack if less than 120px */
-            background: var(--surface); 
+            flex: 0 0 auto;
+            max-width: 140px; /* Constrains width on mobile */
+            background: var(--bg); 
             color: var(--text-main); 
             border: 1px solid var(--border); 
             border-radius: 10px; 
-            padding: 10px; 
+            padding: 0 8px; 
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             outline: none;
-            appearance: none; /* Removes default styling */
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 10px center;
-            background-size: 1em;
-            padding-right: 35px;
         }
 
         .strain-card { 
             background: var(--glass);
             backdrop-filter: blur(10px);
             border: 1px solid var(--border); 
-            border-radius: 20px; 
-            margin-bottom: 14px; 
+            border-radius: 18px; 
+            margin-bottom: 12px; 
             overflow: hidden; 
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .strain-header { padding: 22px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
-        .product-info h3 { font-size: 1.15rem; font-weight: 600; margin-bottom: 10px; }
+        .strain-card:hover { border-color: rgba(255, 255, 255, 0.15); }
 
-        .badge-container { display: flex; gap: 8px; flex-wrap: wrap; }
-        .badge { font-size: 0.62rem; font-weight: 800; padding: 4px 10px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.05em;}
+        .strain-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        .product-info h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; }
+
+        .badge-container { display: flex; gap: 6px; flex-wrap: wrap; }
+        .badge { 
+            font-size: 0.6rem; 
+            font-weight: 800; 
+            padding: 3px 8px; 
+            border-radius: 5px; 
+            text-transform: uppercase; 
+        }
 
         .sativa { background: rgba(251, 191, 36, 0.1); color: var(--sativa); border: 1px solid rgba(251, 191, 36, 0.2); }
         .indica { background: rgba(96, 165, 250, 0.1); color: var(--indica); border: 1px solid rgba(96, 165, 250, 0.2); }
@@ -122,37 +127,54 @@
         .st-in { background: rgba(74, 222, 128, 0.1); color: var(--stock); border: 1px solid rgba(74, 222, 128, 0.2); }
         .st-out { background: rgba(248, 113, 113, 0.1); color: var(--oos); border: 1px solid rgba(248, 113, 113, 0.2); }
 
-        .chevron { color: var(--text-dim); transition: transform 0.4s ease; font-size: 0.7rem; }
+        .chevron { 
+            color: var(--text-dim); 
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            font-size: 0.7rem;
+            margin-left: 10px;
+        }
         .active .chevron { transform: rotate(180deg); color: var(--accent); }
 
-        .strain-content { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.4s ease; background: rgba(0, 0, 0, 0.2); }
+        /* Animation Fix */
+        .strain-content { 
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(0, 0, 0, 0.2);
+        }
         .active .strain-content { grid-template-rows: 1fr; border-top: 1px solid var(--border); }
         .inner-content { overflow: hidden; }
-        .inner-padding { padding: 24px; }
+        .inner-padding { padding: 20px; }
 
-        .desc-text { color: var(--text-dim); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; font-weight: 300; }
+        .desc-text { color: var(--text-dim); font-size: 0.85rem; line-height: 1.5; margin-bottom: 15px; font-weight: 300; }
 
         .price-grid { display: grid; gap: 8px; }
         .price-row { 
             display: flex; 
             justify-content: space-between; 
             align-items: center;
-            padding: 14px 18px; 
+            padding: 12px 15px; 
             background: rgba(255,255,255,0.02); 
-            border-radius: 12px; 
+            border-radius: 10px; 
             border: 1px solid var(--border);
         }
-        .price-qty { font-size: 0.85rem; color: var(--text-dim); }
-        .price-amt { font-weight: 700; color: #fff; font-family: 'JetBrains Mono', monospace; }
-        .price-per-g { font-size: 0.75rem; color: var(--accent); margin-left: 10px; padding-left: 10px; border-left: 1px solid var(--border); }
+        .price-qty { font-size: 0.8rem; color: var(--text-dim); }
+        .price-amt { font-weight: 700; color: #fff; font-family: monospace; font-size: 0.95rem; }
+        .price-per-g { 
+            font-size: 0.7rem; 
+            color: var(--accent); 
+            margin-left: 8px;
+            padding-left: 8px;
+            border-left: 1px solid var(--border);
+        }
 
         .disclaimer {
-            margin-top: 50px;
+            margin-top: 40px;
             padding: 20px;
             font-size: 0.65rem;
             color: var(--text-dim);
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             opacity: 0.5;
             text-align: center;
             width: 100%;
@@ -160,8 +182,11 @@
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
 
+        /* Tablet/Mobile Adjustments */
         @media (max-width: 480px) {
-            .price-per-g { display: block; border: none; padding: 0; margin-top: 4px; text-align: right; }
+            h1 { font-size: 1.3rem; }
+            .sort-select { font-size: 0.75rem; max-width: 110px; }
+            .price-per-g { display: block; border-left: none; padding-left: 0; margin-top: 2px; text-align: right; }
         }
     </style>
 </head>
@@ -171,12 +196,13 @@
         <h1>Available Products</h1>
 
         <div class="controls">
-            <input type="text" id="searchInput" class="search-input" placeholder="Search products..." oninput="renderList()">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search..." oninput="renderList()">
             <select id="sortSelect" class="sort-select" onchange="renderList()">
                 <option value="default">In Stock</option>
                 <option value="p-low">Price: Low</option>
                 <option value="p-high">Price: High</option>
                 <option value="thc-high">THC: High</option>
+                <option value="thc-low">THC: Low</option>
             </select>
         </div>
 
@@ -189,16 +215,37 @@
 
 <script>
     const products = [
-        { name: "Harbour LR Day 2g Cart", type: "sativa", flare: "medical", potency: 80, inStock: true, price: 149, desc: "Aura Therapeutics | Watermelon Skittlez. 2g Liquid Live Resin.", tiers: { "2g Unit": 250 } },
-        { name: "Harbour LR Night 2g Cart", type: "indica", flare: "medical", potency: 80, inStock: false, price: 149, desc: "Aura Therapeutics | Grandaddy Bruce. 2g Liquid Live Resin.", tiers: { "2g Unit": 250 } },
-        { name: "Skittles", type: "hybrid", flare: "exotic", potency: 26, inStock: false, price: 380, desc: "Exotic Grade. Sweet tropical profile.", tiers: { "28g": 380, "14g": 220, "7g": 120, "3.5g": 70 } },
-        { name: "Tangelo", type: "sativa", flare: "mids", potency: 18, inStock: true, price: 250, desc: "Mids quality flower. Pungent mango aroma.", tiers: { "28g": 250, "14g": 130, "7g": 70, "3.5g": 40 } }
+        { 
+            name: "Harbour LR Day 2g Cart", 
+            type: "sativa", flare: "medical", potency: 80, inStock: true, price: 250, 
+            desc: "Aura Therapeutics | Watermelon Skittlez. 2g Liquid Live Resin. High-potency daytime formulation.",
+            tiers: { "2g Unit": 250 }
+        },
+        { 
+            name: "Harbour LR Night 2g Cart", 
+            type: "indica", flare: "medical", potency: 80, inStock: false, price: 250, 
+            desc: "Aura Therapeutics | Grandaddy Bruce. 2g Liquid Live Resin. High-potency evening formulation.",
+            tiers: { "2g Unit": 250 }
+        },
+        { 
+            name: "Skittles", 
+            type: "hybrid", flare: "exotic", potency: 26, inStock: false, price: 380, 
+            desc: "Exotic Grade. Sweet tropical profile. Calming euphoria followed by deep relaxation.",
+            tiers: { "28g": 380, "14g": 220, "7g": 120, "3.5g": 70 }
+        },
+        { 
+            name: "Tangelo", 
+            type: "sativa", flare: "mids", potency: 18, inStock: true, price: 250, 
+            desc: "Mids quality flower. Pungent mango/citrus aroma. Energetic uplift and focus.",
+            tiers: { "28g": 250, "14g": 130, "7g": 70, "3.5g": 40 }
+        }
     ];
 
     function calculatePerGram(label, price) {
         const weightMatch = label.match(/[\d.]+/);
         if (!weightMatch) return "";
-        return `$${(price / parseFloat(weightMatch[0])).toFixed(2)}/g`;
+        const weight = parseFloat(weightMatch[0]);
+        return `$${(price / weight).toFixed(2)}/g`;
     }
 
     function toggleCard(card) {
@@ -214,10 +261,13 @@
         
         let filtered = products.filter(p => p.name.toLowerCase().includes(searchTerm));
 
-        if (sortBy === 'default') filtered.sort((a, b) => b.inStock - a.inStock);
-        else if (sortBy === 'p-low') filtered.sort((a, b) => a.price - b.price);
+        // Default: Sort by In Stock (true) first, then original list order
+        if (sortBy === 'default') {
+            filtered.sort((a, b) => b.inStock - a.inStock);
+        } else if (sortBy === 'p-low') filtered.sort((a, b) => a.price - b.price);
         else if (sortBy === 'p-high') filtered.sort((a, b) => b.price - a.price);
         else if (sortBy === 'thc-high') filtered.sort((a, b) => b.potency - a.potency);
+        else if (sortBy === 'thc-low') filtered.sort((a, b) => a.potency - b.potency);
 
         container.innerHTML = filtered.map(p => `
             <div class="strain-card" onclick="toggleCard(this)">
@@ -255,6 +305,7 @@
         `).join('');
     }
 
+    // Load initial list with In-Stock first
     renderList();
 </script>
 
