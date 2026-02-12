@@ -35,12 +35,13 @@
             background: radial-gradient(circle at top center, #111827 0%, #050608 100%);
             color: var(--text-main); 
             display: flex; 
-            justify-content: center; 
+            flex-direction: column;
+            align-items: center;
             min-height: 100vh;
             padding: 40px 20px; 
         }
 
-        #main-site { width: 100%; max-width: 680px; animation: fadeIn 0.8s ease-out; }
+        #main-site { width: 100%; max-width: 680px; animation: fadeIn 0.8s ease-out; flex-grow: 1; }
 
         h1 { 
             font-weight: 800;
@@ -99,7 +100,6 @@
 
         .strain-card:hover {
             border-color: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
             background: var(--glass-hover);
         }
 
@@ -128,7 +128,7 @@
 
         .chevron { 
             color: var(--text-dim); 
-            transition: transform 0.4s; 
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
             font-size: 0.7rem;
             background: var(--surface);
             padding: 8px;
@@ -136,13 +136,20 @@
         }
         .active .chevron { transform: rotate(180deg); color: var(--accent); }
 
+        /* FIXED COLLAPSE LOGIC */
         .strain-content { 
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease;
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s;
             background: rgba(0, 0, 0, 0.2);
+            padding: 0 24px;
         }
-        .active .strain-content { max-height: 600px; padding: 24px; border-top: 1px solid var(--border); }
+        .active .strain-content { 
+            grid-template-rows: 1fr;
+            padding: 24px;
+            border-top: 1px solid var(--border);
+        }
+        .inner-content { overflow: hidden; }
 
         .desc-text { color: var(--text-dim); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; font-weight: 300; }
 
@@ -169,6 +176,21 @@
             border-left: 1px solid var(--border);
         }
 
+        /* Disclaimer Footer */
+        .disclaimer {
+            margin-top: 50px;
+            padding: 20px;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.6;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            width: 100%;
+            max-width: 680px;
+        }
+
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; } }
     </style>
 </head>
@@ -192,13 +214,11 @@
         <div id="inventory"></div>
     </div>
 
+    <div class="disclaimer">
+        This is all fake and for roleplay purposes
+    </div>
+
 <script>
-    /**
-     * DATA CONFIGURATION
-     * To ensure $/g works: 
-     * - The key in 'tiers' must start with a number (e.g., "28g" or "2g")
-     * - "Unit Price" for carts is treated as 2g based on the product name.
-     */
     const products = [
         { 
             name: "Harbour LR Day 2g Cart", 
@@ -245,13 +265,19 @@
     const defaultOrder = [...products];
 
     function calculatePerGram(label, price) {
-        // Extract the number from the label (e.g., "28g" -> 28, "3.5g" -> 3.5)
         const weightMatch = label.match(/[\d.]+/);
         if (!weightMatch) return "";
-        
         const weight = parseFloat(weightMatch[0]);
-        const perGram = (price / weight).toFixed(2);
-        return `$${perGram}/g`;
+        return `$${(price / weight).toFixed(2)}/g`;
+    }
+
+    // Fixed Toggle function to prevent glitching
+    function toggleCard(card) {
+        const allCards = document.querySelectorAll('.strain-card');
+        allCards.forEach(c => {
+            if (c !== card) c.classList.remove('active');
+        });
+        card.classList.toggle('active');
     }
 
     function renderList() {
@@ -269,7 +295,7 @@
         else if (sortBy === 'default') filtered = defaultOrder.filter(p => p.name.toLowerCase().includes(searchTerm));
 
         container.innerHTML = filtered.map(p => `
-            <div class="strain-card" onclick="this.classList.toggle('active')">
+            <div class="strain-card" onclick="toggleCard(this)">
                 <div class="strain-header">
                     <div class="product-info">
                         <h3>${p.name}</h3>
@@ -283,17 +309,19 @@
                     <span class="chevron">▼</span>
                 </div>
                 <div class="strain-content">
-                    <p class="desc-text">${p.desc}</p>
-                    <div class="price-grid">
-                        ${Object.entries(p.tiers).map(([qty, val]) => `
-                            <div class="price-row">
-                                <span class="price-qty">${qty}</span>
-                                <div class="price-val-container">
-                                    <span class="price-amt">$${val}</span>
-                                    <span class="price-per-g">${calculatePerGram(qty, val)}</span>
+                    <div class="inner-content">
+                        <p class="desc-text">${p.desc}</p>
+                        <div class="price-grid">
+                            ${Object.entries(p.tiers).map(([qty, val]) => `
+                                <div class="price-row">
+                                    <span class="price-qty">${qty}</span>
+                                    <div class="price-val-container">
+                                        <span class="price-amt">$${val}</span>
+                                        <span class="price-per-g">${calculatePerGram(qty, val)}</span>
+                                    </div>
                                 </div>
-                            </div>
-                        `).join('')}
+                            `).join('')}
+                        </div>
                     </div>
                 </div>
             </div>
