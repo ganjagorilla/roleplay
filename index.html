@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Encrypted Portal</title>
+    <title>Secure Portal</title>
     <style>
         :root {
             --bg: #0b0c0e;
@@ -17,14 +17,10 @@
             --sativa: #fbbf24;
             --hybrid: #a78bfa;
             --indica: #60a5fa;
+            --medical: #10b981; /* Emerald green for medical flare */
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', -apple-system, sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 
         body {
             background-color: var(--bg);
@@ -35,13 +31,8 @@
             padding: 20px;
         }
 
-        /* --- Security Gate --- */
-        #login-screen {
-            align-self: center;
-            width: 100%;
-            max-width: 380px;
-        }
-
+        /* --- Auth Layer --- */
+        #login-screen { align-self: center; width: 100%; max-width: 380px; }
         .gate-card {
             background: var(--surface);
             padding: 40px 30px;
@@ -50,15 +41,6 @@
             text-align: center;
             box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
-
-        .gate-card h2 {
-            font-size: 0.9rem;
-            letter-spacing: 3px;
-            margin-bottom: 30px;
-            color: var(--text-dim);
-            text-transform: uppercase;
-        }
-
         .stealth-input {
             width: 100%;
             padding: 15px;
@@ -69,12 +51,7 @@
             margin-bottom: 20px;
             outline: none;
             text-align: center;
-            font-size: 1rem;
-            transition: border-color 0.3s;
         }
-
-        .stealth-input:focus { border-color: var(--accent); }
-
         .btn-init {
             width: 100%;
             padding: 15px;
@@ -84,17 +61,10 @@
             border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
-            letter-spacing: 1px;
         }
 
-        /* --- Main Interface --- */
-        #main-site {
-            display: none;
-            width: 100%;
-            max-width: 650px;
-            animation: fadeIn 0.4s ease;
-        }
-
+        /* --- Main Menu --- */
+        #main-site { display: none; width: 100%; max-width: 650px; animation: fadeIn 0.4s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .nav-bar {
@@ -105,7 +75,6 @@
             padding-bottom: 15px;
             border-bottom: 1px solid var(--border);
         }
-
         .btn-back {
             background: transparent;
             border: 1px solid var(--border);
@@ -114,100 +83,36 @@
             border-radius: 6px;
             cursor: pointer;
             font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s;
         }
 
-        .btn-back:hover {
-            border-color: var(--text-mid);
-            color: var(--text-light);
-            background: var(--surface-hover);
-        }
-
-        .strain-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            margin-bottom: 16px;
-            overflow: hidden;
-        }
-
-        .strain-header {
-            padding: 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
+        .strain-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; margin-bottom: 16px; overflow: hidden; }
+        .strain-header { padding: 24px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
         .strain-header:hover { background: var(--surface-hover); }
 
-        .title-group h3 { font-size: 1.2rem; margin-bottom: 4px; }
-        
-        .type-badge {
-            font-size: 0.65rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            padding: 2px 8px;
-            border-radius: 4px;
-            letter-spacing: 0.5px;
-        }
-
+        .type-badge { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; margin-right: 5px; }
         .sativa { background: rgba(251, 191, 36, 0.1); color: var(--sativa); }
         .hybrid { background: rgba(167, 139, 250, 0.1); color: var(--hybrid); }
         .indica { background: rgba(96, 165, 250, 0.1); color: var(--indica); }
+        .medical { background: rgba(16, 185, 129, 0.1); color: var(--medical); border: 1px solid rgba(16, 185, 129, 0.3); }
 
-        .chevron {
-            width: 20px;
-            height: 20px;
-            color: var(--text-dim);
-            transition: transform 0.3s;
-        }
-
-        /* Content Dropdown */
-        .strain-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            background: #111316;
-        }
-
+        .chevron { width: 20px; height: 20px; color: var(--text-dim); transition: transform 0.3s; }
+        .strain-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease; background: #111316; }
         .active .strain-content { max-height: 600px; border-top: 1px solid var(--border); }
-        .active .chevron { transform: rotate(180deg); color: var(--text-light); }
+        .active .chevron { transform: rotate(180deg); }
 
-        .description {
-            padding: 20px 24px;
-            font-size: 0.9rem;
-            color: var(--text-mid);
-            line-height: 1.6;
-            border-bottom: 1px solid var(--border);
-        }
-
+        .description { padding: 20px 24px; font-size: 0.9rem; color: var(--text-mid); line-height: 1.6; border-bottom: 1px solid var(--border); }
         .price-list { padding: 20px; }
-        
         .price-item {
             display: flex;
             justify-content: space-between;
-            align-items: center;
             padding: 14px 20px;
             background: var(--surface);
             border-radius: 10px;
             margin-bottom: 8px;
             border: 1px solid transparent;
-            transition: all 0.2s;
         }
-
-        .price-item:hover {
-            border-color: var(--accent);
-            transform: scale(1.01);
-        }
-
-        .qty { font-weight: 500; color: var(--text-mid); }
-        .val { font-weight: 700; color: var(--text-light); font-family: monospace; font-size: 1.1rem; }
-
+        .price-item:hover { border-color: var(--accent); }
+        .val { font-weight: 700; color: var(--text-light); font-family: monospace; }
     </style>
 </head>
 <body>
@@ -222,55 +127,66 @@
 
     <div id="main-site">
         <div class="nav-bar">
-            <button class="btn-back" onclick="logout()">
-                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                Back to Terminal
-            </button>
-            <span style="font-size: 0.7rem; color: var(--text-dim); letter-spacing: 1px; text-transform: uppercase;">Node: Active</span>
+            <button class="btn-back" onclick="logout()">← Back</button>
+            <span style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase;">Node: Active</span>
         </div>
 
         <div class="strain-card" onclick="toggle(this)">
             <div class="strain-header">
-                <div class="title-group">
-                    <h3>Skittles</h3>
-                    <span class="type-badge hybrid">Indica Dominant Hybrid</span>
-                </div>
-                <svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-            </div>
-            <div class="strain-content">
-                <div class="description">
-                    A heavy-hitting candy profile. Notes of sweet tropical fruit and earthy citrus. Delivers a calming, euphoric head high followed by deep physical relaxation. 22-26% THC.
-                </div>
-                <div class="price-list">
-                    <div class="price-item"><span class="qty">28g (Ounce)</span><span class="val">$380</span></div>
-                    <div class="price-item"><span class="qty">14g (Half)</span><span class="val">$200</span></div>
-                    <div class="price-item"><span class="qty">7g (Quarter)</span><span class="val">$120</span></div>
-                    <div class="price-item"><span class="qty">3.5g (Eighth)</span><span class="val">$70</span></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="strain-card" onclick="toggle(this)">
-            <div class="strain-header">
-                <div class="title-group">
-                    <h3>Mango Tango</h3>
+                <div>
+                    <h3>Harbour LR Day</h3>
                     <span class="type-badge sativa">Sativa Dominant</span>
+                    <span class="type-badge medical">Medical</span>
                 </div>
-                <svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                <span class="chevron">▼</span>
             </div>
             <div class="strain-content">
                 <div class="description">
-                    Pungent citrus and fresh mango aroma. Perfect for creative sessions or daytime focus. Energetic uplift without the heavy "crash" typical of exotic grades. 16-18% THC.
+                    <strong>Brand: Aura Therapeutics</strong><br>
+                    Product: Liquid Live Resin Vape Cartridge. Strain: Watermelon Skittlez. High-THC formulation (800mg/g). Designed for daytime focus and clarity.
                 </div>
                 <div class="price-list">
-                    <div class="price-item"><span class="qty">28g (Ounce)</span><span class="val">$250</span></div>
-                    <div class="price-item"><span class="qty">14g (Half)</span><span class="val">$130</span></div>
-                    <div class="price-item"><span class="qty">7g (Quarter)</span><span class="val">$70</span></div>
-                    <div class="price-item"><span class="qty">3.5g (Eighth)</span><span class="val">$40</span></div>
+                    <div class="price-item"><span>2g Cartridge</span><span class="val">$149.00</span></div>
                 </div>
             </div>
         </div>
 
+        <div class="strain-card" onclick="toggle(this)">
+            <div class="strain-header">
+                <div>
+                    <h3>Harbour LR Night</h3>
+                    <span class="type-badge indica">Indica</span>
+                    <span class="type-badge medical">Medical</span>
+                </div>
+                <span class="chevron">▼</span>
+            </div>
+            <div class="strain-content">
+                <div class="description">
+                    <strong>Brand: Aura Therapeutics</strong><br>
+                    Product: Liquid Live Resin Vape Cartridge. Strain: Grandaddy Bruce. High-THC formulation (800mg/g). Focused on evening relaxation and sleep support.
+                </div>
+                <div class="price-list">
+                    <div class="price-item"><span>2g Cartridge</span><span class="val">$149.00</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="strain-card" onclick="toggle(this)">
+            <div class="strain-header">
+                <div>
+                    <h3>Skittles</h3>
+                    <span class="type-badge hybrid">Indica Hybrid</span>
+                </div>
+                <span class="chevron">▼</span>
+            </div>
+            <div class="strain-content">
+                <div class="description">Sweet tropical fruit notes with a heavy-hitting relaxing finish. 22-26% THC.</div>
+                <div class="price-list">
+                    <div class="price-item"><span>28g</span><span class="val">$380</span></div>
+                    <div class="price-item"><span>14g</span><span class="val">$200</span></div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -281,21 +197,15 @@
                 document.getElementById('passInput').value = '';
             }
         }
-
         function logout() {
             document.getElementById('main-site').style.display = 'none';
             document.getElementById('login-screen').style.display = 'block';
         }
-
         function toggle(el) {
             const isActive = el.classList.contains('active');
-            document.querySelectorAll('.strain-card').forEach(card => card.classList.remove('active'));
+            document.querySelectorAll('.strain-card').forEach(c => c.classList.remove('active'));
             if (!isActive) el.classList.add('active');
         }
-
-        document.getElementById("passInput").addEventListener("keyup", e => {
-            if (e.key === "Enter") login();
-        });
     </script>
 </body>
 </html>
