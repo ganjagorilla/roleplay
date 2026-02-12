@@ -22,6 +22,11 @@
             --indica: #60a5fa;
             --oos: #f87171;
             --stock: #4ade80;
+
+            /* Material Flares */
+            --medical: #10b981;
+            --exotic: #ec4899;
+            --mids: #94a3b8;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
@@ -47,7 +52,6 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Search & Filter Bar */
         .controls { 
             display: flex; 
             gap: 12px; 
@@ -83,7 +87,6 @@
             outline: none;
         }
 
-        /* Modernized Cards */
         .strain-card { 
             background: var(--glass);
             backdrop-filter: blur(10px);
@@ -100,30 +103,29 @@
             background: var(--glass-hover);
         }
 
-        .strain-header { 
-            padding: 24px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            cursor: pointer; 
-        }
-
+        .strain-header { padding: 24px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
         .product-info h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 10px; letter-spacing: -0.01em; }
 
-        /* Sleek Badges */
         .badge-container { display: flex; gap: 8px; flex-wrap: wrap; }
         .badge { 
-            font-size: 0.65rem; 
-            font-weight: 700; 
+            font-size: 0.62rem; 
+            font-weight: 800; 
             padding: 4px 10px; 
             border-radius: 6px; 
             letter-spacing: 0.05em;
             text-transform: uppercase; 
         }
 
+        /* Type Badges */
         .sativa { background: rgba(251, 191, 36, 0.1); color: var(--sativa); border: 1px solid rgba(251, 191, 36, 0.2); }
         .indica { background: rgba(96, 165, 250, 0.1); color: var(--indica); border: 1px solid rgba(96, 165, 250, 0.2); }
         .hybrid { background: rgba(167, 139, 250, 0.1); color: var(--hybrid); border: 1px solid rgba(167, 139, 250, 0.2); }
+        
+        /* Material Class Flares */
+        .medical { background: rgba(16, 185, 129, 0.1); color: var(--medical); border: 1px solid rgba(16, 185, 129, 0.3); }
+        .exotic { background: rgba(236, 72, 153, 0.1); color: var(--exotic); border: 1px solid rgba(236, 72, 153, 0.3); }
+        .mids { background: rgba(148, 163, 184, 0.1); color: var(--mids); border: 1px solid rgba(148, 163, 184, 0.3); }
+
         .potency { background: rgba(255, 255, 255, 0.05); color: #94a3b8; border: 1px solid var(--border); }
         .st-in { background: rgba(74, 222, 128, 0.1); color: var(--stock); border: 1px solid rgba(74, 222, 128, 0.2); }
         .st-out { background: rgba(248, 113, 113, 0.1); color: var(--oos); border: 1px solid rgba(248, 113, 113, 0.2); }
@@ -138,14 +140,13 @@
         }
         .active .chevron { transform: rotate(180deg); color: var(--accent); }
 
-        /* Content Area */
         .strain-content { 
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.4s ease;
             background: rgba(0, 0, 0, 0.2);
         }
-        .active .strain-content { max-height: 500px; padding: 24px; border-top: 1px solid var(--border); }
+        .active .strain-content { max-height: 600px; padding: 24px; border-top: 1px solid var(--border); }
 
         .desc-text { color: var(--text-dim); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; font-weight: 300; }
 
@@ -161,7 +162,7 @@
         .price-qty { font-size: 0.85rem; color: var(--text-dim); }
         .price-amt { font-weight: 700; color: #fff; font-family: 'JetBrains Mono', monospace; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -185,28 +186,32 @@
     </div>
 
 <script>
+    // DATA: Flare types are 'medical', 'exotic', or 'mids'
     const products = [
         { 
             name: "Harbour LR Day 2g Cart", 
             type: "sativa", 
+            flare: "medical",
             potency: 80, 
             inStock: true, 
-            price: 250, 
+            price: 149, 
             desc: "Aura Therapeutics | Watermelon Skittlez. 2g Liquid Live Resin. High-potency daytime formulation.",
-            tiers: { "Unit Price": "$250.00" }
+            tiers: { "Unit Price": "$149.00" }
         },
         { 
             name: "Harbour LR Night 2g Cart", 
             type: "indica", 
+            flare: "medical",
             potency: 80, 
             inStock: false, 
-            price: 250, 
+            price: 149, 
             desc: "Aura Therapeutics | Grandaddy Bruce. 2g Liquid Live Resin. High-potency evening formulation.",
-            tiers: { "Unit Price": "$250.00" }
+            tiers: { "Unit Price": "$149.00" }
         },
         { 
             name: "Skittles", 
             type: "hybrid", 
+            flare: "exotic",
             potency: 26, 
             inStock: false, 
             price: 380, 
@@ -216,6 +221,7 @@
         { 
             name: "Tangelo", 
             type: "sativa", 
+            flare: "mids",
             potency: 18, 
             inStock: true, 
             price: 250, 
@@ -246,6 +252,7 @@
                     <div class="product-info">
                         <h3>${p.name}</h3>
                         <div class="badge-container">
+                            <span class="badge ${p.flare}">${p.flare}</span>
                             <span class="badge ${p.type}">${p.type}</span>
                             <span class="badge potency">${p.potency}% THC</span>
                             <span class="badge ${p.inStock ? 'st-in' : 'st-out'}">${p.inStock ? 'In Stock' : 'Out of Stock'}</span>
