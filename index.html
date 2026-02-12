@@ -3,16 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Portal</title>
+    <title>Encrypted Portal</title>
     <style>
         :root {
-            --bg-dark: #0f1113;
-            --surface: #1a1d21;
-            --surface-light: #252a30;
-            --accent: #3b82f6; /* Subtle Blue stealth accent */
-            --text-dim: #94a3b8;
-            --text-bright: #f8fafc;
-            --border: #334155;
+            --bg: #0b0c0e;
+            --surface: #16181b;
+            --surface-hover: #1c1f24;
+            --accent: #3b82f6;
+            --text-dim: #64748b;
+            --text-mid: #94a3b8;
+            --text-light: #f1f5f9;
+            --border: #262a30;
+            --sativa: #fbbf24;
+            --hybrid: #a78bfa;
+            --indica: #60a5fa;
         }
 
         * {
@@ -23,249 +27,274 @@
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-bright);
+            background-color: var(--bg);
+            color: var(--text-light);
             display: flex;
             justify-content: center;
             min-height: 100vh;
-            padding: 40px 20px;
+            padding: 20px;
         }
 
-        /* --- Stealth Login --- */
+        /* --- Security Gate --- */
         #login-screen {
             align-self: center;
             width: 100%;
-            max-width: 360px;
+            max-width: 380px;
         }
 
-        .login-card {
+        .gate-card {
             background: var(--surface);
-            padding: 32px;
-            border-radius: 12px;
+            padding: 40px 30px;
+            border-radius: 16px;
             border: 1px solid var(--border);
             text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
 
-        .login-card h2 {
-            font-size: 1.2rem;
-            letter-spacing: 1px;
-            margin-bottom: 24px;
+        .gate-card h2 {
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
             color: var(--text-dim);
             text-transform: uppercase;
         }
 
         .stealth-input {
             width: 100%;
-            padding: 14px;
-            background: var(--bg-dark);
+            padding: 15px;
+            background: #000;
             border: 1px solid var(--border);
-            border-radius: 6px;
-            color: white;
-            margin-bottom: 16px;
+            border-radius: 8px;
+            color: #fff;
+            margin-bottom: 20px;
             outline: none;
+            text-align: center;
+            font-size: 1rem;
             transition: border-color 0.3s;
         }
 
-        .stealth-input:focus {
-            border-color: var(--accent);
-        }
+        .stealth-input:focus { border-color: var(--accent); }
 
-        .btn-access {
+        .btn-init {
             width: 100%;
-            padding: 14px;
+            padding: 15px;
             background: var(--accent);
             color: white;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
-            transition: filter 0.2s;
+            letter-spacing: 1px;
         }
 
-        /* --- Main Menu --- */
+        /* --- Main Interface --- */
         #main-site {
             display: none;
             width: 100%;
-            max-width: 600px;
+            max-width: 650px;
+            animation: fadeIn 0.4s ease;
         }
 
-        .header-area {
-            margin-bottom: 32px;
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 15px;
             border-bottom: 1px solid var(--border);
-            padding-bottom: 16px;
         }
 
-        .header-area h1 { font-size: 1.5rem; font-weight: 600; }
-        .header-area p { color: var(--text-dim); font-size: 0.9rem; }
+        .btn-back {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
 
-        .strain-item {
+        .btn-back:hover {
+            border-color: var(--text-mid);
+            color: var(--text-light);
+            background: var(--surface-hover);
+        }
+
+        .strain-card {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            margin-bottom: 12px;
+            border-radius: 14px;
+            margin-bottom: 16px;
             overflow: hidden;
-            transition: transform 0.2s;
         }
 
-        .strain-trigger {
-            padding: 20px;
+        .strain-header {
+            padding: 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
-            user-select: none;
+            transition: background 0.2s;
         }
 
-        .strain-trigger:hover {
-            background: var(--surface-light);
-        }
+        .strain-header:hover { background: var(--surface-hover); }
 
-        .strain-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .badge {
-            font-size: 0.7rem;
+        .title-group h3 { font-size: 1.2rem; margin-bottom: 4px; }
+        
+        .type-badge {
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
             padding: 2px 8px;
             border-radius: 4px;
-            background: var(--border);
-            color: var(--text-dim);
-            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
+
+        .sativa { background: rgba(251, 191, 36, 0.1); color: var(--sativa); }
+        .hybrid { background: rgba(167, 139, 250, 0.1); color: var(--hybrid); }
+        .indica { background: rgba(96, 165, 250, 0.1); color: var(--indica); }
 
         .chevron {
             width: 20px;
             height: 20px;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            opacity: 0.5;
+            color: var(--text-dim);
+            transition: transform 0.3s;
         }
 
-        /* Dropdown Logic */
+        /* Content Dropdown */
         .strain-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            background: var(--bg-dark);
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #111316;
         }
 
-        .active .strain-content {
-            max-height: 400px;
-            border-top: 1px solid var(--border);
+        .active .strain-content { max-height: 600px; border-top: 1px solid var(--border); }
+        .active .chevron { transform: rotate(180deg); color: var(--text-light); }
+
+        .description {
+            padding: 20px 24px;
+            font-size: 0.9rem;
+            color: var(--text-mid);
+            line-height: 1.6;
+            border-bottom: 1px solid var(--border);
         }
 
-        .active .chevron {
-            transform: rotate(180deg);
-            opacity: 1;
-        }
-
-        .price-grid {
-            padding: 20px;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 8px;
-        }
-
-        .price-tile {
+        .price-list { padding: 20px; }
+        
+        .price-item {
             display: flex;
             justify-content: space-between;
-            padding: 14px 16px;
+            align-items: center;
+            padding: 14px 20px;
             background: var(--surface);
-            border-radius: 8px;
+            border-radius: 10px;
+            margin-bottom: 8px;
             border: 1px solid transparent;
             transition: all 0.2s;
         }
 
-        .price-tile:hover {
+        .price-item:hover {
             border-color: var(--accent);
-            background: var(--surface-light);
+            transform: scale(1.01);
         }
 
-        .weight-label { color: var(--text-dim); font-size: 0.95rem; }
-        .price-value { color: var(--text-bright); font-weight: 600; }
+        .qty { font-weight: 500; color: var(--text-mid); }
+        .val { font-weight: 700; color: var(--text-light); font-family: monospace; font-size: 1.1rem; }
 
-        .thc-info {
-            padding: 10px 20px;
-            font-size: 0.8rem;
-            color: var(--accent);
-            background: rgba(59, 130, 246, 0.05);
-        }
     </style>
 </head>
 <body>
 
     <div id="login-screen">
-        <div class="login-card">
-            <h2>System Auth</h2>
-            <input type="password" id="passInput" class="stealth-input" placeholder="Credential Code">
-            <button class="btn-access" onclick="verify()">Initialize</button>
+        <div class="gate-card">
+            <h2>Access Required</h2>
+            <input type="password" id="passInput" class="stealth-input" placeholder="••••••••">
+            <button class="btn-init" onclick="login()">Bypass</button>
         </div>
     </div>
 
     <div id="main-site">
-        <div class="header-area">
-            <h1>Stock Overview</h1>
-            <p>Select asset for valuation breakdown</p>
+        <div class="nav-bar">
+            <button class="btn-back" onclick="logout()">
+                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Back to Terminal
+            </button>
+            <span style="font-size: 0.7rem; color: var(--text-dim); letter-spacing: 1px; text-transform: uppercase;">Node: Active</span>
         </div>
 
-        <div class="strain-item" onclick="toggle(this)">
-            <div class="strain-trigger">
-                <div class="strain-title">
-                    Skittles <span class="badge">Exotic</span>
+        <div class="strain-card" onclick="toggle(this)">
+            <div class="strain-header">
+                <div class="title-group">
+                    <h3>Skittles</h3>
+                    <span class="type-badge hybrid">Indica Dominant Hybrid</span>
                 </div>
                 <svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
             </div>
             <div class="strain-content">
-                <div class="thc-info">Concentration: 22-26% THC</div>
-                <div class="price-grid">
-                    <div class="price-tile"><span class="weight-label">28g</span><span class="price-value">$380</span></div>
-                    <div class="price-tile"><span class="weight-label">14g</span><span class="price-value">$200</span></div>
-                    <div class="price-tile"><span class="weight-label">7g</span><span class="price-value">$120</span></div>
-                    <div class="price-tile"><span class="weight-label">3.5g</span><span class="price-value">$70</span></div>
+                <div class="description">
+                    A heavy-hitting candy profile. Notes of sweet tropical fruit and earthy citrus. Delivers a calming, euphoric head high followed by deep physical relaxation. 22-26% THC.
+                </div>
+                <div class="price-list">
+                    <div class="price-item"><span class="qty">28g (Ounce)</span><span class="val">$380</span></div>
+                    <div class="price-item"><span class="qty">14g (Half)</span><span class="val">$200</span></div>
+                    <div class="price-item"><span class="qty">7g (Quarter)</span><span class="val">$120</span></div>
+                    <div class="price-item"><span class="qty">3.5g (Eighth)</span><span class="val">$70</span></div>
                 </div>
             </div>
         </div>
 
-        <div class="strain-item" onclick="toggle(this)">
-            <div class="strain-trigger">
-                <div class="strain-title">
-                    Mango Tango <span class="badge">Mids</span>
+        <div class="strain-card" onclick="toggle(this)">
+            <div class="strain-header">
+                <div class="title-group">
+                    <h3>Mango Tango</h3>
+                    <span class="type-badge sativa">Sativa Dominant</span>
                 </div>
                 <svg class="chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
             </div>
             <div class="strain-content">
-                <div class="thc-info">Concentration: 16-18% THC</div>
-                <div class="price-grid">
-                    <div class="price-tile"><span class="weight-label">28g</span><span class="price-value">$250</span></div>
-                    <div class="price-tile"><span class="weight-label">14g</span><span class="price-value">$130</span></div>
-                    <div class="price-tile"><span class="weight-label">7g</span><span class="price-value">$70</span></div>
-                    <div class="price-tile"><span class="weight-label">3.5g</span><span class="price-value">$40</span></div>
+                <div class="description">
+                    Pungent citrus and fresh mango aroma. Perfect for creative sessions or daytime focus. Energetic uplift without the heavy "crash" typical of exotic grades. 16-18% THC.
+                </div>
+                <div class="price-list">
+                    <div class="price-item"><span class="qty">28g (Ounce)</span><span class="val">$250</span></div>
+                    <div class="price-item"><span class="qty">14g (Half)</span><span class="val">$130</span></div>
+                    <div class="price-item"><span class="qty">7g (Quarter)</span><span class="val">$70</span></div>
+                    <div class="price-item"><span class="qty">3.5g (Eighth)</span><span class="val">$40</span></div>
                 </div>
             </div>
         </div>
+
     </div>
 
     <script>
-        function verify() {
+        function login() {
             if (document.getElementById('passInput').value === 'fakesite') {
                 document.getElementById('login-screen').style.display = 'none';
                 document.getElementById('main-site').style.display = 'block';
+                document.getElementById('passInput').value = '';
             }
+        }
+
+        function logout() {
+            document.getElementById('main-site').style.display = 'none';
+            document.getElementById('login-screen').style.display = 'block';
         }
 
         function toggle(el) {
             const isActive = el.classList.contains('active');
-            // Close all others
-            document.querySelectorAll('.strain-item').forEach(item => item.classList.remove('active'));
-            // Open clicked if it wasn't open
+            document.querySelectorAll('.strain-card').forEach(card => card.classList.remove('active'));
             if (!isActive) el.classList.add('active');
         }
 
         document.getElementById("passInput").addEventListener("keyup", e => {
-            if (e.key === "Enter") verify();
+            if (e.key === "Enter") login();
         });
     </script>
 </body>
