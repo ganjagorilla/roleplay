@@ -19,7 +19,8 @@
             --indica: #60a5fa;
             --medical: #10b981;
             --percentage: #00ffff;
-            --stock: #22c55e; /* Green for stock status */
+            --stock: #22c55e;
+            --oos: #ef4444; /* Red for Out of Stock */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
@@ -41,7 +42,6 @@
             border-radius: 16px;
             border: 1px solid var(--border);
             text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
         .stealth-input {
             width: 100%;
@@ -63,7 +63,6 @@
             border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
-            letter-spacing: 1px;
         }
 
         /* --- Main Menu --- */
@@ -74,10 +73,24 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             padding-bottom: 15px;
             border-bottom: 1px solid var(--border);
         }
+        
+        /* Sorting Dropdown */
+        .controls { display: flex; justify-content: flex-end; margin-bottom: 20px; }
+        .sort-select {
+            background: var(--surface);
+            color: var(--text-mid);
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            border-radius: 6px;
+            outline: none;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
         .btn-back {
             background: transparent;
             border: 1px solid var(--border);
@@ -88,18 +101,22 @@
             font-size: 0.8rem;
         }
 
-        .strain-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; margin-bottom: 16px; overflow: hidden; }
+        #inventory-container { display: flex; flex-direction: column; }
+
+        .strain-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; margin-bottom: 16px; overflow: hidden; order: 0; }
         .strain-header { padding: 24px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
         .strain-header:hover { background: var(--surface-hover); }
 
-        /* Flares / Badges */
         .type-badge { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; margin-right: 5px; display: inline-block; margin-top: 5px; }
         .sativa { background: rgba(251, 191, 36, 0.1); color: var(--sativa); }
         .hybrid { background: rgba(167, 139, 250, 0.1); color: var(--hybrid); }
         .indica { background: rgba(96, 165, 250, 0.1); color: var(--indica); }
         .medical { background: rgba(16, 185, 129, 0.1); color: var(--medical); border: 1px solid rgba(16, 185, 129, 0.3); }
         .percentage { background: rgba(0, 255, 255, 0.1); color: var(--percentage); border: 1px solid rgba(0, 255, 255, 0.3); }
-        .stock-status { background: rgba(34, 197, 94, 0.15); color: var(--stock); border: 1px solid rgba(34, 197, 94, 0.4); }
+        
+        /* Dynamic Stock Colors */
+        .stock-status[data-state="in"] { background: rgba(34, 197, 94, 0.15); color: var(--stock); border: 1px solid rgba(34, 197, 94, 0.4); }
+        .stock-status[data-state="out"] { background: rgba(239, 68, 68, 0.15); color: var(--oos); border: 1px solid rgba(239, 68, 68, 0.4); }
 
         .chevron { width: 20px; height: 20px; color: var(--text-dim); transition: transform 0.3s; }
         .strain-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease; background: #111316; }
@@ -116,10 +133,7 @@
             border-radius: 10px;
             margin-bottom: 8px;
             border: 1px solid transparent;
-            transition: all 0.2s;
         }
-        .price-item:hover { border-color: var(--accent); transform: scale(1.01); }
-        .qty { color: var(--text-mid); }
         .val { font-weight: 700; color: var(--text-light); font-family: monospace; font-size: 1.1rem; }
     </style>
 </head>
@@ -139,90 +153,88 @@
             <span style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase;">Status: Encrypted</span>
         </div>
 
-        <div class="strain-card" onclick="toggle(this)">
-            <div class="strain-header">
-                <div>
-                    <h3>Harbour LR Day 2g Cart</h3>
-                    <span class="type-badge sativa">Sativa</span>
-                    <span class="type-badge medical">Medical</span>
-                    <span class="type-badge percentage">80%</span>
-                    <span class="type-badge stock-status">In Stock</span>
-                </div>
-                <span class="chevron">▼</span>
-            </div>
-            <div class="strain-content">
-                <div class="description">
-                    <strong>Aura Therapeutics | Watermelon Skittlez</strong><br>
-                    2g Liquid Live Resin cartridge. High-potency daytime formulation (800mg/g THC).
-                </div>
-                <div class="price-list">
-                    <div class="price-item"><span class="qty">Unit Price</span><span class="val">$250.00</span></div>
-                </div>
-            </div>
+        <div class="controls">
+            <select class="sort-select" onchange="sortInventory(this.value)">
+                <option value="default">Sort By: Default</option>
+                <option value="stock-asc">Stock: In Stock First</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="potency-desc">Potency: High to Low</option>
+            </select>
         </div>
 
-        <div class="strain-card" onclick="toggle(this)">
-            <div class="strain-header">
-                <div>
-                    <h3>Harbour LR Night 2g Cart</h3>
-                    <span class="type-badge indica">Indica</span>
-                    <span class="type-badge medical">Medical</span>
-                    <span class="type-badge percentage">80%</span>
-                    <span class="type-badge stock-status">Out Of Stock</span>
+        <div id="inventory-container">
+            <div class="strain-card" data-potency="80" data-price="250" data-stock="1" onclick="toggle(this)">
+                <div class="strain-header">
+                    <div>
+                        <h3>Harbour LR Day 2g Cart</h3>
+                        <span class="type-badge sativa">Sativa</span>
+                        <span class="type-badge medical">Medical</span>
+                        <span class="type-badge percentage">80%</span>
+                        <span class="type-badge stock-status" data-state="in">In Stock</span>
+                    </div>
+                    <span class="chevron">▼</span>
                 </div>
-                <span class="chevron">▼</span>
-            </div>
-            <div class="strain-content">
-                <div class="description">
-                    <strong>Aura Therapeutics | Grandaddy Bruce</strong><br>
-                    2g Liquid Live Resin cartridge. High-potency evening formulation (800mg/g THC).
-                </div>
-                <div class="price-list">
-                    <div class="price-item"><span class="qty">Unit Price</span><span class="val">$250.00</span></div>
+                <div class="strain-content">
+                    <div class="description"><strong>Aura Therapeutics | Watermelon Skittlez</strong><br>2g Liquid Live Resin cartridge.</div>
+                    <div class="price-list"><div class="price-item"><span>Unit Price</span><span class="val">$250.00</span></div></div>
                 </div>
             </div>
-        </div>
 
-        <div class="strain-card" onclick="toggle(this)">
-            <div class="strain-header">
-                <div>
-                    <h3>Skittles</h3>
-                    <span class="type-badge hybrid">Indica Hybrid</span>
-                    <span class="type-badge medical">Exotic</span>
-                    <span class="type-badge percentage">22-26%</span>
-                    <span class="type-badge stock-status">Out Of Stock</span>
+            <div class="strain-card" data-potency="80" data-price="250" data-stock="0" onclick="toggle(this)">
+                <div class="strain-header">
+                    <div>
+                        <h3>Harbour LR Night 2g Cart</h3>
+                        <span class="type-badge indica">Indica</span>
+                        <span class="type-badge medical">Medical</span>
+                        <span class="type-badge percentage">80%</span>
+                        <span class="type-badge stock-status" data-state="out">Out Of Stock</span>
+                    </div>
+                    <span class="chevron">▼</span>
                 </div>
-                <span class="chevron">▼</span>
-            </div>
-            <div class="strain-content">
-                <div class="description">Exotic Grade. Sweet tropical profile. 22-26% THC. Calming euphoria followed by deep relaxation.</div>
-                <div class="price-list">
-                    <div class="price-item"><span class="qty">28g</span><span class="val">$380</span></div>
-                    <div class="price-item"><span class="qty">14g</span><span class="val">$200</span></div>
-                    <div class="price-item"><span class="qty">7g</span><span class="val">$120</span></div>
-                    <div class="price-item"><span class="qty">3.5g</span><span class="val">$70</span></div>
+                <div class="strain-content">
+                    <div class="description"><strong>Aura Therapeutics | Grandaddy Bruce</strong><br>2g Liquid Live Resin cartridge.</div>
+                    <div class="price-list"><div class="price-item"><span>Unit Price</span><span class="val">$250.00</span></div></div>
                 </div>
             </div>
-        </div>
 
-        <div class="strain-card" onclick="toggle(this)">
-            <div class="strain-header">
-                <div>
-                    <h3>Tangelo</h3>
-                    <span class="type-badge sativa">Sativa Dominant</span>
-                    <span class="type-badge medical">Mids</span>
-                    <span class="type-badge percentage">16-18%</span>
-                    <span class="type-badge stock-status">In Stock</span>
+            <div class="strain-card" data-potency="26" data-price="380" data-stock="0" onclick="toggle(this)">
+                <div class="strain-header">
+                    <div>
+                        <h3>Skittles</h3>
+                        <span class="type-badge hybrid">Indica Hybrid</span>
+                        <span class="type-badge medical">Exotic</span>
+                        <span class="type-badge percentage">22-26%</span>
+                        <span class="type-badge stock-status" data-state="out">Out Of Stock</span>
+                    </div>
+                    <span class="chevron">▼</span>
                 </div>
-                <span class="chevron">▼</span>
+                <div class="strain-content">
+                    <div class="description">Exotic Grade. Sweet tropical profile. 22-26% THC.</div>
+                    <div class="price-list">
+                        <div class="price-item"><span>28g</span><span class="val">$380</span></div>
+                        <div class="price-item"><span>14g</span><span class="val">$200</span></div>
+                    </div>
+                </div>
             </div>
-            <div class="strain-content">
-                <div class="description">Mids. Pungent mango/citrus aroma. 16-18% THC. Energetic uplift and focus.</div>
-                <div class="price-list">
-                    <div class="price-item"><span class="qty">28g</span><span class="val">$250</span></div>
-                    <div class="price-item"><span class="qty">14g</span><span class="val">$130</span></div>
-                    <div class="price-item"><span class="qty">7g</span><span class="val">$70</span></div>
-                    <div class="price-item"><span class="qty">3.5g</span><span class="val">$40</span></div>
+
+            <div class="strain-card" data-potency="18" data-price="250" data-stock="1" onclick="toggle(this)">
+                <div class="strain-header">
+                    <div>
+                        <h3>Tangelo</h3>
+                        <span class="type-badge sativa">Sativa Dominant</span>
+                        <span class="type-badge medical">Mids</span>
+                        <span class="type-badge percentage">16-18%</span>
+                        <span class="type-badge stock-status" data-state="in">In Stock</span>
+                    </div>
+                    <span class="chevron">▼</span>
+                </div>
+                <div class="strain-content">
+                    <div class="description">Mids. Pungent mango/citrus aroma. 16-18% THC.</div>
+                    <div class="price-list">
+                        <div class="price-item"><span>28g</span><span class="val">$250</span></div>
+                        <div class="price-item"><span>14g</span><span class="val">$130</span></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -245,6 +257,25 @@
             document.querySelectorAll('.strain-card').forEach(c => c.classList.remove('active'));
             if (!isActive) el.classList.add('active');
         }
+
+        function sortInventory(criteria) {
+            const container = document.getElementById('inventory-container');
+            const cards = Array.from(container.getElementsByClassName('strain-card'));
+
+            cards.sort((a, b) => {
+                let valA, valB;
+                switch(criteria) {
+                    case 'price-asc': return a.dataset.price - b.dataset.price;
+                    case 'price-desc': return b.dataset.price - a.dataset.price;
+                    case 'potency-desc': return b.dataset.potency - a.dataset.potency;
+                    case 'stock-asc': return b.dataset.stock - a.dataset.stock;
+                    default: return 0;
+                }
+            });
+
+            cards.forEach(card => container.appendChild(card));
+        }
+
         document.getElementById("passInput").addEventListener("keyup", e => { if (e.key === "Enter") login(); });
     </script>
 </body>
