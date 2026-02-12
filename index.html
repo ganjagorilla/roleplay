@@ -116,16 +116,12 @@
             text-transform: uppercase; 
         }
 
-        /* Type Badges */
         .sativa { background: rgba(251, 191, 36, 0.1); color: var(--sativa); border: 1px solid rgba(251, 191, 36, 0.2); }
         .indica { background: rgba(96, 165, 250, 0.1); color: var(--indica); border: 1px solid rgba(96, 165, 250, 0.2); }
         .hybrid { background: rgba(167, 139, 250, 0.1); color: var(--hybrid); border: 1px solid rgba(167, 139, 250, 0.2); }
-        
-        /* Material Class Flares */
         .medical { background: rgba(16, 185, 129, 0.1); color: var(--medical); border: 1px solid rgba(16, 185, 129, 0.3); }
         .exotic { background: rgba(236, 72, 153, 0.1); color: var(--exotic); border: 1px solid rgba(236, 72, 153, 0.3); }
         .mids { background: rgba(148, 163, 184, 0.1); color: var(--mids); border: 1px solid rgba(148, 163, 184, 0.3); }
-
         .potency { background: rgba(255, 255, 255, 0.05); color: #94a3b8; border: 1px solid var(--border); }
         .st-in { background: rgba(74, 222, 128, 0.1); color: var(--stock); border: 1px solid rgba(74, 222, 128, 0.2); }
         .st-out { background: rgba(248, 113, 113, 0.1); color: var(--oos); border: 1px solid rgba(248, 113, 113, 0.2); }
@@ -154,13 +150,24 @@
         .price-row { 
             display: flex; 
             justify-content: space-between; 
+            align-items: center;
             padding: 14px 18px; 
             background: rgba(255,255,255,0.02); 
             border-radius: 12px; 
             border: 1px solid var(--border);
         }
-        .price-qty { font-size: 0.85rem; color: var(--text-dim); }
-        .price-amt { font-weight: 700; color: #fff; font-family: 'JetBrains Mono', monospace; }
+        .price-qty { font-size: 0.85rem; color: var(--text-dim); font-weight: 500; }
+        .price-val-container { text-align: right; }
+        .price-amt { font-weight: 700; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 1rem; }
+        .price-per-g { 
+            display: inline-block;
+            font-size: 0.75rem; 
+            color: var(--accent); 
+            font-weight: 600;
+            margin-left: 10px;
+            padding-left: 10px;
+            border-left: 1px solid var(--border);
+        }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; } }
     </style>
@@ -186,7 +193,12 @@
     </div>
 
 <script>
-    // DATA: Flare types are 'medical', 'exotic', or 'mids'
+    /**
+     * DATA CONFIGURATION
+     * To ensure $/g works: 
+     * - The key in 'tiers' must start with a number (e.g., "28g" or "2g")
+     * - "Unit Price" for carts is treated as 2g based on the product name.
+     */
     const products = [
         { 
             name: "Harbour LR Day 2g Cart", 
@@ -194,9 +206,9 @@
             flare: "medical",
             potency: 80, 
             inStock: true, 
-            price: 149, 
+            price: 250, 
             desc: "Aura Therapeutics | Watermelon Skittlez. 2g Liquid Live Resin. High-potency daytime formulation.",
-            tiers: { "Unit Price": "$250.00" }
+            tiers: { "2g Unit": 250 }
         },
         { 
             name: "Harbour LR Night 2g Cart", 
@@ -204,9 +216,9 @@
             flare: "medical",
             potency: 80, 
             inStock: false, 
-            price: 149, 
+            price: 250, 
             desc: "Aura Therapeutics | Grandaddy Bruce. 2g Liquid Live Resin. High-potency evening formulation.",
-            tiers: { "Unit Price": "$250.00" }
+            tiers: { "2g Unit": 250 }
         },
         { 
             name: "Skittles", 
@@ -216,7 +228,7 @@
             inStock: false, 
             price: 380, 
             desc: "Exotic Grade. Sweet tropical profile. Calming euphoria followed by deep relaxation.",
-            tiers: { "28g": "$380", "14g": "$220", "7g": "$120", "3.5g": "$70" }
+            tiers: { "28g": 380, "14g": 220, "7g": 120, "3.5g": 70 }
         },
         { 
             name: "Tangelo", 
@@ -225,12 +237,22 @@
             potency: 18, 
             inStock: true, 
             price: 250, 
-            desc: "Mids. Pungent mango/citrus aroma. Energetic uplift and focus.",
-            tiers: { "28g": "$250", "14g": "$130", "7g": "$70", "3.5g": "$40" }
+            desc: "Mids quality flower. Pungent mango/citrus aroma. Energetic uplift and focus.",
+            tiers: { "28g": 250, "14g": 130, "7g": 70, "3.5g": 40 }
         }
     ];
 
     const defaultOrder = [...products];
+
+    function calculatePerGram(label, price) {
+        // Extract the number from the label (e.g., "28g" -> 28, "3.5g" -> 3.5)
+        const weightMatch = label.match(/[\d.]+/);
+        if (!weightMatch) return "";
+        
+        const weight = parseFloat(weightMatch[0]);
+        const perGram = (price / weight).toFixed(2);
+        return `$${perGram}/g`;
+    }
 
     function renderList() {
         const searchTerm = document.getElementById('searchInput').value.toLowerCase();
@@ -266,7 +288,10 @@
                         ${Object.entries(p.tiers).map(([qty, val]) => `
                             <div class="price-row">
                                 <span class="price-qty">${qty}</span>
-                                <span class="price-amt">${val}</span>
+                                <div class="price-val-container">
+                                    <span class="price-amt">$${val}</span>
+                                    <span class="price-per-g">${calculatePerGram(qty, val)}</span>
+                                </div>
                             </div>
                         `).join('')}
                     </div>
