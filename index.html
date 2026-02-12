@@ -160,6 +160,7 @@
                 <option value="price-asc">Price: Low to High</option>
                 <option value="price-desc">Price: High to Low</option>
                 <option value="potency-desc">Potency: High to Low</option>
+                <option value="potency-desc">Potency: Low to High</option
             </select>
         </div>
 
@@ -213,7 +214,9 @@
                     <div class="description">Exotic Grade. Sweet tropical profile. 22-26% THC.</div>
                     <div class="price-list">
                         <div class="price-item"><span>28g</span><span class="val">$380</span></div>
-                        <div class="price-item"><span>14g</span><span class="val">$200</span></div>
+                        <div class="price-item"><span>14g</span><span class="val">$220</span></div>
+                        <div class="price-item"><span>7g</span><span class="val">$120</span></div>
+                        <div class="price-item"><span>3.5g</span><span class="val">$70</span></div>
                     </div>
                 </div>
             </div>
@@ -234,6 +237,8 @@
                     <div class="price-list">
                         <div class="price-item"><span>28g</span><span class="val">$250</span></div>
                         <div class="price-item"><span>14g</span><span class="val">$130</span></div>
+                        <div class="price-item"><span>7g</span><span class="val">$70</span></div>
+                        <div class="price-item"><span>3.5g</span><span class="val">$40/span></div>
                     </div>
                 </div>
             </div>
@@ -268,6 +273,7 @@
                     case 'price-asc': return a.dataset.price - b.dataset.price;
                     case 'price-desc': return b.dataset.price - a.dataset.price;
                     case 'potency-desc': return b.dataset.potency - a.dataset.potency;
+                    case 'potency-asc': return a.dataset.potency - b.dataset.potency;
                     case 'stock-asc': return b.dataset.stock - a.dataset.stock;
                     default: return 0;
                 }
