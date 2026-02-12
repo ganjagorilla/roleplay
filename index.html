@@ -18,6 +18,8 @@
             --hybrid: #a78bfa;
             --indica: #60a5fa;
             --medical: #10b981;
+            --percentage: #00ffff;
+            --stock: #22c55e; /* Green for stock status */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
@@ -90,12 +92,14 @@
         .strain-header { padding: 24px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
         .strain-header:hover { background: var(--surface-hover); }
 
-        .type-badge { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; margin-right: 5px; }
+        /* Flares / Badges */
+        .type-badge { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; margin-right: 5px; display: inline-block; margin-top: 5px; }
         .sativa { background: rgba(251, 191, 36, 0.1); color: var(--sativa); }
         .hybrid { background: rgba(167, 139, 250, 0.1); color: var(--hybrid); }
         .indica { background: rgba(96, 165, 250, 0.1); color: var(--indica); }
         .medical { background: rgba(16, 185, 129, 0.1); color: var(--medical); border: 1px solid rgba(16, 185, 129, 0.3); }
         .percentage { background: rgba(0, 255, 255, 0.1); color: var(--percentage); border: 1px solid rgba(0, 255, 255, 0.3); }
+        .stock-status { background: rgba(34, 197, 94, 0.15); color: var(--stock); border: 1px solid rgba(34, 197, 94, 0.4); }
 
         .chevron { width: 20px; height: 20px; color: var(--text-dim); transition: transform 0.3s; }
         .strain-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease; background: #111316; }
@@ -142,6 +146,7 @@
                     <span class="type-badge sativa">Sativa</span>
                     <span class="type-badge medical">Medical</span>
                     <span class="type-badge percentage">80%</span>
+                    <span class="type-badge stock-status">In Stock</span>
                 </div>
                 <span class="chevron">▼</span>
             </div>
@@ -163,6 +168,7 @@
                     <span class="type-badge indica">Indica</span>
                     <span class="type-badge medical">Medical</span>
                     <span class="type-badge percentage">80%</span>
+                    <span class="type-badge stock-status">In Stock</span>
                 </div>
                 <span class="chevron">▼</span>
             </div>
@@ -184,6 +190,7 @@
                     <span class="type-badge hybrid">Indica Hybrid</span>
                     <span class="type-badge medical">Exotic</span>
                     <span class="type-badge percentage">22-26%</span>
+                    <span class="type-badge stock-status">In Stock</span>
                 </div>
                 <span class="chevron">▼</span>
             </div>
@@ -205,6 +212,7 @@
                     <span class="type-badge sativa">Sativa Dominant</span>
                     <span class="type-badge medical">Mids</span>
                     <span class="type-badge percentage">16-18%</span>
+                    <span class="type-badge stock-status">Out of Stock</span>
                 </div>
                 <span class="chevron">▼</span>
             </div>
