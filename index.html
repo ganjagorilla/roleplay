@@ -6,43 +6,171 @@
     <title>Available Products</title>
     <style>
         :root {
-            --bg: #0b0c0e; --surface: #16181b; --accent: #3b82f6;
-            --border: #262a30; --text-dim: #64748b; --text-light: #f1f5f9;
-            --sativa: #fbbf24; --hybrid: #a78bfa; --indica: #60a5fa;
-            --oos: #ef4444; --stock: #22c55e;
+            --bg: #050506;
+            --surface: #121214;
+            --surface-hover: #1a1a1d;
+            --accent: #3b82f6;
+            --border: #27272a;
+            --text-dim: #a1a1aa;
+            --text-light: #f4f4f5;
+            
+            /* High Fidelity Tag Colors */
+            --sativa: #fbbf24;
+            --hybrid: #a78bfa;
+            --indica: #60a5fa;
+            --oos: #f87171;
+            --stock: #34d399;
+            --potency: #22d3ee;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background: var(--bg); color: var(--text-light); display: flex; justify-content: center; padding: 20px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', -apple-system, sans-serif; }
         
-        #main-site { width: 100%; max-width: 650px; animation: fadeIn 0.4s; }
-        h1 { margin-bottom: 25px; font-size: 1.5rem; letter-spacing: 1px; color: var(--accent); text-transform: uppercase; }
+        body { 
+            background: var(--bg); 
+            color: var(--text-light); 
+            display: flex; 
+            justify-content: center; 
+            padding: 40px 20px;
+            line-height: 1.5;
+        }
 
-        /* Controls */
-        .controls { display: flex; gap: 10px; margin-bottom: 20px; position: sticky; top: 10px; z-index: 10; }
-        .search-input { flex-grow: 1; background: var(--surface); border: 1px solid var(--border); padding: 12px; border-radius: 8px; color: white; outline: none; }
-        .search-input:focus { border-color: var(--accent); }
-        .sort-select { background: var(--surface); color: white; border: 1px solid var(--border); border-radius: 8px; padding: 0 10px; cursor: pointer; }
+        #main-site { width: 100%; max-width: 700px; animation: fadeIn 0.6s ease-out; }
 
-        /* Cards */
-        .strain-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; margin-bottom: 12px; overflow: hidden; transition: 0.2s; }
-        .strain-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
-        .strain-header:hover { background: #1c1f24; }
+        h1 { 
+            margin-bottom: 30px; 
+            font-size: 1.25rem; 
+            font-weight: 800;
+            letter-spacing: 2px; 
+            color: var(--accent); 
+            text-transform: uppercase;
+            text-align: left;
+        }
+
+        /* Modern Controls */
+        .controls { 
+            display: flex; 
+            gap: 12px; 
+            margin-bottom: 32px; 
+            position: sticky; 
+            top: 20px; 
+            z-index: 100;
+        }
         
-        .badge { font-size: 0.65rem; font-weight: 800; padding: 3px 10px; border-radius: 4px; margin: 5px 4px 0 0; display: inline-block; text-transform: uppercase; }
-        .sativa { background: rgba(251,191,36,0.1); color: var(--sativa); }
-        .indica { background: rgba(96,165,250,0.1); color: var(--indica); }
-        .hybrid { background: rgba(167,139,250,0.1); color: var(--hybrid); }
-        .st-in { background: rgba(34,197,94,0.1); color: var(--stock); border: 1px solid rgba(34,197,94,0.3); }
-        .st-out { background: rgba(239,68,68,0.1); color: var(--oos); border: 1px solid rgba(239,68,68,0.3); }
-
-        /* Content */
-        .strain-content { display: none; padding: 20px; background: #111316; border-top: 1px solid var(--border); }
-        .strain-card.active .strain-content { display: block; }
-        .price-item { display: flex; justify-content: space-between; padding: 12px; background: var(--surface); border-radius: 8px; margin-top: 6px; border: 1px solid var(--border); }
-        .price-val { font-family: monospace; font-weight: bold; color: var(--accent); }
+        .search-input { 
+            flex-grow: 1; 
+            background: var(--surface); 
+            border: 1px solid var(--border); 
+            padding: 14px 20px; 
+            border-radius: 12px; 
+            color: white; 
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
         
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
+        .search-input:focus { border-color: var(--accent); outline: none; background: var(--surface-hover); }
+
+        .sort-select { 
+            background: var(--surface); 
+            color: white; 
+            border: 1px solid var(--border); 
+            border-radius: 12px; 
+            padding: 0 15px; 
+            cursor: pointer;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        /* Product Cards */
+        .strain-card { 
+            background: var(--surface); 
+            border: 1px solid var(--border); 
+            border-radius: 18px; 
+            margin-bottom: 16px; 
+            overflow: hidden; 
+            transition: transform 0.2s, border-color 0.2s;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        
+        .strain-card:hover { border-color: #3f3f46; transform: translateY(-2px); }
+
+        .strain-header { 
+            padding: 24px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            cursor: pointer; 
+        }
+
+        .strain-info h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.02em; }
+
+        /* Badge Styling */
+        .badge-row { display: flex; flex-wrap: wrap; gap: 8px; }
+        .badge { 
+            font-size: 0.65rem; 
+            font-weight: 900; 
+            padding: 4px 10px; 
+            border-radius: 6px; 
+            text-transform: uppercase; 
+            letter-spacing: 0.05em;
+        }
+        
+        .sativa { background: rgba(251,191,36,0.1); color: var(--sativa); border: 1px solid rgba(251,191,36,0.2); }
+        .indica { background: rgba(96,165,250,0.1); color: var(--indica); border: 1px solid rgba(96,165,250,0.2); }
+        .hybrid { background: rgba(167,139,250,0.1); color: var(--hybrid); border: 1px solid rgba(167,139,250,0.2); }
+        .potency { background: rgba(34,211,238,0.1); color: var(--potency); border: 1px solid rgba(34,211,238,0.2); }
+        .st-in { background: rgba(52,211,153,0.1); color: var(--stock); border: 1px solid rgba(52,211,153,0.2); }
+        .st-out { background: rgba(248,113,113,0.1); color: var(--oos); border: 1px solid rgba(248,113,113,0.2); }
+
+        .chevron { color: var(--text-dim); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); font-size: 0.8rem; }
+        .active .chevron { transform: rotate(180deg); color: var(--accent); }
+
+        /* Expanded Details */
+        .strain-content { 
+            display: none; 
+            padding: 0 24px 24px 24px; 
+            background: var(--surface); 
+            animation: slideDown 0.3s ease;
+        }
+        
+        .active .strain-content { display: block; }
+
+        .desc-box { 
+            color: var(--text-dim); 
+            font-size: 0.95rem; 
+            line-height: 1.6; 
+            margin-bottom: 24px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .tier-label { 
+            font-size: 0.75rem; 
+            text-transform: uppercase; 
+            color: var(--accent); 
+            font-weight: 800; 
+            margin-bottom: 12px; 
+            display: block;
+            letter-spacing: 1px;
+        }
+
+        .price-grid { display: grid; gap: 8px; }
+        
+        .price-item { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            padding: 14px 18px; 
+            background: #18181b; 
+            border-radius: 12px; 
+            border: 1px solid var(--border); 
+        }
+        
+        .qty-text { color: var(--text-light); font-weight: 500; font-size: 0.9rem; }
+        .price-val { font-weight: 800; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 1rem; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideDown { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -53,12 +181,11 @@
         <div class="controls">
             <input type="text" id="searchInput" class="search-input" placeholder="Search by name..." oninput="renderList()">
             <select id="sortSelect" class="sort-select" onchange="renderList()">
-                <option value="default">Default</option>
+                <option value="default">Default View</option>
                 <option value="stock">In Stock First</option>
                 <option value="p-low">Price: Low to High</option>
                 <option value="p-high">Price: High to Low</option>
                 <option value="thc-high">Potency: High to Low</option>
-                <option value="thc-low">Potency: Low to High</option>
             </select>
         </div>
 
@@ -66,11 +193,6 @@
     </div>
 
 <script>
-    /**
-     * EDIT YOUR PRODUCTS HERE
-     * type: 'sativa', 'indica', or 'hybrid'
-     * price: use the 28g price (or unit price) for sorting purposes
-     */
     const products = [
         { 
             name: "Harbour LR Day 2g Cart", 
@@ -110,7 +232,6 @@
         }
     ];
 
-    // Keep a copy of the original order for the "Default" sort
     const defaultOrder = [...products];
 
     function renderList() {
@@ -120,41 +241,41 @@
         
         let filtered = products.filter(p => p.name.toLowerCase().includes(searchTerm));
 
-        // Sorting Logic
         if (sortBy === 'stock') filtered.sort((a, b) => b.inStock - a.inStock);
         else if (sortBy === 'p-low') filtered.sort((a, b) => a.price - b.price);
         else if (sortBy === 'p-high') filtered.sort((a, b) => b.price - a.price);
         else if (sortBy === 'thc-high') filtered.sort((a, b) => b.potency - a.potency);
-        else if (sortBy === 'thc-low') filtered.sort((a, b) => a.potency - b.potency);
-        else if (sortBy === 'default') {
-            filtered = defaultOrder.filter(p => p.name.toLowerCase().includes(searchTerm));
-        }
+        else if (sortBy === 'default') filtered = [...defaultOrder].filter(p => p.name.toLowerCase().includes(searchTerm));
 
         container.innerHTML = filtered.map(p => `
             <div class="strain-card" onclick="this.classList.toggle('active')">
                 <div class="strain-header">
-                    <div>
-                        <h3 style="font-size:1.1rem; margin-bottom:4px;">${p.name}</h3>
-                        <span class="badge ${p.type}">${p.type}</span>
-                        <span class="badge" style="background:rgba(0,255,255,0.1); color:var(--percentage); border:1px solid rgba(0,255,255,0.2)">${p.potency}%</span>
-                        <span class="badge ${p.inStock ? 'st-in' : 'st-out'}">${p.inStock ? 'In Stock' : 'Out of Stock'}</span>
+                    <div class="strain-info">
+                        <h3>${p.name}</h3>
+                        <div class="badge-row">
+                            <span class="badge ${p.type}">${p.type}</span>
+                            <span class="badge potency">${p.potency}% Potency</span>
+                            <span class="badge ${p.inStock ? 'st-in' : 'st-out'}">${p.inStock ? 'In Stock' : 'Out of Stock'}</span>
+                        </div>
                     </div>
-                    <span style="color:var(--text-dim)">▼</span>
+                    <span class="chevron">▼</span>
                 </div>
                 <div class="strain-content">
-                    <p style="color:var(--text-mid); font-size:0.9rem; line-height:1.5; margin-bottom:15px;">${p.desc}</p>
-                    ${Object.entries(p.tiers).map(([qty, val]) => `
-                        <div class="price-item">
-                            <span style="color:var(--text-dim)">${qty}</span>
-                            <span class="price-val">${val}</span>
-                        </div>
-                    `).join('')}
+                    <div class="desc-box">${p.desc}</div>
+                    <span class="tier-label">Pricing Tiers</span>
+                    <div class="price-grid">
+                        ${Object.entries(p.tiers).map(([qty, val]) => `
+                            <div class="price-item">
+                                <span class="qty-text">${qty}</span>
+                                <span class="price-val">${val}</span>
+                            </div>
+                        `).join('')}
+                    </div>
                 </div>
             </div>
         `).join('');
     }
 
-    // Initial load
     renderList();
 </script>
 
