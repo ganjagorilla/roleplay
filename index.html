@@ -20,7 +20,7 @@
             --medical: #10b981;
             --percentage: #00ffff;
             --stock: #22c55e;
-            --oos: #ef4444; /* Red for Out of Stock */
+            --oos: #ef4444;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
@@ -78,7 +78,6 @@
             border-bottom: 1px solid var(--border);
         }
         
-        /* Sorting Dropdown */
         .controls { display: flex; justify-content: flex-end; margin-bottom: 20px; }
         .sort-select {
             background: var(--surface);
@@ -103,7 +102,7 @@
 
         #inventory-container { display: flex; flex-direction: column; }
 
-        .strain-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; margin-bottom: 16px; overflow: hidden; order: 0; }
+        .strain-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; margin-bottom: 16px; overflow: hidden; transition: all 0.3s ease; }
         .strain-header { padding: 24px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
         .strain-header:hover { background: var(--surface-hover); }
 
@@ -114,7 +113,6 @@
         .medical { background: rgba(16, 185, 129, 0.1); color: var(--medical); border: 1px solid rgba(16, 185, 129, 0.3); }
         .percentage { background: rgba(0, 255, 255, 0.1); color: var(--percentage); border: 1px solid rgba(0, 255, 255, 0.3); }
         
-        /* Dynamic Stock Colors */
         .stock-status[data-state="in"] { background: rgba(34, 197, 94, 0.15); color: var(--stock); border: 1px solid rgba(34, 197, 94, 0.4); }
         .stock-status[data-state="out"] { background: rgba(239, 68, 68, 0.15); color: var(--oos); border: 1px solid rgba(239, 68, 68, 0.4); }
 
@@ -160,7 +158,7 @@
                 <option value="price-asc">Price: Low to High</option>
                 <option value="price-desc">Price: High to Low</option>
                 <option value="potency-desc">Potency: High to Low</option>
-                <option value="potency-desc">Potency: Low to High</option
+                <option value="potency-asc">Potency: Low to High</option>
             </select>
         </div>
 
@@ -238,7 +236,7 @@
                         <div class="price-item"><span>28g</span><span class="val">$250</span></div>
                         <div class="price-item"><span>14g</span><span class="val">$130</span></div>
                         <div class="price-item"><span>7g</span><span class="val">$70</span></div>
-                        <div class="price-item"><span>3.5g</span><span class="val">$40/span></div>
+                        <div class="price-item"><span>3.5g</span><span class="val">$40</span></div>
                     </div>
                 </div>
             </div>
@@ -268,12 +266,11 @@
             const cards = Array.from(container.getElementsByClassName('strain-card'));
 
             cards.sort((a, b) => {
-                let valA, valB;
                 switch(criteria) {
-                    case 'price-asc': return a.dataset.price - b.dataset.price;
-                    case 'price-desc': return b.dataset.price - a.dataset.price;
-                    case 'potency-desc': return b.dataset.potency - a.dataset.potency;
-                    case 'potency-asc': return a.dataset.potency - b.dataset.potency;
+                    case 'price-asc': return parseFloat(a.dataset.price) - parseFloat(b.dataset.price);
+                    case 'price-desc': return parseFloat(b.dataset.price) - parseFloat(a.dataset.price);
+                    case 'potency-asc': return parseFloat(a.dataset.potency) - parseFloat(b.dataset.potency);
+                    case 'potency-desc': return parseFloat(b.dataset.potency) - parseFloat(a.dataset.potency);
                     case 'stock-asc': return b.dataset.stock - a.dataset.stock;
                     default: return 0;
                 }
