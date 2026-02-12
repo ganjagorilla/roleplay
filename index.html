@@ -6,156 +6,275 @@
     <title>Available Products</title>
     <style>
         :root {
-            --bg: #0b0c0e; --surface: #16181b; --accent: #3b82f6;
-            --border: #262a30; --text-dim: #64748b; --text-light: #f1f5f9;
-            --sativa: #fbbf24; --hybrid: #a78bfa; --indica: #60a5fa;
-            --oos: #ef4444; --stock: #22c55e;
+            --bg: #050505;
+            --surface: #111111;
+            --surface-hover: #161616;
+            --accent: #3b82f6;
+            --border: #222222;
+            --text-main: #ffffff;
+            --text-dim: #888888;
+            /* Badge Colors */
+            --sativa: #fbbf24;
+            --hybrid: #a78bfa;
+            --indica: #60a5fa;
+            --stock: #10b981;
+            --oos: #ef4444;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background: var(--bg); color: var(--text-light); display: flex; justify-content: center; padding: 20px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', -apple-system, sans-serif; }
         
-        #main-site { width: 100%; max-width: 650px; animation: fadeIn 0.4s; }
-        h1 { margin-bottom: 25px; font-size: 1.5rem; letter-spacing: 1px; color: var(--accent); text-transform: uppercase; }
+        body { 
+            background: var(--bg); 
+            color: var(--text-main); 
+            display: flex; 
+            justify-content: center; 
+            padding: 40px 20px;
+        }
 
-        /* Controls */
-        .controls { display: flex; gap: 10px; margin-bottom: 20px; position: sticky; top: 10px; z-index: 10; }
-        .search-input { flex-grow: 1; background: var(--surface); border: 1px solid var(--border); padding: 12px; border-radius: 8px; color: white; outline: none; }
-        .search-input:focus { border-color: var(--accent); }
-        .sort-select { background: var(--surface); color: white; border: 1px solid var(--border); border-radius: 8px; padding: 0 10px; cursor: pointer; }
+        #container { width: 100%; max-width: 700px; }
 
-        /* Cards */
-        .strain-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; margin-bottom: 12px; overflow: hidden; transition: 0.2s; }
-        .strain-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
-        .strain-header:hover { background: #1c1f24; }
-        
-        .badge { font-size: 0.65rem; font-weight: 800; padding: 3px 10px; border-radius: 4px; margin: 5px 4px 0 0; display: inline-block; text-transform: uppercase; }
-        .sativa { background: rgba(251,191,36,0.1); color: var(--sativa); }
-        .indica { background: rgba(96,165,250,0.1); color: var(--indica); }
-        .hybrid { background: rgba(167,139,250,0.1); color: var(--hybrid); }
-        .st-in { background: rgba(34,197,94,0.1); color: var(--stock); border: 1px solid rgba(34,197,94,0.3); }
-        .st-out { background: rgba(239,68,68,0.1); color: var(--oos); border: 1px solid rgba(239,68,68,0.3); }
+        h1 { 
+            font-size: 1.2rem; 
+            text-transform: uppercase; 
+            color: var(--accent); 
+            margin-bottom: 30px; 
+            letter-spacing: 2px;
+            text-align: center;
+        }
 
-        /* Content */
-        .strain-content { display: none; padding: 20px; background: #111316; border-top: 1px solid var(--border); }
-        .strain-card.active .strain-content { display: block; }
-        .price-item { display: flex; justify-content: space-between; padding: 12px; background: var(--surface); border-radius: 8px; margin-top: 6px; border: 1px solid var(--border); }
-        .price-val { font-family: monospace; font-weight: bold; color: var(--accent); }
-        
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
+        /* Search & Sort Row */
+        .controls { 
+            display: flex; 
+            gap: 12px; 
+            margin-bottom: 30px; 
+        }
+
+        .search-box {
+            flex-grow: 1;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 14px 18px;
+            border-radius: 10px;
+            color: white;
+            outline: none;
+            transition: border 0.3s;
+        }
+
+        .search-box:focus { border-color: var(--accent); }
+
+        .sort-dropdown {
+            background: var(--surface);
+            color: var(--text-dim);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 0 15px;
+            cursor: pointer;
+        }
+
+        /* Product Cards */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .card:hover { border-color: #333; }
+
+        .card-header {
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .card-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; }
+
+        .badge-row { display: flex; flex-wrap: wrap; gap: 6px; }
+
+        .badge {
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Dynamic Badge Styling */
+        .sativa { background: rgba(251, 191, 36, 0.1); color: var(--sativa); }
+        .indica { background: rgba(96, 165, 250, 0.1); color: var(--indica); }
+        .hybrid { background: rgba(167, 139, 250, 0.1); color: var(--hybrid); }
+        .perc { background: rgba(255, 255, 255, 0.05); color: #fff; border: 1px solid #333; }
+        .in-stock { background: rgba(16, 185, 129, 0.1); color: var(--stock); }
+        .out-stock { background: rgba(239, 68, 68, 0.1); color: var(--oos); }
+
+        .chevron { color: var(--text-dim); font-size: 0.8rem; transition: transform 0.3s; }
+        .active .chevron { transform: rotate(180deg); }
+
+        /* Expanded Content */
+        .content {
+            display: none;
+            padding: 0 24px 24px 24px;
+            background: rgba(0,0,0,0.2);
+            border-top: 1px solid var(--border);
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .active .content { display: block; padding-top: 20px; }
+
+        .desc-text { color: var(--text-dim); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: #0a0a0a;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin-top: 8px;
+        }
+
+        .price-label { color: var(--text-dim); font-size: 0.85rem; }
+        .price-value { color: var(--text-main); font-family: monospace; font-weight: bold; }
+
+        .update-tag { 
+            display: block; 
+            font-size: 0.7rem; 
+            color: #444; 
+            margin-top: 15px; 
+            text-align: right; 
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
 
-    <div id="main-site">
-        <h1>Available Products</h1>
+<div id="container">
+    <h1>Available Products</h1>
 
-        <div class="controls">
-            <input type="text" id="searchInput" class="search-input" placeholder="Search by name..." oninput="renderList()">
-            <select id="sortSelect" class="sort-select" onchange="renderList()">
-                <option value="default">Default</option>
-                <option value="stock">In Stock First</option>
-                <option value="p-low">Price: Low to High</option>
-                <option value="p-high">Price: High to Low</option>
-                <option value="thc-high">Potency: High to Low</option>
-                <option value="thc-low">Potency: Low to High</option>
-            </select>
-        </div>
-
-        <div id="inventory"></div>
+    <div class="controls">
+        <input type="text" id="searchInput" class="search-box" placeholder="Search by name..." oninput="render()">
+        <select id="sortSelect" class="sort-dropdown" onchange="render()">
+            <option value="default">Default</option>
+            <option value="stock">In Stock First</option>
+            <option value="p-low">Price: Low to High</option>
+            <option value="p-high">Price: High to Low</option>
+            <option value="thc">Potency: High to Low</option>
+        </select>
     </div>
 
+    <div id="inventory"></div>
+</div>
+
 <script>
-    /**
-     * EDIT YOUR PRODUCTS HERE
-     * type: 'sativa', 'indica', or 'hybrid'
-     * price: use the 28g price (or unit price) for sorting purposes
-     */
+    // DATA SOURCE
     const products = [
-        { 
-            name: "Harbour LR Day 2g Cart", 
-            type: "sativa", 
-            potency: 80, 
-            inStock: true, 
-            price: 250, 
-            desc: "Aura Therapeutics | Watermelon Skittlez. 2g Liquid Live Resin. High-potency daytime formulation.",
-            tiers: { "Unit Price": "$250.00" }
+        {
+            name: "Harbour LR Day 2g Cart",
+            brand: "Aura Therapeutics",
+            strain: "Watermelon Skittlez",
+            type: "sativa",
+            thc: 80,
+            inStock: true,
+            updated: "02/02/26",
+            basePrice: 149,
+            desc: "Liquid Live Resin cartridge. Full spectrum extraction providing clear daytime effects.",
+            tiers: { "RRP": "$149.00", "Express Post": "$9.99" }
         },
-        { 
-            name: "Harbour LR Night 2g Cart", 
-            type: "indica", 
-            potency: 80, 
-            inStock: false, 
-            price: 250, 
-            desc: "Aura Therapeutics | Grandaddy Bruce. 2g Liquid Live Resin. High-potency evening formulation.",
-            tiers: { "Unit Price": "$250.00" }
+        {
+            name: "Harbour LR Night 2g Cart",
+            brand: "Aura Therapeutics",
+            strain: "Grandaddy Bruce",
+            type: "indica",
+            thc: 80,
+            inStock: true,
+            updated: "09/01/26",
+            basePrice: 149,
+            desc: "Liquid Live Resin cartridge. Sedative profile designed for evening use and relaxation.",
+            tiers: { "RRP": "$149.00", "Express Post": "$9.99" }
         },
-        { 
-            name: "Skittles", 
-            type: "hybrid", 
-            potency: 26, 
-            inStock: false, 
-            price: 380, 
-            desc: "Exotic Grade. Sweet tropical profile. Calming euphoria followed by deep relaxation.",
+        {
+            name: "Skittles",
+            brand: "Exotic Grade",
+            strain: "Zkittlez",
+            type: "hybrid",
+            thc: 26,
+            inStock: false,
+            updated: "12/02/26",
+            basePrice: 380,
+            desc: "Sweet tropical profile. High THC exotic flower with dense, trichome-heavy buds.",
             tiers: { "28g": "$380", "14g": "$220", "7g": "$120", "3.5g": "$70" }
         },
-        { 
-            name: "Tangelo", 
-            type: "sativa", 
-            potency: 18, 
-            inStock: true, 
-            price: 250, 
-            desc: "Mids. Pungent mango/citrus aroma. Energetic uplift and focus.",
+        {
+            name: "Tangelo",
+            brand: "Mids",
+            strain: "Tangie x Gelo",
+            type: "sativa",
+            thc: 18,
+            inStock: true,
+            updated: "10/02/26",
+            basePrice: 250,
+            desc: "Pungent citrus aroma. Reliable Sativa-dominant hybrid for energetic focus.",
             tiers: { "28g": "$250", "14g": "$130", "7g": "$70", "3.5g": "$40" }
         }
     ];
 
-    // Keep a copy of the original order for the "Default" sort
-    const defaultOrder = [...products];
+    const defaultList = [...products];
 
-    function renderList() {
-        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-        const sortBy = document.getElementById('sortSelect').value;
-        const container = document.getElementById('inventory');
-        
-        let filtered = products.filter(p => p.name.toLowerCase().includes(searchTerm));
+    function render() {
+        const search = document.getElementById('searchInput').value.toLowerCase();
+        const sort = document.getElementById('sortSelect').value;
+        const list = document.getElementById('inventory');
 
-        // Sorting Logic
-        if (sortBy === 'stock') filtered.sort((a, b) => b.inStock - a.inStock);
-        else if (sortBy === 'p-low') filtered.sort((a, b) => a.price - b.price);
-        else if (sortBy === 'p-high') filtered.sort((a, b) => b.price - a.price);
-        else if (sortBy === 'thc-high') filtered.sort((a, b) => b.potency - a.potency);
-        else if (sortBy === 'thc-low') filtered.sort((a, b) => a.potency - b.potency);
-        else if (sortBy === 'default') {
-            filtered = defaultOrder.filter(p => p.name.toLowerCase().includes(searchTerm));
-        }
+        let filtered = products.filter(p => p.name.toLowerCase().includes(search));
 
-        container.innerHTML = filtered.map(p => `
-            <div class="strain-card" onclick="this.classList.toggle('active')">
-                <div class="strain-header">
+        if(sort === 'stock') filtered.sort((a,b) => b.inStock - a.inStock);
+        if(sort === 'p-low') filtered.sort((a,b) => a.basePrice - b.basePrice);
+        if(sort === 'p-high') filtered.sort((a,b) => b.basePrice - a.basePrice);
+        if(sort === 'thc') filtered.sort((a,b) => b.thc - a.thc);
+        if(sort === 'default') filtered = defaultList.filter(p => p.name.toLowerCase().includes(search));
+
+        list.innerHTML = filtered.map(p => `
+            <div class="card" onclick="this.classList.toggle('active')">
+                <div class="card-header">
                     <div>
-                        <h3 style="font-size:1.1rem; margin-bottom:4px;">${p.name}</h3>
-                        <span class="badge ${p.type}">${p.type}</span>
-                        <span class="badge" style="background:rgba(0,255,255,0.1); color:var(--percentage); border:1px solid rgba(0,255,255,0.2)">${p.potency}%</span>
-                        <span class="badge ${p.inStock ? 'st-in' : 'st-out'}">${p.inStock ? 'In Stock' : 'Out of Stock'}</span>
+                        <div class="card-title">${p.name}</div>
+                        <div class="badge-row">
+                            <span class="badge ${p.type}">${p.type}</span>
+                            <span class="badge perc">${p.thc}%</span>
+                            <span class="badge ${p.inStock ? 'in-stock' : 'out-stock'}">
+                                ${p.inStock ? 'IN STOCK' : 'OUT OF STOCK'}
+                            </span>
+                        </div>
                     </div>
-                    <span style="color:var(--text-dim)">▼</span>
+                    <div class="chevron">▼</div>
                 </div>
-                <div class="strain-content">
-                    <p style="color:var(--text-mid); font-size:0.9rem; line-height:1.5; margin-bottom:15px;">${p.desc}</p>
-                    ${Object.entries(p.tiers).map(([qty, val]) => `
-                        <div class="price-item">
-                            <span style="color:var(--text-dim)">${qty}</span>
-                            <span class="price-val">${val}</span>
+                <div class="content">
+                    <div class="desc-text">
+                        <strong>${p.brand} | ${p.strain}</strong><br>
+                        ${p.desc}
+                    </div>
+                    ${Object.entries(p.tiers).map(([label, val]) => `
+                        <div class="price-row">
+                            <span class="price-label">${label}</span>
+                            <span class="price-value">${val}</span>
                         </div>
                     `).join('')}
+                    <span class="update-tag">Updated: ${p.updated}</span>
                 </div>
             </div>
         `).join('');
     }
 
-    // Initial load
-    renderList();
+    render();
 </script>
 
 </body>
