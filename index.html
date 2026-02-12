@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Portal</title>
+    <title>Encrypted Portal</title>
     <style>
         :root {
             --bg: #0b0c0e;
@@ -17,7 +17,7 @@
             --sativa: #fbbf24;
             --hybrid: #a78bfa;
             --indica: #60a5fa;
-            --medical: #10b981; /* Emerald green for medical flare */
+            --medical: #10b981;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
@@ -61,6 +61,7 @@
             border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
+            letter-spacing: 1px;
         }
 
         /* --- Main Menu --- */
@@ -97,8 +98,8 @@
 
         .chevron { width: 20px; height: 20px; color: var(--text-dim); transition: transform 0.3s; }
         .strain-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease; background: #111316; }
-        .active .strain-content { max-height: 600px; border-top: 1px solid var(--border); }
-        .active .chevron { transform: rotate(180deg); }
+        .active .strain-content { max-height: 800px; border-top: 1px solid var(--border); }
+        .active .chevron { transform: rotate(180deg); color: var(--text-light); }
 
         .description { padding: 20px 24px; font-size: 0.9rem; color: var(--text-mid); line-height: 1.6; border-bottom: 1px solid var(--border); }
         .price-list { padding: 20px; }
@@ -110,43 +111,45 @@
             border-radius: 10px;
             margin-bottom: 8px;
             border: 1px solid transparent;
+            transition: all 0.2s;
         }
-        .price-item:hover { border-color: var(--accent); }
-        .val { font-weight: 700; color: var(--text-light); font-family: monospace; }
+        .price-item:hover { border-color: var(--accent); transform: scale(1.01); }
+        .qty { color: var(--text-mid); }
+        .val { font-weight: 700; color: var(--text-light); font-family: monospace; font-size: 1.1rem; }
     </style>
 </head>
 <body>
 
     <div id="login-screen">
         <div class="gate-card">
-            <h2>Access Required</h2>
+            <h2>System Access</h2>
             <input type="password" id="passInput" class="stealth-input" placeholder="••••••••">
-            <button class="btn-init" onclick="login()">Bypass</button>
+            <button class="btn-init" onclick="login()">Initialize</button>
         </div>
     </div>
 
     <div id="main-site">
         <div class="nav-bar">
-            <button class="btn-back" onclick="logout()">← Back</button>
-            <span style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase;">Node: Active</span>
+            <button class="btn-back" onclick="logout()">← Log Out</button>
+            <span style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase;">Status: Encrypted</span>
         </div>
 
         <div class="strain-card" onclick="toggle(this)">
             <div class="strain-header">
                 <div>
                     <h3>Harbour LR Day</h3>
-                    <span class="type-badge sativa">Sativa Dominant</span>
+                    <span class="type-badge sativa">Sativa</span>
                     <span class="type-badge medical">Medical</span>
                 </div>
                 <span class="chevron">▼</span>
             </div>
             <div class="strain-content">
                 <div class="description">
-                    <strong>Brand: Aura Therapeutics</strong><br>
-                    Product: Liquid Live Resin Vape Cartridge. Strain: Watermelon Skittlez. High-THC formulation (800mg/g). Designed for daytime focus and clarity.
+                    <strong>Aura Therapeutics | Watermelon Skittlez</strong><br>
+                    2g Liquid Live Resin cartridge. High-potency daytime formulation (800mg/g THC).
                 </div>
                 <div class="price-list">
-                    <div class="price-item"><span>2g Cartridge</span><span class="val">$149.00</span></div>
+                    <div class="price-item"><span class="qty">Unit Price</span><span class="val">$250.00</span></div>
                 </div>
             </div>
         </div>
@@ -162,11 +165,11 @@
             </div>
             <div class="strain-content">
                 <div class="description">
-                    <strong>Brand: Aura Therapeutics</strong><br>
-                    Product: Liquid Live Resin Vape Cartridge. Strain: Grandaddy Bruce. High-THC formulation (800mg/g). Focused on evening relaxation and sleep support.
+                    <strong>Aura Therapeutics | Grandaddy Bruce</strong><br>
+                    2g Liquid Live Resin cartridge. High-potency evening formulation (800mg/g THC).
                 </div>
                 <div class="price-list">
-                    <div class="price-item"><span>2g Cartridge</span><span class="val">$149.00</span></div>
+                    <div class="price-item"><span class="qty">Unit Price</span><span class="val">$250.00</span></div>
                 </div>
             </div>
         </div>
@@ -180,10 +183,31 @@
                 <span class="chevron">▼</span>
             </div>
             <div class="strain-content">
-                <div class="description">Sweet tropical fruit notes with a heavy-hitting relaxing finish. 22-26% THC.</div>
+                <div class="description">Exotic Grade. Sweet tropical profile. 22-26% THC. Calming euphoria followed by deep relaxation.</div>
                 <div class="price-list">
-                    <div class="price-item"><span>28g</span><span class="val">$380</span></div>
-                    <div class="price-item"><span>14g</span><span class="val">$200</span></div>
+                    <div class="price-item"><span class="qty">28g</span><span class="val">$380</span></div>
+                    <div class="price-item"><span class="qty">14g</span><span class="val">$200</span></div>
+                    <div class="price-item"><span class="qty">7g</span><span class="val">$120</span></div>
+                    <div class="price-item"><span class="qty">3.5g</span><span class="val">$70</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="strain-card" onclick="toggle(this)">
+            <div class="strain-header">
+                <div>
+                    <h3>Mango Tango</h3>
+                    <span class="type-badge sativa">Sativa Dominant</span>
+                </div>
+                <span class="chevron">▼</span>
+            </div>
+            <div class="strain-content">
+                <div class="description">Mids. Pungent mango/citrus aroma. 16-18% THC. Energetic uplift and focus.</div>
+                <div class="price-list">
+                    <div class="price-item"><span class="qty">28g</span><span class="val">$250</span></div>
+                    <div class="price-item"><span class="qty">14g</span><span class="val">$130</span></div>
+                    <div class="price-item"><span class="qty">7g</span><span class="val">$70</span></div>
+                    <div class="price-item"><span class="qty">3.5g</span><span class="val">$40</span></div>
                 </div>
             </div>
         </div>
@@ -206,6 +230,7 @@
             document.querySelectorAll('.strain-card').forEach(c => c.classList.remove('active'));
             if (!isActive) el.classList.add('active');
         }
+        document.getElementById("passInput").addEventListener("keyup", e => { if (e.key === "Enter") login(); });
     </script>
 </body>
 </html>
