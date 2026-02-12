@@ -6,25 +6,21 @@
     <title>Available Products</title>
     <style>
         :root {
-            --bg: #050506;
-            --surface: #121214;
-            --surface-hover: #1a1a1d;
+            --bg: #050608; 
+            --surface: #121418; 
             --accent: #3b82f6;
-            --border: #27272a;
-            --text-dim: #a1a1aa;
-            --text-light: #f4f4f5;
-            
-            /* High Fidelity Tag Colors */
-            --sativa: #fbbf24;
-            --hybrid: #a78bfa;
+            --border: #242830; 
+            --text-dim: #94a3b8; 
+            --text-light: #f8fafc;
+            --sativa: #fbbf24; 
+            --hybrid: #a78bfa; 
             --indica: #60a5fa;
-            --oos: #f87171;
-            --stock: #34d399;
+            --oos: #f87171; 
+            --stock: #4ade80;
             --potency: #22d3ee;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', -apple-system, sans-serif; }
-        
         body { 
             background: var(--bg); 
             color: var(--text-light); 
@@ -33,27 +29,31 @@
             padding: 40px 20px;
             line-height: 1.5;
         }
-
-        #main-site { width: 100%; max-width: 700px; animation: fadeIn 0.6s ease-out; }
-
+        
+        #main-site { width: 100%; max-width: 680px; animation: fadeIn 0.6s ease-out; }
+        
         h1 { 
-            margin-bottom: 30px; 
-            font-size: 1.25rem; 
-            font-weight: 800;
-            letter-spacing: 2px; 
-            color: var(--accent); 
+            margin-bottom: 32px; 
+            font-size: 1.75rem; 
+            font-weight: 800; 
+            letter-spacing: -0.025em; 
+            background: linear-gradient(to right, #3b82f6, #22d3ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             text-transform: uppercase;
-            text-align: left;
         }
 
-        /* Modern Controls */
+        /* Controls */
         .controls { 
             display: flex; 
             gap: 12px; 
-            margin-bottom: 32px; 
+            margin-bottom: 24px; 
             position: sticky; 
             top: 20px; 
             z-index: 100;
+            background: rgba(5, 6, 8, 0.8);
+            backdrop-filter: blur(12px);
+            padding: 8px 0;
         }
         
         .search-input { 
@@ -63,52 +63,42 @@
             padding: 14px 20px; 
             border-radius: 12px; 
             color: white; 
-            font-size: 0.95rem;
+            outline: none; 
             transition: all 0.2s;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
+        .search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2); }
         
-        .search-input:focus { border-color: var(--accent); outline: none; background: var(--surface-hover); }
-
         .sort-select { 
             background: var(--surface); 
             color: white; 
             border: 1px solid var(--border); 
             border-radius: 12px; 
-            padding: 0 15px; 
+            padding: 0 16px; 
             cursor: pointer;
-            font-size: 0.85rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            font-weight: 500;
         }
 
-        /* Product Cards */
+        /* Cards */
         .strain-card { 
             background: var(--surface); 
             border: 1px solid var(--border); 
             border-radius: 18px; 
             margin-bottom: 16px; 
             overflow: hidden; 
-            transition: transform 0.2s, border-color 0.2s;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
         }
+        .strain-card:hover { border-color: #475569; transform: translateY(-2px); }
         
-        .strain-card:hover { border-color: #3f3f46; transform: translateY(-2px); }
+        .strain-header { padding: 24px; display: flex; justify-content: space-between; align-items: center; }
+        
+        .product-name { font-size: 1.25rem; font-weight: 700; margin-bottom: 8px; color: #fff; }
 
-        .strain-header { 
-            padding: 24px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            cursor: pointer; 
-        }
-
-        .strain-info h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.02em; }
-
-        /* Badge Styling */
-        .badge-row { display: flex; flex-wrap: wrap; gap: 8px; }
+        .badge-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
         .badge { 
-            font-size: 0.65rem; 
-            font-weight: 900; 
+            font-size: 0.7rem; 
+            font-weight: 700; 
             padding: 4px 10px; 
             border-radius: 6px; 
             text-transform: uppercase; 
@@ -118,57 +108,39 @@
         .sativa { background: rgba(251,191,36,0.1); color: var(--sativa); border: 1px solid rgba(251,191,36,0.2); }
         .indica { background: rgba(96,165,250,0.1); color: var(--indica); border: 1px solid rgba(96,165,250,0.2); }
         .hybrid { background: rgba(167,139,250,0.1); color: var(--hybrid); border: 1px solid rgba(167,139,250,0.2); }
-        .potency { background: rgba(34,211,238,0.1); color: var(--potency); border: 1px solid rgba(34,211,238,0.2); }
-        .st-in { background: rgba(52,211,153,0.1); color: var(--stock); border: 1px solid rgba(52,211,153,0.2); }
+        
+        .potency-badge { background: rgba(34,211,238,0.1); color: var(--potency); border: 1px solid rgba(34,211,238,0.2); }
+        
+        .st-in { background: rgba(74,222,128,0.1); color: var(--stock); border: 1px solid rgba(74,222,128,0.2); }
         .st-out { background: rgba(248,113,113,0.1); color: var(--oos); border: 1px solid rgba(248,113,113,0.2); }
 
-        .chevron { color: var(--text-dim); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); font-size: 0.8rem; }
+        .chevron { color: var(--text-dim); transition: transform 0.3s ease; }
         .active .chevron { transform: rotate(180deg); color: var(--accent); }
 
-        /* Expanded Details */
+        /* Expanded Content */
         .strain-content { 
             display: none; 
             padding: 0 24px 24px 24px; 
-            background: var(--surface); 
+            background: linear-gradient(to bottom, var(--surface), #0f1115);
             animation: slideDown 0.3s ease;
         }
-        
         .active .strain-content { display: block; }
-
-        .desc-box { 
-            color: var(--text-dim); 
-            font-size: 0.95rem; 
-            line-height: 1.6; 
-            margin-bottom: 24px;
-            padding-top: 10px;
-            border-top: 1px solid var(--border);
-        }
         
-        .tier-label { 
-            font-size: 0.75rem; 
-            text-transform: uppercase; 
-            color: var(--accent); 
-            font-weight: 800; 
-            margin-bottom: 12px; 
-            display: block;
-            letter-spacing: 1px;
-        }
+        .desc-text { color: var(--text-dim); font-size: 0.95rem; margin-bottom: 20px; border-top: 1px solid var(--border); padding-top: 15px; }
 
         .price-grid { display: grid; gap: 8px; }
-        
         .price-item { 
             display: flex; 
             justify-content: space-between; 
             align-items: center;
             padding: 14px 18px; 
-            background: #18181b; 
-            border-radius: 12px; 
+            background: rgba(255,255,255,0.03); 
+            border-radius: 10px; 
             border: 1px solid var(--border); 
         }
+        .price-label { font-weight: 500; color: var(--text-dim); }
+        .price-val { font-family: 'JetBrains Mono', monospace; font-weight: 700; color: #fff; font-size: 1rem; }
         
-        .qty-text { color: var(--text-light); font-weight: 500; font-size: 0.9rem; }
-        .price-val { font-weight: 800; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 1rem; }
-
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes slideDown { from { opacity: 0; } to { opacity: 1; } }
     </style>
@@ -181,11 +153,12 @@
         <div class="controls">
             <input type="text" id="searchInput" class="search-input" placeholder="Search by name..." oninput="renderList()">
             <select id="sortSelect" class="sort-select" onchange="renderList()">
-                <option value="default">Default View</option>
+                <option value="default">Default</option>
                 <option value="stock">In Stock First</option>
                 <option value="p-low">Price: Low to High</option>
                 <option value="p-high">Price: High to Low</option>
                 <option value="thc-high">Potency: High to Low</option>
+                <option value="thc-low">Potency: Low to High</option>
             </select>
         </div>
 
@@ -193,6 +166,7 @@
     </div>
 
 <script>
+    // EXACT DATA PRESERVED
     const products = [
         { 
             name: "Harbour LR Day 2g Cart", 
@@ -245,28 +219,30 @@
         else if (sortBy === 'p-low') filtered.sort((a, b) => a.price - b.price);
         else if (sortBy === 'p-high') filtered.sort((a, b) => b.price - a.price);
         else if (sortBy === 'thc-high') filtered.sort((a, b) => b.potency - a.potency);
-        else if (sortBy === 'default') filtered = [...defaultOrder].filter(p => p.name.toLowerCase().includes(searchTerm));
+        else if (sortBy === 'thc-low') filtered.sort((a, b) => a.potency - b.potency);
+        else if (sortBy === 'default') {
+            filtered = defaultOrder.filter(p => p.name.toLowerCase().includes(searchTerm));
+        }
 
         container.innerHTML = filtered.map(p => `
             <div class="strain-card" onclick="this.classList.toggle('active')">
                 <div class="strain-header">
-                    <div class="strain-info">
-                        <h3>${p.name}</h3>
-                        <div class="badge-row">
+                    <div>
+                        <h3 class="product-name">${p.name}</h3>
+                        <div class="badge-group">
                             <span class="badge ${p.type}">${p.type}</span>
-                            <span class="badge potency">${p.potency}% Potency</span>
+                            <span class="badge potency-badge">${p.potency}% THC</span>
                             <span class="badge ${p.inStock ? 'st-in' : 'st-out'}">${p.inStock ? 'In Stock' : 'Out of Stock'}</span>
                         </div>
                     </div>
                     <span class="chevron">▼</span>
                 </div>
                 <div class="strain-content">
-                    <div class="desc-box">${p.desc}</div>
-                    <span class="tier-label">Pricing Tiers</span>
+                    <p class="desc-text">${p.desc}</p>
                     <div class="price-grid">
                         ${Object.entries(p.tiers).map(([qty, val]) => `
                             <div class="price-item">
-                                <span class="qty-text">${qty}</span>
+                                <span class="price-label">${qty}</span>
                                 <span class="price-val">${val}</span>
                             </div>
                         `).join('')}
