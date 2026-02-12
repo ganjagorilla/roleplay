@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wellness Portal</title>
+    <style>
+        :root {
+            --bg-color: #f4eee4;
+            --card-bg: #ede1d1;
+            --accent-color: #a3542d;
+            --text-main: #2d1e17;
+            --status-green: #5eb061;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* --- Login Section --- */
+        #login-screen {
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .login-box {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        h1 { margin-bottom: 24px; font-weight: 500; color: var(--accent-color); }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #dcd0c0;
+            border-radius: 8px;
+            background: #fff;
+            margin-bottom: 16px;
+            outline: none;
+            text-align: center;
+        }
+
+        .btn-enter {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+
+        /* --- Main Menu Section --- */
+        #main-site {
+            display: none;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .order-header {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            font-family: serif;
+        }
+
+        .strain-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        /* The Button/Header Part */
+        .strain-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px;
+            cursor: pointer;
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .strain-info h2 { font-size: 1.4rem; margin-bottom: 4px; }
+        .strain-tag { font-size: 0.85rem; opacity: 0.9; }
+
+        .icon-plus {
+            font-size: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        /* The Dropdown Content */
+        .strain-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: var(--card-bg);
+        }
+
+        .active .strain-content {
+            max-height: 500px; /* Large enough for content */
+        }
+
+        .active .icon-plus {
+            transform: rotate(45deg);
+        }
+
+        .price-list {
+            padding: 24px;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .price-row:last-child { border-bottom: none; }
+        
+        .weight { font-weight: 600; }
+        .cost { color: var(--accent-color); font-weight: 700; }
+
+    </style>
+</head>
+<body>
+
+    <div id="login-screen">
+        <div class="login-box">
+            <h1>Wellness Portal</h1>
+            <input type="password" id="passInput" placeholder="Enter Access Code">
+            <button class="btn-enter" onclick="checkPass()">Access Site</button>
+            <p id="errorMsg" style="color:red; margin-top:10px; display:none;">Incorrect Code</p>
+        </div>
+    </div>
+
+    <div id="main-site">
+        <h1 class="order-header">Current Menu</h1>
+
+        <div class="strain-card" onclick="toggleDropdown(this)">
+            <div class="strain-header">
+                <div class="strain-info">
+                    <h2>Skittles</h2>
+                    <span class="strain-tag">Exotics • 22-26% THC</span>
+                </div>
+                <div class="icon-plus">+</div>
+            </div>
+            <div class="strain-content">
+                <div class="price-list">
+                    <div class="price-row"><span class="weight">28g</span><span class="cost">$380</span></div>
+                    <div class="price-row"><span class="weight">14g</span><span class="cost">$200</span></div>
+                    <div class="price-row"><span class="weight">7g</span><span class="cost">$120</span></div>
+                    <div class="price-row"><span class="weight">3.5g</span><span class="cost">$70</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="strain-card" onclick="toggleDropdown(this)">
+            <div class="strain-header">
+                <div class="strain-info">
+                    <h2>Mango Tango</h2>
+                    <span class="strain-tag">Mids • 16-18% THC</span>
+                </div>
+                <div class="icon-plus">+</div>
+            </div>
+            <div class="strain-content">
+                <div class="price-list">
+                    <div class="price-row"><span class="weight">28g</span><span class="cost">$250</span></div>
+                    <div class="price-row"><span class="weight">14g</span><span class="cost">$130</span></div>
+                    <div class="price-row"><span class="weight">7g</span><span class="cost">$70</span></div>
+                    <div class="price-row"><span class="weight">3.5g</span><span class="cost">$40</span></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Password Protection
+        function checkPass() {
+            const pass = document.getElementById('passInput').value;
+            if (pass === 'fakesite') {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('main-site').style.display = 'block';
+                document.body.style.alignItems = 'flex-start';
+                document.body.style.paddingTop = '60px';
+            } else {
+                document.getElementById('errorMsg').style.display = 'block';
+            }
+        }
+
+        // Dropdown Toggle
+        function toggleDropdown(element) {
+            element.classList.toggle('active');
+        }
+
+        // Allow 'Enter' key to login
+        document.getElementById("passInput").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                checkPass();
+            }
+        });
+    </script>
+</body>
+</html>
