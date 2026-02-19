@@ -54,24 +54,25 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Responsive Controls */
+        /* FIXED: Wrapped Controls for Mobile */
         .controls { 
             display: flex; 
+            flex-wrap: wrap;
             gap: 10px; 
             margin-bottom: 25px; 
             position: sticky; 
             top: 10px; 
             z-index: 100;
-            background: rgba(18, 20, 28, 0.9);
-            padding: 8px;
+            background: rgba(18, 20, 28, 0.95);
+            padding: 10px;
             backdrop-filter: blur(15px);
             border-radius: 14px;
             border: 1px solid var(--border);
         }
 
         .search-input { 
-            flex: 1;
-            min-width: 0; /* Prevents overflow on mobile */
+            flex: 1 1 200px;
+            min-width: 0;
             background: transparent; 
             border: none;
             padding: 8px 12px; 
@@ -81,13 +82,13 @@
         }
 
         .sort-select { 
-            flex: 0 0 auto;
-            max-width: 140px; /* Constrains width on mobile */
+            flex: 1 0 auto;
+            max-width: 100%;
             background: var(--bg); 
             color: var(--text-main); 
             border: 1px solid var(--border); 
             border-radius: 10px; 
-            padding: 0 8px; 
+            padding: 8px; 
             cursor: pointer;
             font-size: 0.8rem;
             outline: none;
@@ -135,7 +136,6 @@
         }
         .active .chevron { transform: rotate(180deg); color: var(--accent); }
 
-        /* Animation Fix */
         .strain-content { 
             display: grid;
             grid-template-rows: 0fr;
@@ -182,10 +182,8 @@
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
 
-        /* Tablet/Mobile Adjustments */
         @media (max-width: 480px) {
             h1 { font-size: 1.3rem; }
-            .sort-select { font-size: 0.75rem; max-width: 110px; }
             .price-per-g { display: block; border-left: none; padding-left: 0; margin-top: 2px; text-align: right; }
         }
     </style>
@@ -236,14 +234,14 @@
         { 
             name: "Northern Lights", 
             type: "indica", flare: "medical", potency: 22, inStock: true, price: 20, 
-            desc: "Northern Lights is the gold standard for relaxation. This heavy-hitting Indica is world-renowned for its resinous buds and its ability to settle both the mind and body. A reliable companion for winding down and finding deep tranquility.",
-            tiers: { "Flat rate $20/1g limited stock": 20 }
+            desc: "Northern Lights is the gold standard for relaxation. Heavy-hitting Indica world-renowned for resinous buds. A reliable companion for winding down.",
+            tiers: { "1g Flat Rate": 20 }
         },
        { 
             name: "Durban Poison", 
             type: "sativa", flare: "medical", potency: 22, inStock: true, price: 20, 
-            desc: "Cultivated using Living Soil Organic (LSO) methods, this flower offers a clean, robust expression of the legendary Durban Poison lineage. Perfect for those seeking a bright, functional, and uplifting start to their day.",
-            tiers: { "Flat Rate $20/1g limited stock": 20 }
+            desc: "Cultivated using Living Soil Organic (LSO) methods. Perfect for those seeking a bright, functional, and uplifting start to their day.",
+            tiers: { "1g Flat Rate": 20 }
         },
         { 
             name: "Tangelo", 
@@ -273,7 +271,6 @@
         
         let filtered = products.filter(p => p.name.toLowerCase().includes(searchTerm));
 
-        // Default: Sort by In Stock (true) first, then original list order
         if (sortBy === 'default') {
             filtered.sort((a, b) => b.inStock - a.inStock);
         } else if (sortBy === 'p-low') filtered.sort((a, b) => a.price - b.price);
@@ -317,7 +314,6 @@
         `).join('');
     }
 
-    // Load initial list with In-Stock first
     renderList();
 </script>
 
