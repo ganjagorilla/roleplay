@@ -6,18 +6,17 @@
     <title>Accessories</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        /* CSS Same as Products Page */
-        :root { --bg: #050608; --surface: #12141c; --glass: rgba(255, 255, 255, 0.03); --glass-hover: rgba(255, 255, 255, 0.07); --accent: #3b82f6; --border: rgba(255, 255, 255, 0.1); --text-main: #f8fafc; --text-dim: #94a3b8; --stock: #4ade80; --oos: #f87171; }
+        /* Shared Styles from Products Page */
+        :root { --bg: #050608; --surface: #12141c; --glass: rgba(255, 255, 255, 0.03); --accent: #3b82f6; --border: rgba(255, 255, 255, 0.1); --text-main: #f8fafc; --text-dim: #94a3b8; --stock: #4ade80; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { background: radial-gradient(circle at top center, #111827 0%, #050608 100%); color: var(--text-main); display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px; }
         #main-site { width: 100%; max-width: 680px; }
         .back-nav { width: 100%; max-width: 680px; margin-bottom: 20px; }
-        .back-link { text-decoration: none; color: var(--accent); font-size: 0.9rem; font-weight: 600; }
-        h1 { font-weight: 800; font-size: 1.8rem; margin-bottom: 25px; }
-        .strain-card { background: var(--glass); border: 1px solid var(--border); border-radius: 18px; margin-bottom: 12px; overflow: hidden; transition: 0.3s; cursor: pointer; }
+        .back-link { text-decoration: none; color: var(--accent); font-weight: 600; }
+        h1 { font-weight: 800; font-size: 1.5rem; margin-bottom: 25px; background: linear-gradient(to right, #fff, #64748b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .strain-card { background: var(--glass); border: 1px solid var(--border); border-radius: 18px; margin-bottom: 12px; overflow: hidden; cursor: pointer; }
         .strain-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; }
-        .badge { font-size: 0.6rem; font-weight: 800; padding: 3px 8px; border-radius: 5px; text-transform: uppercase; border: 1px solid var(--stock); color: var(--stock); }
-        .strain-content { display: grid; grid-template-rows: 0fr; transition: 0.4s ease; background: rgba(0,0,0,0.2); }
+        .strain-content { display: grid; grid-template-rows: 0fr; transition: 0.4s ease; background: rgba(0, 0, 0, 0.2); }
         .active .strain-content { grid-template-rows: 1fr; border-top: 1px solid var(--border); }
         .inner-content { overflow: hidden; padding: 0 20px; }
         .active .inner-content { padding: 20px; }
@@ -30,25 +29,20 @@
         <h1>Accessories</h1>
         <div id="acc-list"></div>
     </div>
-
     <script>
         const accs = [
-            { name: "Glass Piece A", inStock: true, price: "$45", img: "https://via.placeholder.com/600x300", desc: "High quality borosilicate glass." },
-            { name: "Grinder v2", inStock: true, price: "$25", img: "https://via.placeholder.com/600x300", desc: "4-piece aircraft grade aluminum." },
-            { name: "Carry Case", inStock: true, price: "$15", img: "https://via.placeholder.com/600x300", desc: "Smell-proof padded storage." },
-            { name: "Digital Scales", inStock: true, price: "$30", img: "https://via.placeholder.com/600x300", desc: "0.01g accuracy." },
-            { name: "Cleaning Kit", inStock: true, price: "$20", img: "https://via.placeholder.com/600x300", desc: "Keep your gear pristine." }
+            { name: "Grinder v1", price: "$20", img: "https://via.placeholder.com/600x300", desc: "4-piece metal grinder." },
+            { name: "Rolling Tray", price: "$15", img: "https://via.placeholder.com/600x300", desc: "Durable aluminum tray." },
+            { name: "Glass Pipe", price: "$30", img: "https://via.placeholder.com/600x300", desc: "Heat-resistant borosilicate." },
+            { name: "Carry Case", price: "$10", img: "https://via.placeholder.com/600x300", desc: "Padded protective sleeve." },
+            { name: "Cleaning Solution", price: "$12", img: "https://via.placeholder.com/600x300", desc: "Keep your gear clean." }
         ];
-
         document.getElementById('acc-list').innerHTML = accs.map(a => `
             <div class="strain-card" onclick="this.classList.toggle('active')">
-                <div class="strain-header">
-                    <div><h3>${a.name}</h3><span class="badge">In Stock</span></div>
-                    <strong>${a.price}</strong>
-                </div>
+                <div class="strain-header"><h3>${a.name}</h3><strong>${a.price}</strong></div>
                 <div class="strain-content"><div class="inner-content">
                     <img src="${a.img}" class="prod-img">
-                    <p style="color: var(--text-dim)">${a.desc}</p>
+                    <p style="color:var(--text-dim);">${a.desc}</p>
                 </div></div>
             </div>
         `).join('');
