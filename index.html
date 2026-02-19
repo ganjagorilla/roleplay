@@ -3,79 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hub | Home</title>
+    <title>RP Portal | Home</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #050608;
-            --surface: #12141c;
-            --glass: rgba(255, 255, 255, 0.03);
-            --glass-hover: rgba(255, 255, 255, 0.07);
-            --accent: #3b82f6;
-            --border: rgba(255, 255, 255, 0.1);
-            --text-main: #f8fafc;
-            --text-dim: #94a3b8;
+            --bg: #050608; --surface: #12141c; --glass: rgba(255, 255, 255, 0.03);
+            --glass-hover: rgba(255, 255, 255, 0.07); --accent: #3b82f6; --border: rgba(255, 255, 255, 0.1);
+            --text-main: #f8fafc; --text-dim: #94a3b8;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        
-        body { 
-            background: radial-gradient(circle at top center, #111827 0%, #050608 100%);
-            color: var(--text-main); 
-            display: flex; 
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 20px; 
-        }
-
+        body { background: radial-gradient(circle at top center, #111827 0%, #050608 100%); color: var(--text-main); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
         .home-container { width: 100%; max-width: 500px; text-align: center; animation: fadeIn 0.8s ease-out; }
-
-        h1 { font-weight: 800; font-size: 2.5rem; margin-bottom: 10px; letter-spacing: -0.05em; }
+        h1 { font-weight: 800; font-size: 2.5rem; margin-bottom: 10px; letter-spacing: -0.05em; background: linear-gradient(to right, #fff, #64748b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         p { color: var(--text-dim); margin-bottom: 40px; font-weight: 300; }
-
         .nav-menu { display: grid; gap: 15px; }
-
-        .nav-btn {
-            display: block;
-            text-decoration: none;
-            background: var(--glass);
-            border: 1px solid var(--border);
-            color: var(--text-main);
-            padding: 20px;
-            border-radius: 16px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-        }
-
-        .nav-btn:hover {
-            background: var(--glass-hover);
-            border-color: var(--accent);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        }
-
-        .footer-tag { margin-top: 50px; font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; }
-
+        .nav-btn { display: block; text-decoration: none; background: var(--glass); border: 1px solid var(--border); color: var(--text-main); padding: 20px; border-radius: 16px; font-weight: 600; font-size: 1.1rem; transition: all 0.3s ease; }
+        .nav-btn:hover { background: var(--glass-hover); border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+        .footer-tag { margin-top: 50px; font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; opacity: 0.5; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; } }
     </style>
 </head>
 <body>
-
     <div class="home-container">
         <h1>Welcome</h1>
         <p>Select a destination to continue</p>
-
         <nav class="nav-menu">
             <a href="products.html" class="nav-btn">Available Products</a>
             <a href="accessories.html" class="nav-btn">Accessories</a>
-            <a href="about.html" class="nav-btn">About & Legal</a>
+            <a href="about.html" class="nav-btn">About</a>
         </nav>
-
         <div class="footer-tag">Roleplay Purposes Only</div>
     </div>
-
 </body>
 </html>
