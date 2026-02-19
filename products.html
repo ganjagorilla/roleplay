@@ -3,36 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Available Products</title>
+    <title>Products | Inventory</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        /* CSS variables and styles from your original code */
-        :root { --bg: #050608; --surface: #12141c; --glass: rgba(255, 255, 255, 0.03); --glass-hover: rgba(255, 255, 255, 0.07); --accent: #3b82f6; --border: rgba(255, 255, 255, 0.1); --text-main: #f8fafc; --text-dim: #94a3b8; --sativa: #fbbf24; --hybrid: #a78bfa; --indica: #60a5fa; --oos: #f87171; --stock: #4ade80; --medical: #10b981; --exotic: #ec4899; --mids: #94a3b8; }
+        :root {
+            --bg: #050608; --surface: #12141c; --glass: rgba(255, 255, 255, 0.03);
+            --glass-hover: rgba(255, 255, 255, 0.07); --accent: #3b82f6; --border: rgba(255, 255, 255, 0.1);
+            --text-main: #f8fafc; --text-dim: #94a3b8;
+            --sativa: #fbbf24; --hybrid: #a78bfa; --indica: #60a5fa; --oos: #f87171; --stock: #4ade80;
+            --medical: #10b981; --exotic: #ec4899; --mids: #94a3b8;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background: radial-gradient(circle at top center, #111827 0%, #050608 100%); color: var(--text-main); display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px; }
+        
+        body { 
+            background: radial-gradient(circle at top center, #111827 0%, #050608 100%);
+            color: var(--text-main); display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px; 
+        }
+
         #main-site { width: 100%; max-width: 680px; animation: fadeIn 0.8s ease-out; }
         .back-nav { width: 100%; max-width: 680px; margin-bottom: 20px; }
         .back-link { text-decoration: none; color: var(--accent); font-weight: 600; font-size: 0.9rem; }
+
         h1 { font-weight: 800; font-size: 1.5rem; margin-bottom: 25px; background: linear-gradient(to right, #fff, #64748b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .controls { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 25px; position: sticky; top: 10px; z-index: 100; background: rgba(18, 20, 28, 0.95); padding: 10px; backdrop-filter: blur(15px); border-radius: 14px; border: 1px solid var(--border); }
+
+        .controls { 
+            display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 25px; position: sticky; top: 10px; z-index: 100;
+            background: rgba(18, 20, 28, 0.95); padding: 10px; backdrop-filter: blur(15px); border-radius: 14px; border: 1px solid var(--border);
+        }
+
         .search-input { flex: 1 1 200px; background: transparent; border: none; padding: 8px 12px; color: white; outline: none; }
-        .sort-select { background: var(--bg); color: var(--text-main); border: 1px solid var(--border); border-radius: 10px; padding: 8px; font-size: 0.8rem; }
+        .sort-select { background: var(--bg); color: var(--text-main); border: 1px solid var(--border); border-radius: 10px; padding: 8px; font-size: 0.8rem; outline: none; cursor: pointer; }
+
         .strain-card { background: var(--glass); border: 1px solid var(--border); border-radius: 18px; margin-bottom: 12px; overflow: hidden; transition: 0.3s; cursor: pointer; }
+        .strain-card:hover { border-color: rgba(255, 255, 255, 0.15); }
         .strain-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; }
+        
         .badge-container { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
-        .badge { font-size: 0.6rem; font-weight: 800; padding: 3px 8px; border-radius: 5px; text-transform: uppercase; }
-        .sativa { background: rgba(251, 191, 36, 0.1); color: var(--sativa); border: 1px solid rgba(251, 191, 36, 0.2); }
-        .indica { background: rgba(96, 165, 250, 0.1); color: var(--indica); border: 1px solid rgba(96, 165, 250, 0.2); }
-        .hybrid { background: rgba(167, 139, 250, 0.1); color: var(--hybrid); border: 1px solid rgba(167, 139, 250, 0.2); }
-        .st-in { background: rgba(74, 222, 128, 0.1); color: var(--stock); border: 1px solid rgba(74, 222, 128, 0.2); }
-        .st-out { background: rgba(248, 113, 113, 0.1); color: var(--oos); border: 1px solid rgba(248, 113, 113, 0.2); }
-        .strain-content { display: grid; grid-template-rows: 0fr; transition: 0.4s ease; background: rgba(0, 0, 0, 0.2); }
+        .badge { font-size: 0.6rem; font-weight: 800; padding: 3px 8px; border-radius: 5px; text-transform: uppercase; border: 1px solid currentColor; background: rgba(255,255,255,0.03); }
+        .sativa { color: var(--sativa); }
+        .indica { color: var(--indica); }
+        .hybrid { color: var(--hybrid); }
+        .medical { color: var(--medical); }
+        .exotic { color: var(--exotic); }
+        .mids { color: var(--mids); }
+        .st-in { color: var(--stock); }
+        .st-out { color: var(--oos); }
+        .potency { color: var(--text-dim); border-color: var(--border); }
+
+        /* THE 2:1 DUAL IMAGE GRID */
+        .img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+        .prod-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 12px; border: 1px solid var(--border); }
+
+        .strain-content { display: grid; grid-template-rows: 0fr; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); background: rgba(0, 0, 0, 0.2); }
         .active .strain-content { grid-template-rows: 1fr; border-top: 1px solid var(--border); }
-        .inner-content { overflow: hidden; padding: 0 20px; }
-        .active .inner-content { padding: 20px; }
-        .prod-img { width: 100%; border-radius: 12px; margin-bottom: 15px; border: 1px solid var(--border); }
+        .inner-content { overflow: hidden; }
+        .inner-padding { padding: 20px; }
+
         .price-row { display: flex; justify-content: space-between; padding: 12px; background: rgba(255,255,255,0.02); border-radius: 10px; border: 1px solid var(--border); margin-bottom: 8px; }
-        .price-per-g { color: var(--accent); font-size: 0.7rem; margin-left: 10px; }
+        .price-per-g { color: var(--accent); font-size: 0.7rem; margin-left: 10px; opacity: 0.8; }
+
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
     </style>
 </head>
@@ -41,9 +71,9 @@
     <div id="main-site">
         <h1>Available Products</h1>
         <div class="controls">
-            <input type="text" id="searchInput" class="search-input" placeholder="Search..." oninput="renderList()">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search by name..." oninput="renderList()">
             <select id="sortSelect" class="sort-select" onchange="renderList()">
-                <option value="default">In Stock</option>
+                <option value="default">In Stock First</option>
                 <option value="p-low">Price: Low</option>
                 <option value="p-high">Price: High</option>
                 <option value="thc-high">THC: High</option>
@@ -54,12 +84,42 @@
 
     <script>
         const products = [
-            { name: "Harbour LR Day 2g Cart", type: "sativa", flare: "medical", potency: 80, inStock: false, price: 250, desc: "2g Liquid Live Resin. High-potency daytime formulation.", img: "https://via.placeholder.com/600x300", tiers: { "2g Unit": 250 } },
-            { name: "Harbour LR Night 2g Cart", type: "indica", flare: "medical", potency: 80, inStock: false, price: 250, desc: "2g Liquid Live Resin. High-potency evening formulation.", img: "https://via.placeholder.com/600x300", tiers: { "2g Unit": 250 } },
-            { name: "Skittles", type: "hybrid", flare: "exotic", potency: 26, inStock: false, price: 380, desc: "Exotic Grade. Sweet tropical profile.", img: "https://via.placeholder.com/600x300", tiers: { "28g": 380, "14g": 220, "7g": 120, "3.5g": 70 } },
-            { name: "Northern Lights", type: "indica", flare: "medical", potency: 22, inStock: true, price: 20, desc: "Cultivated using Living Soil Organic (LSO) methods, this flower offers a clean, robust expression of the legendary Durban Poison lineage. Perfect for those seeking a bright, functional, and uplifting start to their day.", img: "https://via.placeholder.com/600x300", tiers: { "1g Flat Rate": 20 } },
-            { name: "Durban Poison", type: "sativa", flare: "medical", potency: 22, inStock: true, price: 20, desc: "Cultivated using Living Soil Organic (LSO) methods, this flower offers a clean, robust expression of the legendary Durban Poison lineage. Perfect for those seeking a bright, functional, and uplifting start to their day.", img: "https://via.placeholder.com/600x300", tiers: { "1g Flat Rate": 20 } },
-            { name: "Tangelo", type: "sativa", flare: "mids", potency: 16, inStock: true, price: 250, desc: "Mids quality flower. Pungent mango/citrus aroma.", img: "https://via.placeholder.com/600x300", tiers: { "28g": 250, "14g": 130, "7g": 70, "3.5g": 40 } }
+            { 
+                name: "Harbour LR Day 2g Cart", type: "sativa", flare: "medical", potency: 80, inStock: true, price: 250, 
+                desc: "Aura Therapeutics | Watermelon Skittlez. 2g Liquid Live Resin. High-potency daytime formulation.", 
+                imgBulk: "images/day-bulk.jpg", imgClose: "images/day-close.jpg", 
+                tiers: { "2g Unit": 250 } 
+            },
+            { 
+                name: "Harbour LR Night 2g Cart", type: "indica", flare: "medical", potency: 80, inStock: false, price: 250, 
+                desc: "Aura Therapeutics | Grandaddy Bruce. 2g Liquid Live Resin. High-potency evening formulation.", 
+                imgBulk: "images/night-bulk.jpg", imgClose: "images/night-close.jpg", 
+                tiers: { "2g Unit": 250 } 
+            },
+            { 
+                name: "Skittles", type: "hybrid", flare: "exotic", potency: 26, inStock: false, price: 380, 
+                desc: "Exotic Grade. Sweet tropical profile. Deeply relaxing yet mentally clear.", 
+                imgBulk: "images/skit-bulk.jpg", imgClose: "images/skit-close.jpg", 
+                tiers: { "28g": 380, "14g": 220, "7g": 120, "3.5g": 70 } 
+            },
+            { 
+                name: "Northern Lights", type: "indica", flare: "medical", potency: 22, inStock: true, price: 20, 
+                desc: "LSO Grown. A pure indica experience, perfect for physical relief and evening relaxation.", 
+                imgBulk: "images/nl-bulk.jpg", imgClose: "images/nl-close.jpg", 
+                tiers: { "1g Flat Rate": 20 } 
+            },
+            { 
+                name: "Durban Poison", type: "sativa", flare: "medical", potency: 22, inStock: true, price: 20, 
+                desc: "Cultivated using Living Soil Organic methods. Bright, functional, and uplifting.", 
+                imgBulk: "images/dp-bulk.jpg", imgClose: "images/dp-close.jpg", 
+                tiers: { "1g Flat Rate": 20 } 
+            },
+            { 
+                name: "Tangelo", type: "sativa", flare: "mids", potency: 16, inStock: true, price: 250, 
+                desc: "Mids quality flower. Pungent mango/citrus aroma with an energetic focused buzz.", 
+                imgBulk: "images/tang-bulk.jpg", imgClose: "images/tang-close.jpg", 
+                tiers: { "28g": 250, "14g": 130, "7g": 70, "3.5g": 40 } 
+            }
         ];
 
         function calculatePerGram(label, price) {
@@ -90,24 +150,29 @@
                 <div class="strain-card" onclick="toggleCard(this)">
                     <div class="strain-header">
                         <div>
-                            <h3>${p.name}</h3>
+                            <h3 style="font-size: 1.1rem; margin-bottom: 4px;">${p.name}</h3>
                             <div class="badge-container">
+                                <span class="badge ${p.flare}">${p.flare}</span>
                                 <span class="badge ${p.type}">${p.type}</span>
+                                <span class="badge potency">${p.potency}% THC</span>
                                 <span class="badge ${p.inStock ? 'st-in' : 'st-out'}">${p.inStock ? 'In Stock' : 'Out of Stock'}</span>
                             </div>
                         </div>
-                        <span>▼</span>
+                        <span style="color: var(--text-dim); font-size: 0.8rem;">▼</span>
                     </div>
-                    <div class="strain-content"><div class="inner-content">
-                        <img src="${p.img}" class="prod-img" alt="${p.name}">
-                        <p style="color:var(--text-dim); margin-bottom:15px; font-size:0.85rem;">${p.desc}</p>
+                    <div class="strain-content"><div class="inner-content"><div class="inner-padding">
+                        <div class="img-grid">
+                            <img src="${p.imgBulk}" class="prod-img" alt="Bulk view" onerror="this.src='https://via.placeholder.com/300?text=Bulk+Photo'">
+                            <img src="${p.imgClose}" class="prod-img" alt="Close up" onerror="this.src='https://via.placeholder.com/300?text=Close+Up'">
+                        </div>
+                        <p style="color:var(--text-dim); margin-bottom:15px; font-size:0.85rem; line-height:1.4;">${p.desc}</p>
                         ${Object.entries(p.tiers).map(([qty, val]) => `
                             <div class="price-row">
-                                <span>${qty}</span>
+                                <span style="font-size:0.9rem; font-weight:600;">${qty}</span>
                                 <div><strong>$${val}</strong><span class="price-per-g">${calculatePerGram(qty, val)}</span></div>
                             </div>
                         `).join('')}
-                    </div></div>
+                    </div></div></div>
                 </div>
             `).join('');
         }
