@@ -87,7 +87,7 @@
     <script>
         const products = [
             { 
-                name: "Medical Mix" #ffd2d9, type: "mix", flare: "special", potency: 22, inStock: true, price: 240, 
+                name: "Medical Mix" , nameColor: "#ffd2d9", type: "mix", flare: "special", potency: 22, inStock: true, price: 240, 
                 desc: "14g Medical Deal | 7g Durban Poison 22% Sativa + 7g Northern Lights 22% Indica.", 
                 imgBulk: "images/dp-close.jpg", imgClose: "images/nl-close.jpg", 
                 tiers: { "14g Mixed Deal": 240 } 
@@ -158,7 +158,7 @@
                 <div class="strain-card" onclick="toggleCard(this)">
                     <div class="strain-header">
                         <div>
-                            <h3 style="font-size: 1.1rem; margin-bottom: 4px;">${p.name}</h3>
+                            <h3 style="font-size: 1.1rem; margin-bottom: 4px; color: ${p.nameColor || 'var(--text-main)'};">${p.name}</h3>
                             <div class="badge-container">
                                 <span class="badge ${p.flare}">${p.flare}</span>
                                 <span class="badge ${p.type}">${p.type}</span>
