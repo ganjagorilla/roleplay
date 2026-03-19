@@ -12,6 +12,7 @@
             --text-main: #f8fafc; --text-dim: #94a3b8;
             --sativa: #fbbf24; --hybrid: #a78bfa; --indica: #60a5fa; --oos: #f87171; --stock: #4ade80;
             --medical: #10b981; --exotic: #ec4899; --mids: #94a3b8; --special: #e22a34; --mix: #ffd2d9;
+            --edible: #ef83be; 
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
@@ -58,6 +59,7 @@
         .medical { color: var(--medical); }
         .exotic { color: var(--exotic); }
         .mids { color: var(--mids); }
+        .edible { color: var(--edible); }
         .mix { color: var(--mix); }
         .special { color: var(--special); }
         .st-in { color: var(--stock); }
@@ -103,10 +105,24 @@
         const products = [
             { 
                 category: "Special Deals!",
-                name: "Medical Mix" , nameColor: "#e22a34", type: "mix", flare: "special", potency: 22, inStock: false, price: 240, 
-                desc: "14g Medical Deal | 7g Durban Poison 22% Sativa + 7g Northern Lights 22% Indica.", 
+                name: "Edible Special" , nameColor: "#7B3F00", type: "edible", flare: "special", potency: 300, inStock: false, price: 35, 
+                desc: "Add a 250-300mg thc, 70mg cbd, 12 piece chocolate bars to your order for $35/bar!", 
+                imgBulk: "images/temp-1.jpg", imgClose: "images/temp-1.jpg", 
+                tiers: { "250-300mg thc, 70mg cbd, 12 piece chocolate bar": 35 } 
+            },
+            { 
+                category: "Special Deals!",
+                name: "Medical Mix" , nameColor: "#9BFF82", type: "mix", flare: "special", potency: 22, inStock: false, price: 240, 
+                desc: "14g Medical Mix | 7g Durban Poison 22% Sativa + 7g Northern Lights 22% Indica.", 
                 imgBulk: "images/dp-close.jpg", imgClose: "images/nl-close.jpg", 
-                tiers: { "14g Mixed Deal": 240 } 
+                tiers: { "14g Medical Mix": 240 } 
+            },
+            { 
+                category: "Special Deals!",
+                name: "Street Mix" , nameColor: "#61DAFF", type: "mix", flare: "special", potency: 26, inStock: false, price: 230, 
+                desc: "21g Street Deal | 7g Skittles 26% Hybrid (Exotics) + 14g Tangelo 16-18% Sativa (Mids).", 
+                imgBulk: "images/temp-1.jpg", imgClose: "images/tang-close.jpg", 
+                tiers: { "14g Street Deal": 230 } 
             },
             { 
                 category: "Street Buds/Flower",
