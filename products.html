@@ -3,56 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products | Inventory</title> 
+    <title>Products | Inventory</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #050608; --surface: #12141c; --glass: rgba(255, 255, 255, 0.03);
-            --glass-hover: rgba(255, 255, 255, 0.07); --accent: #3b82f6; --border: rgba(255, 255, 255, 0.1);
-            --text-main: #f8fafc; --text-dim: #94a3b8;
-            --sativa: #fbbf24; --hybrid: #a78bfa; --indica: #60a5fa; --oos: #f87171; --stock: #4ade80;
-            --medical: #10b981; --exotic: #ec4899; --mids: #94a3b8; --special: #e22a34; --mix: #ffd2d9;
-            --edible: #ef83be; 
+            --bg: #050608;
+            --surface: #12141c;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-hover: rgba(255, 255, 255, 0.07);
+            --accent: #3b82f6;
+            --border: rgba(255, 255, 255, 0.1);
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+
+            --sativa: #fbbf24;
+            --hybrid: #a78bfa;
+            --indica: #60a5fa;
+            --oos: #f87171;
+            --stock: #4ade80;
+
+            --medical: #10b981;
+            --exotic: #ec4899;
+            --mids: #94a3b8;
+            --special: #e22a34;
+            --mix: #ffd2d9;
+            --edible: #ef83be;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        
-        body { 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
             background: radial-gradient(circle at top center, #111827 0%, #050608 100%);
-            color: var(--text-main); display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px; 
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
         }
 
-        #main-site { width: 100%; max-width: 680px; animation: fadeIn 0.8s ease-out; }
-        .back-nav { width: 100%; max-width: 680px; margin-bottom: 20px; }
-        .back-link { text-decoration: none; color: var(--accent); font-weight: 600; font-size: 0.9rem; }
-
-        h1 { font-weight: 800; font-size: 1.5rem; margin-bottom: 25px; background: linear-gradient(to right, #fff, #64748b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        h2.status-update { font-weight: 600; font-size: 1rem; margin-bottom: 10px; color: #f87171; opacity: 0.9; }
-
-        .category-header { 
-            font-size: 1.2rem; margin: 30px 0 15px 5px; color: var(--text-main); 
-            border-left: 3px solid var(--accent); padding-left: 10px;
+        #main-site {
+            width: 100%;
+            max-width: 680px;
+            animation: fadeIn 0.8s ease-out;
         }
 
-        .controls { 
-            display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 25px; position: sticky; top: 10px; z-index: 100;
-            background: rgba(18, 20, 28, 0.95); padding: 15px; backdrop-filter: blur(15px); border-radius: 14px; border: 1px solid var(--border);
+        .back-nav {
+            width: 100%;
+            max-width: 680px;
+            margin-bottom: 20px;
         }
 
-        .search-input { 
-            flex: 1 1 200px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); 
-            padding: 10px 15px; color: white; outline: none; border-radius: 8px; transition: all 0.3s ease;
+        .back-link {
+            text-decoration: none;
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.9rem;
         }
-        .search-input:focus { border-color: var(--accent); background: rgba(59, 130, 246, 0.1); box-shadow: 0 0 15px rgba(59, 130, 246, 0.2); }
 
-        .sort-select { background: var(--bg); color: var(--text-main); border: 1px solid var(--border); border-radius: 10px; padding: 8px; font-size: 0.8rem; outline: none; cursor: pointer; }
+        h1 {
+            font-weight: 800;
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            background: linear-gradient(to right, #fff, #64748b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-        .strain-card { background: var(--glass); border: 1px solid var(--border); border-radius: 18px; margin-bottom: 12px; overflow: hidden; transition: 0.3s; cursor: pointer; }
-        .strain-card:hover { border-color: rgba(255, 255, 255, 0.15); background: var(--glass-hover); }
-        .strain-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; }
-        
-        .badge-container { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
-        .badge { font-size: 0.6rem; font-weight: 800; padding: 3px 8px; border-radius: 5px; text-transform: uppercase; border: 1px solid currentColor; background: rgba(255,255,255,0.03); }
+        h2.status-update {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: #f87171;
+            opacity: 0.9;
+        }
+
+        .category-header {
+            font-size: 1.2rem;
+            margin: 30px 0 15px 5px;
+            color: var(--text-main);
+            border-left: 3px solid var(--accent);
+            padding-left: 10px;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+            background: rgba(18, 20, 28, 0.95);
+            padding: 15px;
+            backdrop-filter: blur(15px);
+            border-radius: 14px;
+            border: 1px solid var(--border);
+        }
+
+        .search-input {
+            flex: 1 1 200px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            padding: 10px 15px;
+            color: white;
+            outline: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent);
+            background: rgba(59, 130, 246, 0.1);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+        }
+
+        .sort-select {
+            background: var(--bg);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 8px;
+            font-size: 0.8rem;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .strain-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .strain-card:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            background: var(--glass-hover);
+        }
+
+        .strain-header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .badge-container {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .badge {
+            font-size: 0.6rem;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 5px;
+            text-transform: uppercase;
+            border: 1px solid currentColor;
+            background: rgba(255,255,255,0.03);
+        }
+
         .sativa { color: var(--sativa); }
         .indica { color: var(--indica); }
         .hybrid { color: var(--hybrid); }
@@ -67,113 +188,277 @@
         .potency { color: var(--text-dim); border-color: var(--border); }
         .mg { color: var(--text-dim); border-color: var(--border); }
 
-        .img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-        .prod-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 12px; border: 1px solid var(--border); }
+        .chevron {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            transition: transform 0.25s ease;
+            flex-shrink: 0;
+        }
 
-        .strain-content { display: grid; grid-template-rows: 0fr; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); background: rgba(0, 0, 0, 0.2); }
-        .active .strain-content { grid-template-rows: 1fr; border-top: 1px solid var(--border); }
-        .inner-content { overflow: hidden; }
-        .inner-padding { padding: 20px; }
+        .strain-card.active .chevron {
+            transform: rotate(180deg);
+        }
 
-        .price-row { display: flex; justify-content: space-between; padding: 12px; background: rgba(255,255,255,0.02); border-radius: 10px; border: 1px solid var(--border); margin-bottom: 8px; }
-        .price-per-g { color: var(--accent); font-size: 0.7rem; margin-left: 10px; opacity: 0.8; }
+        .img-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
 
-        .no-results { text-align: center; padding: 40px; color: var(--text-dim); font-style: italic; }
+        .prod-img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .strain-content {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .active .strain-content {
+            grid-template-rows: 1fr;
+            border-top: 1px solid var(--border);
+        }
+
+        .inner-content {
+            overflow: hidden;
+        }
+
+        .inner-padding {
+            padding: 20px;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            margin-bottom: 8px;
+        }
+
+        .price-per-g {
+            color: var(--accent);
+            font-size: 0.7rem;
+            margin-left: 10px;
+            opacity: 0.8;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-dim);
+            font-style: italic;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
     <div class="back-nav"><a href="index.html" class="back-link">← Home</a></div>
+
     <div id="main-site">
         <h1>Available Products</h1>
         <h2 class="status-update">Mids and Exotics in Stock Sunday/Monday</h2>
         <h2 class="status-update">Medical in Stock Next Month</h2>
 
         <div class="controls">
-            <input type="text" id="searchInput" class="search-input" placeholder="Search name, type or category..." oninput="renderList()">
+            <input
+                type="text"
+                id="searchInput"
+                class="search-input"
+                placeholder="Search name, type or category..."
+                oninput="renderList()"
+            >
             <select id="sortSelect" class="sort-select" onchange="renderList()">
                 <option value="default">Category View</option>
                 <option value="p-low">Price: Low</option>
                 <option value="p-high">Price: High</option>
-                <option value="thc-high">THC: High</option>
+                <option value="thc-high">Strength: High</option>
             </select>
         </div>
+
         <div id="inventory"></div>
     </div>
 
     <script>
         const products = [
-            { 
+            {
                 category: "Special Deals!",
-                name: "Edible Special" , nameColor: "#7B3F00", type: "edible", flare: "special", mg: 300, inStock: false, price: 35, 
-                desc: "Add a 250-300mg thc, 70mg cbd, 12 piece chocolate bars to your order for $35/bar!", 
-                imgBulk: "images/temp-1.jpg", imgClose: "images/temp-1.jpg", 
-                tiers: { "250-300mg thc, 70mg cbd, 12 piece chocolate bar": 35 } 
+                name: "Edible Special",
+                nameColor: "#7B3F00",
+                type: "edible",
+                flare: "special",
+                thcMg: 300,
+                cbdMg: 70,
+                pieces: 12,
+                inStock: false,
+                price: 35,
+                desc: "Add a 250-300mg THC, 70mg CBD, 12 piece chocolate bar to your order for $35/bar!",
+                imgBulk: "images/temp-1.jpg",
+                imgClose: "images/temp-1.jpg",
+                tiers: {
+                    "250-300mg THC, 70mg CBD, 12 piece chocolate bar": 35
+                }
             },
-            { 
+            {
                 category: "Special Deals!",
-                name: "Medical Mix" , nameColor: "#9BFF82", type: "mix", flare: "special", potency: 22, inStock: false, price: 240, 
-                desc: "14g Medical Mix | 7g Durban Poison 22% Sativa + 7g Northern Lights 22% Indica.", 
-                imgBulk: "images/dp-close.jpg", imgClose: "images/nl-close.jpg", 
-                tiers: { "14g Medical Mix": 240 } 
+                name: "Medical Mix",
+                nameColor: "#9BFF82",
+                type: "mix",
+                flare: "special",
+                potency: 22,
+                inStock: false,
+                price: 240,
+                desc: "14g Medical Mix | 7g Durban Poison 22% Sativa + 7g Northern Lights 22% Indica.",
+                imgBulk: "images/dp-close.jpg",
+                imgClose: "images/nl-close.jpg",
+                tiers: { "14g Medical Mix": 240 }
             },
-            { 
+            {
                 category: "Special Deals!",
-                name: "Street Mix" , nameColor: "#61DAFF", type: "mix", flare: "special", potency: 26, inStock: false, price: 230, 
-                desc: "21g Street Deal | 7g Skittles 26% Hybrid (Exotics) + 14g Tangelo 16-18% Sativa (Mids).", 
-                imgBulk: "images/temp-1.jpg", imgClose: "images/tang-close.jpg", 
-                tiers: { "14g Street Deal": 230 } 
+                name: "Street Mix",
+                nameColor: "#61DAFF",
+                type: "mix",
+                flare: "special",
+                potency: 26,
+                inStock: false,
+                price: 230,
+                desc: "21g Street Deal | 7g Skittles 26% Hybrid (Exotics) + 14g Tangelo 16-18% Sativa (Mids).",
+                imgBulk: "images/temp-1.jpg",
+                imgClose: "images/tang-close.jpg",
+                tiers: { "21g Street Deal": 230 }
             },
-            { 
+            {
                 category: "Street Buds/Flower",
-                name: "Skittles", type: "hybrid", flare: "exotic", potency: 26, inStock: false, price: 400, 
-                desc: "Exotic Grade. Sweet tropical profile. Deeply relaxing yet mentally clear.", 
-                imgBulk: "images/temp-1.jpg", imgClose: "images/temp-1.jpg", 
-                tiers: { "28g": 400, "14g": 220, "7g": 120, "3.5g": 70 } 
+                name: "Skittles",
+                type: "hybrid",
+                flare: "exotic",
+                potency: 26,
+                inStock: false,
+                price: 400,
+                desc: "Exotic grade. Sweet tropical profile. Deeply relaxing yet mentally clear.",
+                imgBulk: "images/temp-1.jpg",
+                imgClose: "images/temp-1.jpg",
+                tiers: { "28g": 400, "14g": 220, "7g": 120, "3.5g": 70 }
             },
-            { 
+            {
                 category: "Street Buds/Flower",
-                name: "Tangelo", type: "sativa", flare: "mids", potency: 16, inStock: false, price: 250, 
-                desc: "Mids quality flower. Pungent mango/citrus aroma with an energetic focused sativa buzz.", 
-                imgBulk: "images/tang-bulk.jpg", imgClose: "images/tang-close.jpg", 
-                tiers: { "28g": 250, "14g": 130, "7g": 70, "3.5g": 40 } 
+                name: "Tangelo",
+                type: "sativa",
+                flare: "mids",
+                potency: 16,
+                inStock: false,
+                price: 250,
+                desc: "Mids quality flower. Pungent mango/citrus aroma with an energetic focused sativa buzz.",
+                imgBulk: "images/tang-bulk.jpg",
+                imgClose: "images/tang-close.jpg",
+                tiers: { "28g": 250, "14g": 130, "7g": 70, "3.5g": 40 }
             },
-            { 
+            {
                 category: "Medical Products",
-                name: "Northern Lights", type: "indica", flare: "medical", potency: 22, inStock: false, price: 18.50, 
-                desc: "LSO Grown. Northern Lights is the gold standard for relaxation. World-renowned Indica.", 
-                imgBulk: "images/nl-bulk.jpg", imgClose: "images/nl-close.jpg", 
-                tiers: { "1g Flat Rate": 18.50 } 
+                name: "Northern Lights",
+                type: "indica",
+                flare: "medical",
+                potency: 22,
+                inStock: false,
+                price: 18.50,
+                desc: "LSO grown. Northern Lights is the gold standard for relaxation. World-renowned indica.",
+                imgBulk: "images/nl-bulk.jpg",
+                imgClose: "images/nl-close.jpg",
+                tiers: { "1g Flat Rate": 18.50 }
             },
-            { 
+            {
                 category: "Medical Products",
-                name: "Durban Poison", type: "sativa", flare: "medical", potency: 22, inStock: false, price: 18.50, 
-                desc: "Living Soil Organic (LSO). Functional and uplifting sativa lineage.", 
-                imgBulk: "images/dp-bulk.jpg", imgClose: "images/dp-close.jpg", 
-                tiers: { "1g Flat Rate": 18.50 } 
+                name: "Durban Poison",
+                type: "sativa",
+                flare: "medical",
+                potency: 22,
+                inStock: false,
+                price: 18.50,
+                desc: "Living Soil Organic (LSO). Functional and uplifting sativa lineage.",
+                imgBulk: "images/dp-bulk.jpg",
+                imgClose: "images/dp-close.jpg",
+                tiers: { "1g Flat Rate": 18.50 }
             },
-            { 
+            {
                 category: "Medical Products",
-                name: "Harbour LR Day 2g Cart", type: "sativa", flare: "medical", potency: 80, inStock: false, price: 250, 
-                desc: "Aura Therapeutics | Watermelon Skittlez. 2g Liquid Live Resin.", 
-                imgBulk: "images/temp-1.jpg", imgClose: "images/temp-1.jpg", 
-                tiers: { "2g Unit": 250 } 
+                name: "Harbour LR Day 2g Cart",
+                type: "sativa",
+                flare: "medical",
+                potency: 80,
+                inStock: false,
+                price: 250,
+                desc: "Aura Therapeutics | Watermelon Skittlez. 2g Liquid Live Resin.",
+                imgBulk: "images/temp-1.jpg",
+                imgClose: "images/temp-1.jpg",
+                tiers: { "2g Unit": 250 }
             },
-            { 
+            {
                 category: "Medical Products",
-                name: "Harbour LR Night 2g Cart", type: "indica", flare: "medical", potency: 80, inStock: false, price: 250, 
-                desc: "Aura Therapeutics | Grandaddy Bruce. 2g Liquid Live Resin.", 
-                imgBulk: "images/temp-1.jpg", imgClose: "images/temp-1.jpg", 
-                tiers: { "2g Unit": 250 } 
+                name: "Harbour LR Night 2g Cart",
+                type: "indica",
+                flare: "medical",
+                potency: 80,
+                inStock: false,
+                price: 250,
+                desc: "Aura Therapeutics | Grandaddy Bruce. 2g Liquid Live Resin.",
+                imgBulk: "images/temp-1.jpg",
+                imgClose: "images/temp-1.jpg",
+                tiers: { "2g Unit": 250 }
             }
         ];
 
         function calculatePerGram(label, price) {
+            const lowerLabel = label.toLowerCase();
+
+            if (lowerLabel.includes("piece") || lowerLabel.includes("bar") || lowerLabel.includes("unit") || lowerLabel.includes("cart")) {
+                return "";
+            }
+
             const weightMatch = label.match(/[\d.]+/);
             if (!weightMatch) return "";
+
             const weight = parseFloat(weightMatch[0]);
+            if (!weight || weight <= 0) return "";
+
             return `$${(price / weight).toFixed(2)}/g`;
+        }
+
+        function getStrengthValue(product) {
+            if (typeof product.potency === "number") return product.potency;
+            if (typeof product.thcMg === "number") return product.thcMg;
+            return 0;
+        }
+
+        function getStrengthBadge(product) {
+            if (product.type === "edible") {
+                const thcText = typeof product.thcMg === "number" ? `${product.thcMg}mg THC` : null;
+                const cbdText = typeof product.cbdMg === "number" ? `${product.cbdMg}mg CBD` : null;
+
+                return [thcText, cbdText]
+                    .filter(Boolean)
+                    .map(text => `<span class="badge mg">${text}</span>`)
+                    .join('');
+            }
+
+            if (typeof product.potency === "number") {
+                return `<span class="badge potency">${product.potency}% THC</span>`;
+            }
+
+            return '';
         }
 
         function toggleCard(card) {
@@ -186,16 +471,29 @@
             const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
             const sortBy = document.getElementById('sortSelect').value;
             const container = document.getElementById('inventory');
-            
-            let filtered = products.filter(p => 
-                p.name.toLowerCase().includes(searchTerm) || 
-                p.category.toLowerCase().includes(searchTerm) ||
-                p.type.toLowerCase().includes(searchTerm)
-            );
 
-            if (sortBy === 'p-low') filtered.sort((a, b) => a.price - b.price);
-            else if (sortBy === 'p-high') filtered.sort((a, b) => b.price - a.price);
-            else if (sortBy === 'thc-high') filtered.sort((a, b) => b.potency - a.potency);
+            let filtered = products.filter(p => {
+                const haystack = [
+                    p.name,
+                    p.category,
+                    p.type,
+                    p.flare,
+                    p.desc
+                ]
+                .filter(Boolean)
+                .join(' ')
+                .toLowerCase();
+
+                return haystack.includes(searchTerm);
+            });
+
+            if (sortBy === 'p-low') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (sortBy === 'p-high') {
+                filtered.sort((a, b) => b.price - a.price);
+            } else if (sortBy === 'thc-high') {
+                filtered.sort((a, b) => getStrengthValue(b) - getStrengthValue(a));
+            }
 
             if (filtered.length === 0) {
                 container.innerHTML = `<div class="no-results">No matches found for "${searchTerm}"...</div>`;
@@ -205,43 +503,72 @@
             let html = '';
             let lastCategory = '';
 
-            filtered.forEach(p => {
-                if (sortBy === 'default' && p.category !== lastCategory && searchTerm === '') {
+            filtered.forEach((p, index) => {
+                const shouldShowCategory =
+                    sortBy === 'default' &&
+                    p.category !== lastCategory;
+
+                if (shouldShowCategory) {
                     html += `<h2 class="category-header">${p.category}</h2>`;
                     lastCategory = p.category;
                 }
 
                 html += `
-                <div class="strain-card" onclick="toggleCard(this)" style="animation: fadeIn 0.4s ease forwards;">
-                    <div class="strain-header">
-                        <div>
-                            <h3 style="font-size: 1.1rem; margin-bottom: 4px; color: ${p.nameColor || 'var(--text-main)'};">${p.name}</h3>
-                            <div class="badge-container">
-                                <span class="badge ${p.flare}">${p.flare}</span>
-                                <span class="badge ${p.type}">${p.type}</span>
-                                <span class="badge potency">${p.potency}% THC</span>
-                                <span class="badge ${p.inStock ? 'st-in' : 'st-out'}">${p.inStock ? 'In Stock' : 'Out of Stock'}</span>
+                    <div class="strain-card" onclick="toggleCard(this)" style="animation: fadeIn 0.4s ease forwards; animation-delay: ${index * 0.03}s;">
+                        <div class="strain-header">
+                            <div>
+                                <h3 style="font-size: 1.1rem; margin-bottom: 4px; color: ${p.nameColor || 'var(--text-main)'};">${p.name}</h3>
+                                <div class="badge-container">
+                                    <span class="badge ${p.flare}">${p.flare}</span>
+                                    <span class="badge ${p.type}">${p.type}</span>
+                                    ${getStrengthBadge(p)}
+                                    <span class="badge ${p.inStock ? 'st-in' : 'st-out'}">${p.inStock ? 'In Stock' : 'Out of Stock'}</span>
+                                </div>
+                            </div>
+                            <span class="chevron">▼</span>
+                        </div>
+
+                        <div class="strain-content">
+                            <div class="inner-content">
+                                <div class="inner-padding">
+                                    <div class="img-grid">
+                                        <img
+                                            src="${p.imgBulk}"
+                                            class="prod-img"
+                                            alt="${p.name} bulk view"
+                                            onerror="this.src='https://via.placeholder.com/300?text=Image+Coming+Soon'"
+                                        >
+                                        <img
+                                            src="${p.imgClose}"
+                                            class="prod-img"
+                                            alt="${p.name} close view"
+                                            onerror="this.src='https://via.placeholder.com/300?text=Detail+Coming+Soon'"
+                                        >
+                                    </div>
+
+                                    <p style="color:var(--text-dim); margin-bottom:15px; font-size:0.85rem; line-height:1.4;">
+                                        ${p.desc}
+                                    </p>
+
+                                    ${Object.entries(p.tiers).map(([qty, val]) => `
+                                        <div class="price-row">
+                                            <span style="font-size:0.9rem; font-weight:600;">${qty}</span>
+                                            <div>
+                                                <strong>$${val}</strong>
+                                                <span class="price-per-g">${calculatePerGram(qty, val)}</span>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
                             </div>
                         </div>
-                        <span style="color: var(--text-dim); font-size: 0.8rem;">▼</span>
                     </div>
-                    <div class="strain-content"><div class="inner-content"><div class="inner-padding">
-                        <div class="img-grid">
-                            <img src="${p.imgBulk}" class="prod-img" alt="Bulk view" onerror="this.src='https://via.placeholder.com/300?text=Image+Coming+Soon'">
-                            <img src="${p.imgClose}" class="prod-img" alt="Close up" onerror="this.src='https://via.placeholder.com/300?text=Detail+Coming+Soon'">
-                        </div>
-                        <p style="color:var(--text-dim); margin-bottom:15px; font-size:0.85rem; line-height:1.4;">${p.desc}</p>
-                        ${Object.entries(p.tiers).map(([qty, val]) => `
-                            <div class="price-row">
-                                <span style="font-size:0.9rem; font-weight:600;">${qty}</span>
-                                <div><strong>$${val}</strong><span class="price-per-g">${calculatePerGram(qty, val)}</span></div>
-                            </div>
-                        `).join('')}
-                    </div></div></div>
-                </div>`;
+                `;
             });
+
             container.innerHTML = html;
         }
+
         renderList();
     </script>
 </body>
