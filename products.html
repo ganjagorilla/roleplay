@@ -26,9 +26,8 @@
         .back-link { text-decoration: none; color: var(--accent); font-weight: 600; font-size: 0.9rem; }
 
         h1 { font-weight: 800; font-size: 1.5rem; margin-bottom: 25px; background: linear-gradient(to right, #fff, #64748b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        h2 { font-weight: 600; font-size: 1rem; margin-bottom: 10px; background: linear-gradient(to right, #990100, #FEEBE7, #990100); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        h2.status-update { font-weight: 600; font-size: 1rem; margin-bottom: 10px; color: #f87171; opacity: 0.9; }
 
-        /* Style for the category headers appearing in the list */
         .category-header { 
             font-size: 1.2rem; margin: 30px 0 15px 5px; color: var(--text-main); 
             border-left: 3px solid var(--accent); padding-left: 10px;
@@ -36,14 +35,19 @@
 
         .controls { 
             display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 25px; position: sticky; top: 10px; z-index: 100;
-            background: rgba(18, 20, 28, 0.95); padding: 10px; backdrop-filter: blur(15px); border-radius: 14px; border: 1px solid var(--border);
+            background: rgba(18, 20, 28, 0.95); padding: 15px; backdrop-filter: blur(15px); border-radius: 14px; border: 1px solid var(--border);
         }
 
-        .search-input { flex: 1 1 200px; background: transparent; border: none; padding: 8px 12px; color: white; outline: none; }
+        .search-input { 
+            flex: 1 1 200px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); 
+            padding: 10px 15px; color: white; outline: none; border-radius: 8px; transition: all 0.3s ease;
+        }
+        .search-input:focus { border-color: var(--accent); background: rgba(59, 130, 246, 0.1); box-shadow: 0 0 15px rgba(59, 130, 246, 0.2); }
+
         .sort-select { background: var(--bg); color: var(--text-main); border: 1px solid var(--border); border-radius: 10px; padding: 8px; font-size: 0.8rem; outline: none; cursor: pointer; }
 
         .strain-card { background: var(--glass); border: 1px solid var(--border); border-radius: 18px; margin-bottom: 12px; overflow: hidden; transition: 0.3s; cursor: pointer; }
-        .strain-card:hover { border-color: rgba(255, 255, 255, 0.15); }
+        .strain-card:hover { border-color: rgba(255, 255, 255, 0.15); background: var(--glass-hover); }
         .strain-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; }
         
         .badge-container { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
@@ -71,18 +75,20 @@
         .price-row { display: flex; justify-content: space-between; padding: 12px; background: rgba(255,255,255,0.02); border-radius: 10px; border: 1px solid var(--border); margin-bottom: 8px; }
         .price-per-g { color: var(--accent); font-size: 0.7rem; margin-left: 10px; opacity: 0.8; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
+        .no-results { text-align: center; padding: 40px; color: var(--text-dim); font-style: italic; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
     <div class="back-nav"><a href="index.html" class="back-link">← Home</a></div>
     <div id="main-site">
         <h1>Available Products</h1>
-        <h2>Mids and Exotics in Stock Sunday/Monday</h2>
-        <h2>Medical in Stock Next Month</h2>
+        <h2 class="status-update">Mids and Exotics in Stock Sunday/Monday</h2>
+        <h2 class="status-update">Medical in Stock Next Month</h2>
 
         <div class="controls">
-            <input type="text" id="searchInput" class="search-input" placeholder="Search by name..." oninput="renderList()">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search name, type or category..." oninput="renderList()">
             <select id="sortSelect" class="sort-select" onchange="renderList()">
                 <option value="default">Category View</option>
                 <option value="p-low">Price: Low</option>
@@ -97,7 +103,7 @@
         const products = [
             { 
                 category: "Special Deals!",
-                name: "Medical Mix" , nameColor: "#990100", type: "mix", flare: "special", potency: 22, inStock: false, price: 240, 
+                name: "Medical Mix" , nameColor: "#e22a34", type: "mix", flare: "special", potency: 22, inStock: false, price: 240, 
                 desc: "14g Medical Deal | 7g Durban Poison 22% Sativa + 7g Northern Lights 22% Indica.", 
                 imgBulk: "images/dp-close.jpg", imgClose: "images/nl-close.jpg", 
                 tiers: { "14g Mixed Deal": 240 } 
@@ -114,19 +120,19 @@
                 name: "Tangelo", type: "sativa", flare: "mids", potency: 16, inStock: false, price: 250, 
                 desc: "Mids quality flower. Pungent mango/citrus aroma with an energetic focused sativa buzz.", 
                 imgBulk: "images/tang-bulk.jpg", imgClose: "images/tang-close.jpg", 
-                tiers: { "last 35g": 300, "28g": 250, "14g": 130, "7g": 70, "3.5g": 40 } 
+                tiers: { "28g": 250, "14g": 130, "7g": 70, "3.5g": 40 } 
             },
             { 
                 category: "Medical Products",
-                name: "Northern Lights", type: "indica", flare: "medical", potency: 22, inStock: false, price: 20, 
-                desc: "LSO Grown. Northern Lights is the gold standard for relaxation.", 
+                name: "Northern Lights", type: "indica", flare: "medical", potency: 22, inStock: false, price: 18.50, 
+                desc: "LSO Grown. Northern Lights is the gold standard for relaxation. World-renowned Indica.", 
                 imgBulk: "images/nl-bulk.jpg", imgClose: "images/nl-close.jpg", 
                 tiers: { "1g Flat Rate": 18.50 } 
             },
             { 
                 category: "Medical Products",
-                name: "Durban Poison", type: "sativa", flare: "medical", potency: 22, inStock: false, price: 20, 
-                desc: "Cultivated using Living Soil Organic (LSO) methods.", 
+                name: "Durban Poison", type: "sativa", flare: "medical", potency: 22, inStock: false, price: 18.50, 
+                desc: "Living Soil Organic (LSO). Functional and uplifting sativa lineage.", 
                 imgBulk: "images/dp-bulk.jpg", imgClose: "images/dp-close.jpg", 
                 tiers: { "1g Flat Rate": 18.50 } 
             },
@@ -160,29 +166,36 @@
         }
 
         function renderList() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
             const sortBy = document.getElementById('sortSelect').value;
             const container = document.getElementById('inventory');
             
-            let filtered = products.filter(p => p.name.toLowerCase().includes(searchTerm));
+            let filtered = products.filter(p => 
+                p.name.toLowerCase().includes(searchTerm) || 
+                p.category.toLowerCase().includes(searchTerm) ||
+                p.type.toLowerCase().includes(searchTerm)
+            );
 
             if (sortBy === 'p-low') filtered.sort((a, b) => a.price - b.price);
             else if (sortBy === 'p-high') filtered.sort((a, b) => b.price - a.price);
             else if (sortBy === 'thc-high') filtered.sort((a, b) => b.potency - a.potency);
-            // Default stays in category order as defined in the array
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="no-results">No matches found for "${searchTerm}"...</div>`;
+                return;
+            }
 
             let html = '';
             let lastCategory = '';
 
             filtered.forEach(p => {
-                // Add a header if we hit a new category (and we aren't searching)
                 if (sortBy === 'default' && p.category !== lastCategory && searchTerm === '') {
                     html += `<h2 class="category-header">${p.category}</h2>`;
                     lastCategory = p.category;
                 }
 
                 html += `
-                <div class="strain-card" onclick="toggleCard(this)">
+                <div class="strain-card" onclick="toggleCard(this)" style="animation: fadeIn 0.4s ease forwards;">
                     <div class="strain-header">
                         <div>
                             <h3 style="font-size: 1.1rem; margin-bottom: 4px; color: ${p.nameColor || 'var(--text-main)'};">${p.name}</h3>
@@ -197,8 +210,8 @@
                     </div>
                     <div class="strain-content"><div class="inner-content"><div class="inner-padding">
                         <div class="img-grid">
-                            <img src="${p.imgBulk}" class="prod-img" alt="Bulk view" onerror="this.src='https://via.placeholder.com/300?text=Bulk+Photo'">
-                            <img src="${p.imgClose}" class="prod-img" alt="Close up" onerror="this.src='https://via.placeholder.com/300?text=Close+Up'">
+                            <img src="${p.imgBulk}" class="prod-img" alt="Bulk view" onerror="this.src='https://via.placeholder.com/300?text=Image+Coming+Soon'">
+                            <img src="${p.imgClose}" class="prod-img" alt="Close up" onerror="this.src='https://via.placeholder.com/300?text=Detail+Coming+Soon'">
                         </div>
                         <p style="color:var(--text-dim); margin-bottom:15px; font-size:0.85rem; line-height:1.4;">${p.desc}</p>
                         ${Object.entries(p.tiers).map(([qty, val]) => `
