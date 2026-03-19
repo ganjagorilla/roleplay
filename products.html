@@ -1,33 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Products | Inventory</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #050608;
-            --surface: #12141c;
-            --glass: rgba(255, 255, 255, 0.03);
-            --glass-hover: rgba(255, 255, 255, 0.07);
-            --accent: #3b82f6;
-            --border: rgba(255, 255, 255, 0.1);
+            --bg-2: #0a0d14;
+            --surface: #0f131b;
+            --surface-2: #121826;
+            --card-top: rgba(255,255,255,0.05);
+            --card-bottom: rgba(255,255,255,0.02);
+            --accent: #60a5fa;
+            --accent-2: #3b82f6;
+            --accent-soft: rgba(96,165,250,0.14);
+            --border: rgba(255,255,255,0.08);
+            --border-strong: rgba(255,255,255,0.12);
             --text-main: #f8fafc;
             --text-dim: #94a3b8;
+            --text-soft: #cbd5e1;
 
             --sativa: #fbbf24;
             --hybrid: #a78bfa;
             --indica: #60a5fa;
-            --oos: #f87171;
-            --stock: #4ade80;
 
-            --medical: #10b981;
-            --exotic: #ec4899;
+            --medical: #34d399;
+            --exotic: #f472b6;
             --mids: #94a3b8;
-            --special: #e22a34;
-            --mix: #ffd2d9;
-            --edible: #ef83be;
+            --special: #fb7185;
+            --mix: #fbcfe8;
+            --edible: #f9a8d4;
+
+            --stock: #4ade80;
+            --oos: #f87171;
+
+            --shadow-lg: 0 18px 40px rgba(0,0,0,0.34);
+            --shadow-md: 0 10px 26px rgba(0,0,0,0.24);
+            --radius-xl: 24px;
+            --radius-lg: 18px;
+            --radius-md: 14px;
+            --radius-sm: 10px;
         }
 
         * {
@@ -37,116 +51,324 @@
             font-family: 'Inter', sans-serif;
         }
 
-        body {
-            background: radial-gradient(circle at top center, #111827 0%, #050608 100%);
-            color: var(--text-main);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
+        html {
+            scroll-behavior: smooth;
         }
 
-        #main-site {
+        body {
+            background:
+                radial-gradient(circle at top center, rgba(59,130,246,0.14) 0%, transparent 28%),
+                radial-gradient(circle at 18% 18%, rgba(168,85,247,0.10) 0%, transparent 24%),
+                radial-gradient(circle at 84% 8%, rgba(236,72,153,0.08) 0%, transparent 20%),
+                linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 100%);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 22px;
+            display: flex;
+            justify-content: center;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .page-wrap {
             width: 100%;
-            max-width: 680px;
-            animation: fadeIn 0.8s ease-out;
+            max-width: 760px;
+            animation: pageIn 0.7s ease;
         }
 
         .back-nav {
-            width: 100%;
-            max-width: 680px;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         .back-link {
             text-decoration: none;
             color: var(--accent);
-            font-weight: 600;
-            font-size: 0.9rem;
+            font-weight: 700;
+            font-size: 0.95rem;
+            opacity: 0.95;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-link:hover {
+            opacity: 1;
+            transform: translateX(-2px);
+        }
+
+        .hero {
+            position: relative;
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 24px;
+            background:
+                linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.02));
+            backdrop-filter: blur(14px);
+            box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255,255,255,0.04);
+            overflow: hidden;
+            margin-bottom: 18px;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            background:
+                radial-gradient(circle at top right, rgba(96,165,250,0.10), transparent 24%),
+                radial-gradient(circle at bottom left, rgba(244,114,182,0.08), transparent 24%);
+            pointer-events: none;
         }
 
         h1 {
-            font-weight: 800;
-            font-size: 1.5rem;
-            margin-bottom: 25px;
-            background: linear-gradient(to right, #fff, #64748b);
+            position: relative;
+            z-index: 1;
+            font-size: clamp(2rem, 4vw, 2.7rem);
+            line-height: 1;
+            letter-spacing: -0.05em;
+            margin-bottom: 10px;
+            font-weight: 900;
+            background: linear-gradient(to right, #ffffff 0%, #dbeafe 45%, #94a3b8 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        h2.status-update {
-            font-weight: 600;
-            font-size: 1rem;
-            margin-bottom: 10px;
-            color: #f87171;
-            opacity: 0.9;
+        .page-subtitle {
+            position: relative;
+            z-index: 1;
+            color: var(--text-dim);
+            font-size: 0.98rem;
+            line-height: 1.55;
+            max-width: 620px;
+            margin-bottom: 18px;
         }
 
-        .category-header {
-            font-size: 1.2rem;
-            margin: 30px 0 15px 5px;
+        .status-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .status-pill {
+            border: 1px solid rgba(248,113,113,0.18);
+            background: rgba(248,113,113,0.08);
+            color: #fda4af;
+            padding: 8px 12px;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 10px;
+            margin: 16px 0 20px;
+        }
+
+        .stat-card {
+            border: 1px solid var(--border);
+            background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+            border-radius: 18px;
+            padding: 14px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-label {
+            color: var(--text-dim);
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 6px;
+        }
+
+        .stat-value {
+            font-size: 1.15rem;
+            font-weight: 800;
             color: var(--text-main);
-            border-left: 3px solid var(--accent);
-            padding-left: 10px;
+        }
+
+        .controls-shell {
+            position: sticky;
+            top: 12px;
+            z-index: 20;
+            margin-bottom: 16px;
         }
 
         .controls {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            margin-bottom: 25px;
-            position: sticky;
-            top: 10px;
-            z-index: 100;
-            background: rgba(18, 20, 28, 0.95);
-            padding: 15px;
-            backdrop-filter: blur(15px);
-            border-radius: 14px;
+            background: rgba(10, 13, 20, 0.78);
             border: 1px solid var(--border);
+            box-shadow: var(--shadow-md);
+            backdrop-filter: blur(18px);
+            border-radius: 18px;
+            padding: 14px;
+        }
+
+        .search-wrap {
+            flex: 1 1 260px;
+            position: relative;
         }
 
         .search-input {
-            flex: 1 1 200px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border);
-            padding: 10px 15px;
+            width: 100%;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 12px 14px 12px 14px;
             color: white;
             outline: none;
-            border-radius: 8px;
-            transition: all 0.3s ease;
+            border-radius: 12px;
+            transition: 0.25s ease;
+            font-size: 0.94rem;
+        }
+
+        .search-input::placeholder {
+            color: #7c8aa0;
         }
 
         .search-input:focus {
-            border-color: var(--accent);
-            background: rgba(59, 130, 246, 0.1);
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+            border-color: rgba(96,165,250,0.55);
+            background: rgba(59,130,246,0.08);
+            box-shadow: 0 0 0 4px rgba(59,130,246,0.10);
         }
 
         .sort-select {
-            background: var(--bg);
+            background: rgba(255,255,255,0.04);
             color: var(--text-main);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 8px;
-            font-size: 0.8rem;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 12px 14px;
+            font-size: 0.9rem;
             outline: none;
             cursor: pointer;
+            min-width: 170px;
+        }
+
+        .chip-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .filter-chip {
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.035);
+            color: var(--text-soft);
+            border-radius: 999px;
+            padding: 8px 12px;
+            font-size: 0.76rem;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.22s ease;
+            user-select: none;
+        }
+
+        .filter-chip:hover {
+            border-color: rgba(96,165,250,0.22);
+            color: white;
+        }
+
+        .filter-chip.active {
+            color: white;
+            border-color: rgba(96,165,250,0.35);
+            background: linear-gradient(180deg, rgba(96,165,250,0.16), rgba(59,130,246,0.10));
+            box-shadow: 0 0 0 1px rgba(96,165,250,0.06), 0 10px 20px rgba(37,99,235,0.08);
+        }
+
+        .section-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin: 6px 2px 14px;
+            color: var(--text-dim);
+            font-size: 0.84rem;
+        }
+
+        .section-meta strong {
+            color: white;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            font-size: 0.95rem;
+            margin: 30px 0 14px 4px;
+            color: #dbeafe;
+            border-left: 3px solid var(--accent);
+            padding-left: 12px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-weight: 800;
+            opacity: 0.98;
+        }
+
+        .category-count {
+            color: var(--text-dim);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: none;
+            margin-left: auto;
+            padding-right: 6px;
         }
 
         .strain-card {
-            background: var(--glass);
+            background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
             border: 1px solid var(--border);
-            border-radius: 18px;
-            margin-bottom: 12px;
+            border-radius: 22px;
+            margin-bottom: 14px;
             overflow: hidden;
-            transition: 0.3s;
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
             cursor: pointer;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.04);
+            position: relative;
         }
 
         .strain-card:hover {
-            border-color: rgba(255, 255, 255, 0.15);
-            background: var(--glass-hover);
+            transform: translateY(-2px);
+            border-color: rgba(96,165,250,0.22);
+            background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.025));
+            box-shadow:
+                0 12px 28px rgba(0,0,0,0.30),
+                0 0 0 1px rgba(96,165,250,0.04),
+                0 0 24px rgba(59,130,246,0.07);
+        }
+
+        .strain-card.featured {
+            border-color: rgba(251,113,133,0.18);
+            box-shadow:
+                0 12px 28px rgba(0,0,0,0.26),
+                0 0 26px rgba(251,113,133,0.06);
+        }
+
+        .strain-card.featured::before {
+            content: "FEATURED";
+            position: absolute;
+            top: 12px;
+            right: 14px;
+            z-index: 2;
+            font-size: 0.62rem;
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            padding: 6px 8px;
+            border-radius: 999px;
+            color: #ffe4e6;
+            background: rgba(251,113,133,0.12);
+            border: 1px solid rgba(251,113,133,0.20);
         }
 
         .strain-header {
@@ -154,24 +376,44 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
+        }
+
+        .strain-main {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .strain-name {
+            font-size: 1.08rem;
+            margin-bottom: 4px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .strain-sub {
+            color: var(--text-dim);
+            font-size: 0.82rem;
+            line-height: 1.4;
+            margin-bottom: 10px;
         }
 
         .badge-container {
             display: flex;
-            gap: 6px;
+            gap: 7px;
             flex-wrap: wrap;
-            margin-top: 8px;
         }
 
         .badge {
-            font-size: 0.6rem;
+            font-size: 0.62rem;
             font-weight: 800;
-            padding: 3px 8px;
-            border-radius: 5px;
+            padding: 5px 9px;
+            border-radius: 999px;
             text-transform: uppercase;
+            letter-spacing: 0.04em;
             border: 1px solid currentColor;
-            background: rgba(255,255,255,0.03);
+            background: rgba(255,255,255,0.035);
+            backdrop-filter: blur(8px);
         }
 
         .sativa { color: var(--sativa); }
@@ -185,12 +427,31 @@
         .special { color: var(--special); }
         .st-in { color: var(--stock); }
         .st-out { color: var(--oos); }
-        .potency { color: var(--text-dim); border-color: var(--border); }
-        .mg { color: var(--text-dim); border-color: var(--border); }
+        .potency { color: var(--text-dim); border-color: var(--border-strong); }
+        .mg { color: var(--text-dim); border-color: var(--border-strong); }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .from-pill {
+            font-size: 0.79rem;
+            font-weight: 800;
+            color: #fff;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 8px 11px;
+            border-radius: 999px;
+            white-space: nowrap;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+        }
 
         .chevron {
             color: var(--text-dim);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             transition: transform 0.25s ease;
             flex-shrink: 0;
         }
@@ -199,29 +460,14 @@
             transform: rotate(180deg);
         }
 
-        .img-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .prod-img {
-            width: 100%;
-            aspect-ratio: 1/1;
-            object-fit: cover;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-        }
-
         .strain-content {
             display: grid;
             grid-template-rows: 0fr;
-            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            background: rgba(0, 0, 0, 0.2);
+            transition: grid-template-rows 0.38s ease, border-top 0.2s ease;
+            background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(0,0,0,0.12));
         }
 
-        .active .strain-content {
+        .strain-card.active .strain-content {
             grid-template-rows: 1fr;
             border-top: 1px solid var(--border);
         }
@@ -234,63 +480,237 @@
             padding: 20px;
         }
 
+        .img-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .prod-img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            background: rgba(255,255,255,0.02);
+        }
+
+        .prod-img:hover {
+            transform: scale(1.02);
+            border-color: rgba(255,255,255,0.14);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.24);
+        }
+
+        .desc {
+            color: var(--text-dim);
+            margin-bottom: 16px;
+            font-size: 0.9rem;
+            line-height: 1.55;
+        }
+
+        .meta-line {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .meta-pill {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--text-soft);
+            padding: 7px 10px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.035);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .price-list {
+            display: grid;
+            gap: 8px;
+        }
+
         .price-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 12px;
-            padding: 12px;
-            background: rgba(255,255,255,0.02);
-            border-radius: 10px;
-            border: 1px solid var(--border);
-            margin-bottom: 8px;
+            padding: 13px 14px;
+            background: rgba(255,255,255,0.025);
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.07);
+            transition: border-color 0.22s ease, transform 0.22s ease, background 0.22s ease;
+        }
+
+        .price-row:hover {
+            border-color: rgba(96,165,250,0.18);
+            background: rgba(255,255,255,0.04);
+            transform: translateY(-1px);
+        }
+
+        .price-left {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .price-right {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 8px;
+            text-align: right;
+        }
+
+        .price-main {
+            font-size: 1rem;
+            font-weight: 800;
+            color: white;
         }
 
         .price-per-g {
             color: var(--accent);
-            font-size: 0.7rem;
-            margin-left: 10px;
+            font-size: 0.73rem;
+            font-weight: 700;
+            opacity: 0.95;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 46px 18px;
+            color: var(--text-dim);
+            border: 1px dashed rgba(255,255,255,0.10);
+            border-radius: 20px;
+            background: rgba(255,255,255,0.02);
+        }
+
+        .empty-state h3 {
+            color: white;
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+        }
+
+        .footer-note {
+            color: var(--text-dim);
+            font-size: 0.76rem;
+            text-align: center;
+            margin-top: 18px;
             opacity: 0.8;
         }
 
-        .no-results {
-            text-align: center;
-            padding: 40px;
-            color: var(--text-dim);
-            font-style: italic;
+        @keyframes pageIn {
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        @media (max-width: 700px) {
+            body {
+                padding: 16px;
+            }
+
+            .stats-row {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .hero {
+                padding: 20px;
+                border-radius: 24px;
+            }
+
+            .controls {
+                padding: 12px;
+                border-radius: 16px;
+            }
+
+            .strain-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .header-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .img-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .price-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .price-right {
+                justify-content: flex-start;
+                text-align: left;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="back-nav"><a href="index.html" class="back-link">← Home</a></div>
+    <div class="page-wrap">
+        <div class="back-nav">
+            <a href="index.html" class="back-link">← Home</a>
+        </div>
 
-    <div id="main-site">
-        <h1>Available Products</h1>
-        <h2 class="status-update">Mids and Exotics in Stock Sunday/Monday</h2>
-        <h2 class="status-update">Medical in Stock Next Month</h2>
+        <section class="hero">
+            <h1>Available Products</h1>
+            <p class="page-subtitle">
+                Browse current products, deals and categories in a cleaner premium inventory layout with better filtering, smoother cards and improved product presentation.
+            </p>
 
-        <div class="controls">
-            <input
-                type="text"
-                id="searchInput"
-                class="search-input"
-                placeholder="Search name, type or category..."
-                oninput="renderList()"
-            >
-            <select id="sortSelect" class="sort-select" onchange="renderList()">
-                <option value="default">Category View</option>
-                <option value="p-low">Price: Low</option>
-                <option value="p-high">Price: High</option>
-                <option value="thc-high">Strength: High</option>
-            </select>
+            <div class="status-stack">
+                <div class="status-pill">Mids and Exotics in Stock Sunday/Monday</div>
+                <div class="status-pill">Medical in Stock Next Month</div>
+            </div>
+        </section>
+
+        <div class="stats-row" id="statsRow"></div>
+
+        <div class="controls-shell">
+            <div class="controls">
+                <div class="search-wrap">
+                    <input
+                        type="text"
+                        id="searchInput"
+                        class="search-input"
+                        placeholder="Search name, category, type, flair or description..."
+                    />
+                </div>
+
+                <select id="sortSelect" class="sort-select">
+                    <option value="default">Category View</option>
+                    <option value="p-low">Price: Low</option>
+                    <option value="p-high">Price: High</option>
+                    <option value="strength-high">Strength: High</option>
+                    <option value="name-az">Name: A–Z</option>
+                </select>
+
+                <div class="chip-row" id="chipRow">
+                    <button class="filter-chip active" data-filter="all">All</button>
+                    <button class="filter-chip" data-filter="flower">Flower</button>
+                    <button class="filter-chip" data-filter="medical">Medical</button>
+                    <button class="filter-chip" data-filter="edible">Edibles</button>
+                    <button class="filter-chip" data-filter="special">Specials</button>
+                    <button class="filter-chip" data-filter="instock">In Stock</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-meta">
+            <div><strong id="resultCount">0</strong> items shown</div>
+            <div id="activeFilterLabel">Viewing all products</div>
         </div>
 
         <div id="inventory"></div>
+
+        <div class="footer-note">
+            Premium inventory layout • Smooth single-file HTML/CSS/JS build
+        </div>
     </div>
 
     <script>
@@ -298,7 +718,7 @@
             {
                 category: "Special Deals!",
                 name: "Edible Special",
-                nameColor: "#7B3F00",
+                nameColor: "#f9a8d4",
                 type: "edible",
                 flare: "special",
                 thcMg: 300,
@@ -306,9 +726,10 @@
                 pieces: 12,
                 inStock: false,
                 price: 35,
-                desc: "Add a 250-300mg THC, 70mg CBD, 12 piece chocolate bar to your order for $35/bar!",
+                desc: "Add a 250-300mg THC, 70mg CBD, 12 piece chocolate bar to your order for $35 per bar.",
                 imgBulk: "images/temp-1.jpg",
                 imgClose: "images/temp-1.jpg",
+                featured: true,
                 tiers: {
                     "250-300mg THC, 70mg CBD, 12 piece chocolate bar": 35
                 }
@@ -325,7 +746,10 @@
                 desc: "14g Medical Mix | 7g Durban Poison 22% Sativa + 7g Northern Lights 22% Indica.",
                 imgBulk: "images/dp-close.jpg",
                 imgClose: "images/nl-close.jpg",
-                tiers: { "14g Medical Mix": 240 }
+                featured: true,
+                tiers: {
+                    "14g Medical Mix": 240
+                }
             },
             {
                 category: "Special Deals!",
@@ -339,7 +763,10 @@
                 desc: "21g Street Deal | 7g Skittles 26% Hybrid (Exotics) + 14g Tangelo 16-18% Sativa (Mids).",
                 imgBulk: "images/temp-1.jpg",
                 imgClose: "images/tang-close.jpg",
-                tiers: { "21g Street Deal": 230 }
+                featured: true,
+                tiers: {
+                    "21g Street Deal": 230
+                }
             },
             {
                 category: "Street Buds/Flower",
@@ -349,10 +776,15 @@
                 potency: 26,
                 inStock: false,
                 price: 400,
-                desc: "Exotic grade. Sweet tropical profile. Deeply relaxing yet mentally clear.",
+                desc: "Exotic grade. Sweet tropical profile with a deeper relaxing effect while still staying mentally clear.",
                 imgBulk: "images/temp-1.jpg",
                 imgClose: "images/temp-1.jpg",
-                tiers: { "28g": 400, "14g": 220, "7g": 120, "3.5g": 70 }
+                tiers: {
+                    "28g": 400,
+                    "14g": 220,
+                    "7g": 120,
+                    "3.5g": 70
+                }
             },
             {
                 category: "Street Buds/Flower",
@@ -362,10 +794,15 @@
                 potency: 16,
                 inStock: false,
                 price: 250,
-                desc: "Mids quality flower. Pungent mango/citrus aroma with an energetic focused sativa buzz.",
+                desc: "Mids quality flower with a pungent mango and citrus aroma backed by an energetic, focused sativa buzz.",
                 imgBulk: "images/tang-bulk.jpg",
                 imgClose: "images/tang-close.jpg",
-                tiers: { "28g": 250, "14g": 130, "7g": 70, "3.5g": 40 }
+                tiers: {
+                    "28g": 250,
+                    "14g": 130,
+                    "7g": 70,
+                    "3.5g": 40
+                }
             },
             {
                 category: "Medical Products",
@@ -374,11 +811,13 @@
                 flare: "medical",
                 potency: 22,
                 inStock: false,
-                price: 18.50,
-                desc: "LSO grown. Northern Lights is the gold standard for relaxation. World-renowned indica.",
+                price: 18.5,
+                desc: "LSO grown. Northern Lights is a classic heavy indica known for evening use and reliable body relaxation.",
                 imgBulk: "images/nl-bulk.jpg",
                 imgClose: "images/nl-close.jpg",
-                tiers: { "1g Flat Rate": 18.50 }
+                tiers: {
+                    "1g Flat Rate": 18.5
+                }
             },
             {
                 category: "Medical Products",
@@ -387,11 +826,13 @@
                 flare: "medical",
                 potency: 22,
                 inStock: false,
-                price: 18.50,
-                desc: "Living Soil Organic (LSO). Functional and uplifting sativa lineage.",
+                price: 18.5,
+                desc: "Living Soil Organic (LSO). Functional and uplifting sativa lineage with a cleaner daytime profile.",
                 imgBulk: "images/dp-bulk.jpg",
                 imgClose: "images/dp-close.jpg",
-                tiers: { "1g Flat Rate": 18.50 }
+                tiers: {
+                    "1g Flat Rate": 18.5
+                }
             },
             {
                 category: "Medical Products",
@@ -401,10 +842,12 @@
                 potency: 80,
                 inStock: false,
                 price: 250,
-                desc: "Aura Therapeutics | Watermelon Skittlez. 2g Liquid Live Resin.",
+                desc: "Aura Therapeutics | Watermelon Skittlez. 2g liquid live resin cart built around a brighter daytime profile.",
                 imgBulk: "images/temp-1.jpg",
                 imgClose: "images/temp-1.jpg",
-                tiers: { "2g Unit": 250 }
+                tiers: {
+                    "2g Unit": 250
+                }
             },
             {
                 category: "Medical Products",
@@ -414,17 +857,47 @@
                 potency: 80,
                 inStock: false,
                 price: 250,
-                desc: "Aura Therapeutics | Grandaddy Bruce. 2g Liquid Live Resin.",
+                desc: "Aura Therapeutics | Grandaddy Bruce. 2g liquid live resin cart tuned toward a heavier night profile.",
                 imgBulk: "images/temp-1.jpg",
                 imgClose: "images/temp-1.jpg",
-                tiers: { "2g Unit": 250 }
+                tiers: {
+                    "2g Unit": 250
+                }
             }
         ];
+
+        let currentFilter = "all";
+
+        const searchInput = document.getElementById("searchInput");
+        const sortSelect = document.getElementById("sortSelect");
+        const inventory = document.getElementById("inventory");
+        const resultCount = document.getElementById("resultCount");
+        const activeFilterLabel = document.getElementById("activeFilterLabel");
+        const statsRow = document.getElementById("statsRow");
+        const chipRow = document.getElementById("chipRow");
+
+        function escapeHtml(text) {
+            return String(text)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        function formatPrice(value) {
+            return Number.isInteger(value) ? `$${value}` : `$${value.toFixed(2)}`;
+        }
 
         function calculatePerGram(label, price) {
             const lowerLabel = label.toLowerCase();
 
-            if (lowerLabel.includes("piece") || lowerLabel.includes("bar") || lowerLabel.includes("unit") || lowerLabel.includes("cart")) {
+            if (
+                lowerLabel.includes("piece") ||
+                lowerLabel.includes("bar") ||
+                lowerLabel.includes("unit") ||
+                lowerLabel.includes("cart")
+            ) {
                 return "";
             }
 
@@ -445,87 +918,203 @@
 
         function getStrengthBadge(product) {
             if (product.type === "edible") {
-                const thcText = typeof product.thcMg === "number" ? `${product.thcMg}mg THC` : null;
-                const cbdText = typeof product.cbdMg === "number" ? `${product.cbdMg}mg CBD` : null;
+                const badges = [];
 
-                return [thcText, cbdText]
-                    .filter(Boolean)
-                    .map(text => `<span class="badge mg">${text}</span>`)
-                    .join('');
+                if (typeof product.thcMg === "number") {
+                    badges.push(`<span class="badge mg">${product.thcMg}mg THC</span>`);
+                }
+
+                if (typeof product.cbdMg === "number") {
+                    badges.push(`<span class="badge mg">${product.cbdMg}mg CBD</span>`);
+                }
+
+                return badges.join("");
             }
 
             if (typeof product.potency === "number") {
                 return `<span class="badge potency">${product.potency}% THC</span>`;
             }
 
-            return '';
+            return "";
+        }
+
+        function getMetaPills(product) {
+            const pills = [];
+
+            if (product.type === "edible" && typeof product.pieces === "number") {
+                pills.push(`<span class="meta-pill">${product.pieces} pieces</span>`);
+            }
+
+            if (product.category) {
+                pills.push(`<span class="meta-pill">${escapeHtml(product.category)}</span>`);
+            }
+
+            return pills.join("");
+        }
+
+        function getProductGroup(product) {
+            if (product.type === "edible") return "edible";
+            if (product.flare === "medical" || product.category.toLowerCase().includes("medical")) return "medical";
+            if (product.category.toLowerCase().includes("flower") || product.category.toLowerCase().includes("buds")) return "flower";
+            if (product.flare === "special" || product.category.toLowerCase().includes("special")) return "special";
+            return "other";
+        }
+
+        function matchesFilter(product, filter) {
+            if (filter === "all") return true;
+            if (filter === "instock") return product.inStock === true;
+            return getProductGroup(product) === filter;
+        }
+
+        function getFilterLabel(filter) {
+            const labels = {
+                all: "Viewing all products",
+                flower: "Viewing flower products",
+                medical: "Viewing medical products",
+                edible: "Viewing edible products",
+                special: "Viewing special deals",
+                instock: "Viewing in-stock products"
+            };
+            return labels[filter] || "Viewing products";
+        }
+
+        function buildStats() {
+            const totalProducts = products.length;
+            const inStockCount = products.filter(p => p.inStock).length;
+            const categoryCount = new Set(products.map(p => p.category)).size;
+            const featuredCount = products.filter(p => p.featured).length;
+
+            statsRow.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-label">Products</div>
+                    <div class="stat-value">${totalProducts}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Categories</div>
+                    <div class="stat-value">${categoryCount}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Featured</div>
+                    <div class="stat-value">${featuredCount}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">In Stock</div>
+                    <div class="stat-value">${inStockCount}</div>
+                </div>
+            `;
+        }
+
+        function getFilteredProducts() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            const sortBy = sortSelect.value;
+
+            let filtered = products.filter(product => {
+                const haystack = [
+                    product.name,
+                    product.category,
+                    product.type,
+                    product.flare,
+                    product.desc
+                ]
+                    .filter(Boolean)
+                    .join(" ")
+                    .toLowerCase();
+
+                return haystack.includes(searchTerm) && matchesFilter(product, currentFilter);
+            });
+
+            if (sortBy === "p-low") {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (sortBy === "p-high") {
+                filtered.sort((a, b) => b.price - a.price);
+            } else if (sortBy === "strength-high") {
+                filtered.sort((a, b) => getStrengthValue(b) - getStrengthValue(a));
+            } else if (sortBy === "name-az") {
+                filtered.sort((a, b) => a.name.localeCompare(b.name));
+            }
+
+            return filtered;
+        }
+
+        function getCategoryCounts(items) {
+            return items.reduce((acc, item) => {
+                acc[item.category] = (acc[item.category] || 0) + 1;
+                return acc;
+            }, {});
         }
 
         function toggleCard(card) {
-            const isActive = card.classList.contains('active');
-            document.querySelectorAll('.strain-card').forEach(c => c.classList.remove('active'));
-            if (!isActive) card.classList.add('active');
+            const isActive = card.classList.contains("active");
+            document.querySelectorAll(".strain-card").forEach(c => c.classList.remove("active"));
+            if (!isActive) {
+                card.classList.add("active");
+            }
         }
 
         function renderList() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
-            const sortBy = document.getElementById('sortSelect').value;
-            const container = document.getElementById('inventory');
+            const filtered = getFilteredProducts();
+            const sortBy = sortSelect.value;
+            const searchTerm = searchInput.value.trim();
+            const categoryCounts = getCategoryCounts(filtered);
 
-            let filtered = products.filter(p => {
-                const haystack = [
-                    p.name,
-                    p.category,
-                    p.type,
-                    p.flare,
-                    p.desc
-                ]
-                .filter(Boolean)
-                .join(' ')
-                .toLowerCase();
-
-                return haystack.includes(searchTerm);
-            });
-
-            if (sortBy === 'p-low') {
-                filtered.sort((a, b) => a.price - b.price);
-            } else if (sortBy === 'p-high') {
-                filtered.sort((a, b) => b.price - a.price);
-            } else if (sortBy === 'thc-high') {
-                filtered.sort((a, b) => getStrengthValue(b) - getStrengthValue(a));
-            }
+            resultCount.textContent = filtered.length;
+            activeFilterLabel.textContent = getFilterLabel(currentFilter);
 
             if (filtered.length === 0) {
-                container.innerHTML = `<div class="no-results">No matches found for "${searchTerm}"...</div>`;
+                inventory.innerHTML = `
+                    <div class="empty-state">
+                        <h3>No matches found</h3>
+                        <p>Try adjusting your search, sort or active filter.</p>
+                    </div>
+                `;
                 return;
             }
 
-            let html = '';
-            let lastCategory = '';
+            let html = "";
+            let lastCategory = "";
 
-            filtered.forEach((p, index) => {
-                const shouldShowCategory =
-                    sortBy === 'default' &&
-                    p.category !== lastCategory;
-
+            filtered.forEach((product, index) => {
+                const shouldShowCategory = sortBy === "default" && product.category !== lastCategory;
                 if (shouldShowCategory) {
-                    html += `<h2 class="category-header">${p.category}</h2>`;
-                    lastCategory = p.category;
+                    html += `
+                        <div class="category-header">
+                            <span>${escapeHtml(product.category)}</span>
+                            <span class="category-count">${categoryCounts[product.category]} item${categoryCounts[product.category] !== 1 ? "s" : ""}</span>
+                        </div>
+                    `;
+                    lastCategory = product.category;
                 }
 
+                const classes = ["strain-card"];
+                if (product.featured) classes.push("featured");
+
+                const subTextParts = [];
+                if (product.flare) subTextParts.push(product.flare);
+                if (product.type) subTextParts.push(product.type);
+
                 html += `
-                    <div class="strain-card" onclick="toggleCard(this)" style="animation: fadeIn 0.4s ease forwards; animation-delay: ${index * 0.03}s;">
+                    <div class="${classes.join(" ")}" onclick="toggleCard(this)" style="animation: pageIn 0.35s ease; animation-delay:${index * 0.03}s;">
                         <div class="strain-header">
-                            <div>
-                                <h3 style="font-size: 1.1rem; margin-bottom: 4px; color: ${p.nameColor || 'var(--text-main)'};">${p.name}</h3>
+                            <div class="strain-main">
+                                <div class="strain-name" style="color:${product.nameColor || "var(--text-main)"};">
+                                    ${escapeHtml(product.name)}
+                                </div>
+                                <div class="strain-sub">
+                                    ${escapeHtml(subTextParts.join(" • "))}
+                                </div>
+
                                 <div class="badge-container">
-                                    <span class="badge ${p.flare}">${p.flare}</span>
-                                    <span class="badge ${p.type}">${p.type}</span>
-                                    ${getStrengthBadge(p)}
-                                    <span class="badge ${p.inStock ? 'st-in' : 'st-out'}">${p.inStock ? 'In Stock' : 'Out of Stock'}</span>
+                                    <span class="badge ${escapeHtml(product.flare)}">${escapeHtml(product.flare)}</span>
+                                    <span class="badge ${escapeHtml(product.type)}">${escapeHtml(product.type)}</span>
+                                    ${getStrengthBadge(product)}
+                                    <span class="badge ${product.inStock ? "st-in" : "st-out"}">${product.inStock ? "In Stock" : "Out of Stock"}</span>
                                 </div>
                             </div>
-                            <span class="chevron">▼</span>
+
+                            <div class="header-right">
+                                <span class="from-pill">From ${formatPrice(product.price)}</span>
+                                <span class="chevron">▼</span>
+                            </div>
                         </div>
 
                         <div class="strain-content">
@@ -533,32 +1122,36 @@
                                 <div class="inner-padding">
                                     <div class="img-grid">
                                         <img
-                                            src="${p.imgBulk}"
+                                            src="${escapeHtml(product.imgBulk)}"
                                             class="prod-img"
-                                            alt="${p.name} bulk view"
-                                            onerror="this.src='https://via.placeholder.com/300?text=Image+Coming+Soon'"
+                                            alt="${escapeHtml(product.name)} bulk view"
+                                            onerror="this.src='https://via.placeholder.com/700x700?text=Image+Coming+Soon'"
                                         >
                                         <img
-                                            src="${p.imgClose}"
+                                            src="${escapeHtml(product.imgClose)}"
                                             class="prod-img"
-                                            alt="${p.name} close view"
-                                            onerror="this.src='https://via.placeholder.com/300?text=Detail+Coming+Soon'"
+                                            alt="${escapeHtml(product.name)} close view"
+                                            onerror="this.src='https://via.placeholder.com/700x700?text=Detail+Coming+Soon'"
                                         >
                                     </div>
 
-                                    <p style="color:var(--text-dim); margin-bottom:15px; font-size:0.85rem; line-height:1.4;">
-                                        ${p.desc}
-                                    </p>
+                                    <div class="meta-line">
+                                        ${getMetaPills(product)}
+                                    </div>
 
-                                    ${Object.entries(p.tiers).map(([qty, val]) => `
-                                        <div class="price-row">
-                                            <span style="font-size:0.9rem; font-weight:600;">${qty}</span>
-                                            <div>
-                                                <strong>$${val}</strong>
-                                                <span class="price-per-g">${calculatePerGram(qty, val)}</span>
+                                    <p class="desc">${escapeHtml(product.desc)}</p>
+
+                                    <div class="price-list">
+                                        ${Object.entries(product.tiers).map(([qty, val]) => `
+                                            <div class="price-row">
+                                                <div class="price-left">${escapeHtml(qty)}</div>
+                                                <div class="price-right">
+                                                    <div class="price-main">${formatPrice(val)}</div>
+                                                    ${calculatePerGram(qty, val) ? `<div class="price-per-g">${calculatePerGram(qty, val)}</div>` : ""}
+                                                </div>
                                             </div>
-                                        </div>
-                                    `).join('')}
+                                        `).join("")}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -566,9 +1159,27 @@
                 `;
             });
 
-            container.innerHTML = html;
+            if (sortBy !== "default" || searchTerm !== "") {
+                inventory.innerHTML = html;
+            } else {
+                inventory.innerHTML = html;
+            }
         }
 
+        chipRow.addEventListener("click", (e) => {
+            const chip = e.target.closest(".filter-chip");
+            if (!chip) return;
+
+            document.querySelectorAll(".filter-chip").forEach(btn => btn.classList.remove("active"));
+            chip.classList.add("active");
+            currentFilter = chip.dataset.filter;
+            renderList();
+        });
+
+        searchInput.addEventListener("input", renderList);
+        sortSelect.addEventListener("change", renderList);
+
+        buildStats();
         renderList();
     </script>
 </body>
