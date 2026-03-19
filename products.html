@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products | Inventory</title> <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <title>Products | Inventory</title> 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #050608; --surface: #12141c; --glass: rgba(255, 255, 255, 0.03);
@@ -25,9 +26,13 @@
         .back-link { text-decoration: none; color: var(--accent); font-weight: 600; font-size: 0.9rem; }
 
         h1 { font-weight: 800; font-size: 1.5rem; margin-bottom: 25px; background: linear-gradient(to right, #fff, #64748b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
         h2 { font-weight: 600; font-size: 1rem; margin-bottom: 10px; background: linear-gradient(to right, #990100, #FEEBE7, #990100); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
+        /* Style for the category headers appearing in the list */
+        .category-header { 
+            font-size: 1.2rem; margin: 30px 0 15px 5px; color: var(--text-main); 
+            border-left: 3px solid var(--accent); padding-left: 10px;
+        }
 
         .controls { 
             display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 25px; position: sticky; top: 10px; z-index: 100;
@@ -55,7 +60,6 @@
         .st-out { color: var(--oos); }
         .potency { color: var(--text-dim); border-color: var(--border); }
 
-        /* THE 2:1 DUAL IMAGE GRID */
         .img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
         .prod-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 12px; border: 1px solid var(--border); }
 
@@ -74,12 +78,13 @@
     <div class="back-nav"><a href="index.html" class="back-link">← Home</a></div>
     <div id="main-site">
         <h1>Available Products</h1>
-<h2>Mids and Exotics in Stock Sunday/Monday</h2>
-<h2>Medical in Stock Next Month</h2>
+        <h2>Mids and Exotics in Stock Sunday/Monday</h2>
+        <h2>Medical in Stock Next Month</h2>
+
         <div class="controls">
             <input type="text" id="searchInput" class="search-input" placeholder="Search by name..." oninput="renderList()">
             <select id="sortSelect" class="sort-select" onchange="renderList()">
-                <option value="default">In Stock First</option>
+                <option value="default">Category View</option>
                 <option value="p-low">Price: Low</option>
                 <option value="p-high">Price: High</option>
                 <option value="thc-high">THC: High</option>
@@ -91,46 +96,53 @@
     <script>
         const products = [
             { 
+                category: "Special Deals!",
                 name: "Medical Mix" , nameColor: "#990100", type: "mix", flare: "special", potency: 22, inStock: false, price: 240, 
                 desc: "14g Medical Deal | 7g Durban Poison 22% Sativa + 7g Northern Lights 22% Indica.", 
                 imgBulk: "images/dp-close.jpg", imgClose: "images/nl-close.jpg", 
                 tiers: { "14g Mixed Deal": 240 } 
             },
             { 
-                name: "Harbour LR Day 2g Cart", type: "sativa", flare: "medical", potency: 80, inStock: false, price: 250, 
-                desc: "Aura Therapeutics | Watermelon Skittlez. 2g Liquid Live Resin. High-potency daytime formulation.", 
-                imgBulk: "images/temp-1.jpg", imgClose: "images/temp-1.jpg", 
-                tiers: { "2g Unit": 250 } 
-            },
-            { 
-                name: "Harbour LR Night 2g Cart", type: "indica", flare: "medical", potency: 80, inStock: false, price: 250, 
-                desc: "Aura Therapeutics | Grandaddy Bruce. 2g Liquid Live Resin. High-potency evening formulation.", 
-                imgBulk: "images/temp-1.jpg", imgClose: "images/temp-1.jpg", 
-                tiers: { "2g Unit": 250 } 
-            },
-            { 
+                category: "Street Buds/Flower",
                 name: "Skittles", type: "hybrid", flare: "exotic", potency: 26, inStock: false, price: 380, 
                 desc: "Exotic Grade. Sweet tropical profile. Deeply relaxing yet mentally clear.", 
                 imgBulk: "images/temp-1.jpg", imgClose: "images/temp-1.jpg", 
                 tiers: { "28g": 380, "14g": 220, "7g": 120, "3.5g": 70 } 
             },
             { 
-                name: "Northern Lights", type: "indica", flare: "medical", potency: 22, inStock: false, price: 20, 
-                desc: "LSO Grown. Northern Lights is the gold standard for relaxation. This heavy-hitting Indica is world-renowned for its resinous buds and its ability to settle both the mind and body. A reliable companion for winding down and finding deep tranquility.", 
-                imgBulk: "images/nl-bulk.jpg", imgClose: "images/nl-close.jpg", 
-                tiers: { "1g Flat Rate": 18.50 } 
-            },
-            { 
-                name: "Durban Poison", type: "sativa", flare: "medical", potency: 22, inStock: false, price: 20, 
-                desc: "Cultivated using Living Soil Organic (LSO) methods, this flower offers a clean, robust expression of the legendary Durban Poison lineage. Perfect for those seeking a bright, functional, and uplifting start to their day.", 
-                imgBulk: "images/dp-bulk.jpg", imgClose: "images/dp-close.jpg", 
-                tiers: { "1g Flat Rate": 18.50 } 
-            },
-            { 
+                category: "Street Buds/Flower",
                 name: "Tangelo", type: "sativa", flare: "mids", potency: 16, inStock: false, price: 250, 
                 desc: "Mids quality flower. Pungent mango/citrus aroma with an energetic focused sativa buzz.", 
                 imgBulk: "images/tang-bulk.jpg", imgClose: "images/tang-close.jpg", 
                 tiers: { "last 35g": 300, "28g": 250, "14g": 130, "7g": 70, "3.5g": 40 } 
+            },
+            { 
+                category: "Medical Products",
+                name: "Northern Lights", type: "indica", flare: "medical", potency: 22, inStock: false, price: 20, 
+                desc: "LSO Grown. Northern Lights is the gold standard for relaxation.", 
+                imgBulk: "images/nl-bulk.jpg", imgClose: "images/nl-close.jpg", 
+                tiers: { "1g Flat Rate": 18.50 } 
+            },
+            { 
+                category: "Medical Products",
+                name: "Durban Poison", type: "sativa", flare: "medical", potency: 22, inStock: false, price: 20, 
+                desc: "Cultivated using Living Soil Organic (LSO) methods.", 
+                imgBulk: "images/dp-bulk.jpg", imgClose: "images/dp-close.jpg", 
+                tiers: { "1g Flat Rate": 18.50 } 
+            },
+            { 
+                category: "Medical Products",
+                name: "Harbour LR Day 2g Cart", type: "sativa", flare: "medical", potency: 80, inStock: false, price: 250, 
+                desc: "Aura Therapeutics | Watermelon Skittlez. 2g Liquid Live Resin.", 
+                imgBulk: "images/temp-1.jpg", imgClose: "images/temp-1.jpg", 
+                tiers: { "2g Unit": 250 } 
+            },
+            { 
+                category: "Medical Products",
+                name: "Harbour LR Night 2g Cart", type: "indica", flare: "medical", potency: 80, inStock: false, price: 250, 
+                desc: "Aura Therapeutics | Grandaddy Bruce. 2g Liquid Live Resin.", 
+                imgBulk: "images/temp-1.jpg", imgClose: "images/temp-1.jpg", 
+                tiers: { "2g Unit": 250 } 
             }
         ];
 
@@ -151,14 +163,25 @@
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
             const sortBy = document.getElementById('sortSelect').value;
             const container = document.getElementById('inventory');
+            
             let filtered = products.filter(p => p.name.toLowerCase().includes(searchTerm));
 
-            if (sortBy === 'default') filtered.sort((a, b) => b.inStock - a.inStock);
-            else if (sortBy === 'p-low') filtered.sort((a, b) => a.price - b.price);
+            if (sortBy === 'p-low') filtered.sort((a, b) => a.price - b.price);
             else if (sortBy === 'p-high') filtered.sort((a, b) => b.price - a.price);
             else if (sortBy === 'thc-high') filtered.sort((a, b) => b.potency - a.potency);
+            // Default stays in category order as defined in the array
 
-            container.innerHTML = filtered.map(p => `
+            let html = '';
+            let lastCategory = '';
+
+            filtered.forEach(p => {
+                // Add a header if we hit a new category (and we aren't searching)
+                if (sortBy === 'default' && p.category !== lastCategory && searchTerm === '') {
+                    html += `<h2 class="category-header">${p.category}</h2>`;
+                    lastCategory = p.category;
+                }
+
+                html += `
                 <div class="strain-card" onclick="toggleCard(this)">
                     <div class="strain-header">
                         <div>
@@ -185,8 +208,9 @@
                             </div>
                         `).join('')}
                     </div></div></div>
-                </div>
-            `).join('');
+                </div>`;
+            });
+            container.innerHTML = html;
         }
         renderList();
     </script>
