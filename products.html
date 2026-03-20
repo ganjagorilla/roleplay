@@ -38,10 +38,6 @@
 
             --shadow-lg: 0 18px 40px rgba(0,0,0,0.34);
             --shadow-md: 0 10px 26px rgba(0,0,0,0.24);
-            --radius-xl: 24px;
-            --radius-lg: 18px;
-            --radius-md: 14px;
-            --radius-sm: 10px;
         }
 
         * {
@@ -104,8 +100,7 @@
             border: 1px solid var(--border);
             border-radius: 28px;
             padding: 24px;
-            background:
-                linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.02));
+            background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.02));
             backdrop-filter: blur(14px);
             box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255,255,255,0.04);
             overflow: hidden;
@@ -222,7 +217,7 @@
             width: 100%;
             background: rgba(255,255,255,0.04);
             border: 1px solid rgba(255,255,255,0.08);
-            padding: 12px 14px 12px 14px;
+            padding: 12px 14px;
             color: white;
             outline: none;
             border-radius: 12px;
@@ -396,6 +391,7 @@
             font-size: 0.82rem;
             line-height: 1.4;
             margin-bottom: 10px;
+            text-transform: capitalize;
         }
 
         .badge-container {
@@ -660,7 +656,7 @@
         <section class="hero">
             <h1>Available Products</h1>
             <p class="page-subtitle">
-                
+                Browse current flower, medical products and featured deals in a premium, streamlined inventory layout.
             </p>
 
             <div class="status-stack">
@@ -709,7 +705,7 @@
         <div id="inventory"></div>
 
         <div class="footer-note">
-            Roleplay Purposes Only
+            Premium inventory layout • Smooth single-file HTML/CSS/JS build
         </div>
     </div>
 
@@ -726,7 +722,7 @@
                 pieces: 12,
                 inStock: false,
                 price: 35,
-                desc: "Add a 250-300mg THC, 70mg CBD, 12 piece chocolate bar to your order for $35 per bar.",
+                desc: "A 12-piece chocolate bar with 250-300mg THC and 70mg CBD. A clean, easy add-on option for orders at a sharp price.",
                 imgBulk: "images/temp-1.jpg",
                 imgClose: "images/temp-1.jpg",
                 featured: true,
@@ -743,7 +739,7 @@
                 potency: 22,
                 inStock: false,
                 price: 240,
-                desc: "14g Medical Mix | 7g Durban Poison 22% Sativa + 7g Northern Lights 22% Indica.",
+                desc: "A balanced 14g medical mix featuring 7g of Durban Poison and 7g of Northern Lights, both at 22% THC. A solid split between uplifting daytime energy and heavier evening relaxation.",
                 imgBulk: "images/dp-close.jpg",
                 imgClose: "images/nl-close.jpg",
                 featured: true,
@@ -760,9 +756,9 @@
                 potency: 26,
                 inStock: false,
                 price: 230,
-                desc: "21g Street Deal | 7g Skittles 26% Hybrid (Exotics) + 14g Tangelo 16-18% Sativa (Mids).",
+                desc: "A 21g street deal combining 7g of Rainbow Sherbert #11 with 14g of AK47. A strong-value mix offering a smoother exotic profile alongside a lighter, more functional daytime option.",
                 imgBulk: "images/temp-1.jpg",
-                imgClose: "images/tang-close.jpg",
+                imgClose: "images/temp-1.jpg",
                 featured: true,
                 tiers: {
                     "21g Street Deal": 230
@@ -770,13 +766,13 @@
             },
             {
                 category: "Street Buds/Flower",
-                name: "Skittles",
-                type: "hybrid",
+                name: "Rainbow Sherbert #11 (RS#11)",
+                type: "indica",
                 flare: "exotic",
-                potency: 26,
+                potency: 24,
                 inStock: false,
                 price: 400,
-                desc: "Exotic grade. Sweet tropical profile with a deeper relaxing effect while still staying mentally clear.",
+                desc: "Exotic-grade flower with a sweet, creamy and fruity profile. Rainbow Sherbert #11 is known for its rich flavour, smooth smoke and heavier relaxing finish.",
                 imgBulk: "images/temp-1.jpg",
                 imgClose: "images/temp-1.jpg",
                 tiers: {
@@ -788,15 +784,15 @@
             },
             {
                 category: "Street Buds/Flower",
-                name: "Tangelo",
+                name: "AK47",
                 type: "sativa",
                 flare: "mids",
                 potency: 16,
                 inStock: false,
                 price: 250,
-                desc: "Mids quality flower with a pungent mango and citrus aroma backed by an energetic, focused sativa buzz.",
-                imgBulk: "images/tang-bulk.jpg",
-                imgClose: "images/tang-close.jpg",
+                desc: "A sativa-dominant hybrid with a classic sharp, earthy profile and a lighter uplifting effect. A dependable mids option for a more functional daytime smoke.",
+                imgBulk: "images/temp-1.jpg",
+                imgClose: "images/temp-1.jpg",
                 tiers: {
                     "28g": 250,
                     "14g": 130,
@@ -812,7 +808,7 @@
                 potency: 22,
                 inStock: false,
                 price: 18.5,
-                desc: "LSO grown. Northern Lights is a classic heavy indica known for evening use and reliable body relaxation.",
+                desc: "LSO-grown Northern Lights offering a classic indica profile. Best suited to slower evenings, body relaxation and a heavier overall finish.",
                 imgBulk: "images/nl-bulk.jpg",
                 imgClose: "images/nl-close.jpg",
                 tiers: {
@@ -827,7 +823,7 @@
                 potency: 22,
                 inStock: false,
                 price: 18.5,
-                desc: "Living Soil Organic (LSO). Functional and uplifting sativa lineage with a cleaner daytime profile.",
+                desc: "LSO-grown Durban Poison with a brighter, clearer sativa profile. A cleaner daytime option with a more energised and functional feel.",
                 imgBulk: "images/dp-bulk.jpg",
                 imgClose: "images/dp-close.jpg",
                 tiers: {
@@ -842,7 +838,7 @@
                 potency: 80,
                 inStock: false,
                 price: 250,
-                desc: "Aura Therapeutics | Watermelon Skittlez. 2g liquid live resin cart built around a brighter daytime profile.",
+                desc: "Aura Therapeutics Watermelon Skittlez live resin cart in a 2g format. A brighter daytime profile with stronger flavour and a cleaner, more active finish.",
                 imgBulk: "images/temp-1.jpg",
                 imgClose: "images/temp-1.jpg",
                 tiers: {
@@ -857,7 +853,7 @@
                 potency: 80,
                 inStock: false,
                 price: 250,
-                desc: "Aura Therapeutics | Grandaddy Bruce. 2g liquid live resin cart tuned toward a heavier night profile.",
+                desc: "Aura Therapeutics Grandaddy Bruce live resin cart in a 2g format. A heavier night profile designed for slower sessions and a more relaxed finish.",
                 imgBulk: "images/temp-1.jpg",
                 imgClose: "images/temp-1.jpg",
                 tiers: {
@@ -1159,11 +1155,7 @@
                 `;
             });
 
-            if (sortBy !== "default" || searchTerm !== "") {
-                inventory.innerHTML = html;
-            } else {
-                inventory.innerHTML = html;
-            }
+            inventory.innerHTML = html;
         }
 
         chipRow.addEventListener("click", (e) => {
