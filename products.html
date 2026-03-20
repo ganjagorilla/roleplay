@@ -478,9 +478,13 @@
 
         .img-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 12px;
             margin-bottom: 16px;
+        }
+
+        .img-grid.single {
+            grid-template-columns: 1fr;
         }
 
         .prod-img {
@@ -631,7 +635,8 @@
                 justify-content: space-between;
             }
 
-            .img-grid {
+            .img-grid,
+            .img-grid.single {
                 grid-template-columns: 1fr;
             }
 
@@ -1037,6 +1042,29 @@
             }, {});
         }
 
+        function getProductImages(product) {
+            const images = [product.imgBulk, product.imgClose].filter(Boolean);
+            return images.length ? images : ["https://via.placeholder.com/700x700?text=Image+Coming+Soon"];
+        }
+
+        function renderProductImages(product) {
+            const images = getProductImages(product);
+            const gridClass = images.length === 1 ? "img-grid single" : "img-grid";
+
+            return `
+                <div class="${gridClass}">
+                    ${images.map((src, i) => `
+                        <img
+                            src="${escapeHtml(src)}"
+                            class="prod-img"
+                            alt="${escapeHtml(product.name)} image ${i + 1}"
+                            onerror="this.src='https://via.placeholder.com/700x700?text=Image+Coming+Soon'"
+                        >
+                    `).join("")}
+                </div>
+            `;
+        }
+
         function toggleCard(card) {
             const isActive = card.classList.contains("active");
             document.querySelectorAll(".strain-card").forEach(c => c.classList.remove("active"));
@@ -1048,7 +1076,6 @@
         function renderList() {
             const filtered = getFilteredProducts();
             const sortBy = sortSelect.value;
-            const searchTerm = searchInput.value.trim();
             const categoryCounts = getCategoryCounts(filtered);
 
             resultCount.textContent = filtered.length;
@@ -1114,20 +1141,7 @@
                         <div class="strain-content">
                             <div class="inner-content">
                                 <div class="inner-padding">
-                                    <div class="img-grid">
-                                        <img
-                                            src="${escapeHtml(product.imgBulk)}"
-                                            class="prod-img"
-                                            alt="${escapeHtml(product.name)} bulk view"
-                                            onerror="this.src='https://via.placeholder.com/700x700?text=Image+Coming+Soon'"
-                                        >
-                                        <img
-                                            src="${escapeHtml(product.imgClose)}"
-                                            class="prod-img"
-                                            alt="${escapeHtml(product.name)} close view"
-                                            onerror="this.src='https://via.placeholder.com/700x700?text=Detail+Coming+Soon'"
-                                        >
-                                    </div>
+                                    ${renderProductImages(product)}
 
                                     <div class="meta-line">
                                         ${getMetaPills(product)}
