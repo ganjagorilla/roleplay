@@ -487,6 +487,10 @@
             grid-template-columns: 1fr;
         }
 
+        .img-grid.three {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
         .prod-img {
             width: 100%;
             aspect-ratio: 1 / 1;
@@ -636,7 +640,8 @@
             }
 
             .img-grid,
-            .img-grid.single {
+            .img-grid.single,
+            .img-grid.three {
                 grid-template-columns: 1fr;
             }
 
@@ -737,17 +742,18 @@
             },
             {
                 category: "Special Deals!",
-                name: "Medical Mix",
+                name: "High Grade Mix",
                 nameColor: "#9BFF82",
                 type: "mix",
                 flare: "special",
                 potency: 22,
-                inStock: false,
-                price: 240,
-                desc: "A balanced 10.5g medical mix featuring 3.5g of Durban Poison, 3.5g of Northern Lights (both at 22% thc), and 3.5g Rainbow Sherbert #11 (26% thc). A solid split between uplifting daytime energy and heavier evening relaxation.",
+                potency2: 26,
+                inStock: true,
+                price: 180,
+                desc: "A balanced 10.5g high grade mix featuring 3.5g of Durban Poison, 3.5g of Northern Lights (both medical at 22% thc), and 3.5g Rainbow Sherbert #11 (26% thc). A solid split between uplifting daytime energy and heavier evening relaxation.",
                 imgBulk: "images/dp-close_cleaned.jpg",
                 imgClose: "images/nl-close_cleaned.jpg",
-                imgClose: "images/rs11_close_cleaned.jpg",
+                imgClose1: "images/rs11_close_cleaned.jpg",
                 featured: true,
                 tiers: {
                     "10.5g Medical Mix": 180
@@ -931,7 +937,11 @@
             }
 
             if (typeof product.potency === "number") {
-                return `<span class="badge potency">${product.potency}% THC</span>`;
+                let badge = `<span class="badge potency">${product.potency}% THC</span>`;
+                if (typeof product.potency2 === "number") {
+                    badge += `<span class="badge potency">${product.potency2}% THC</span>`;
+                }
+                return badge;
             }
 
             return "";
@@ -1043,13 +1053,13 @@
         }
 
         function getProductImages(product) {
-            const images = [product.imgBulk, product.imgClose].filter(Boolean);
+            const images = [product.imgBulk, product.imgClose, product.imgClose1].filter(Boolean);
             return images.length ? images : ["https://via.placeholder.com/700x700?text=Image+Coming+Soon"];
         }
 
         function renderProductImages(product) {
             const images = getProductImages(product);
-            const gridClass = images.length === 1 ? "img-grid single" : "img-grid";
+            const gridClass = images.length === 1 ? "img-grid single" : images.length === 3 ? "img-grid three" : "img-grid";
 
             return `
                 <div class="${gridClass}">
