@@ -9,13 +9,10 @@
         :root {
             --bg: #050608;
             --bg-2: #0a0d14;
-            --surface: #0f131b;
-            --surface-2: #121826;
             --card-top: rgba(255,255,255,0.05);
             --card-bottom: rgba(255,255,255,0.02);
             --accent: #60a5fa;
             --accent-2: #3b82f6;
-            --accent-soft: rgba(96,165,250,0.14);
             --border: rgba(255,255,255,0.08);
             --border-strong: rgba(255,255,255,0.12);
             --text-main: #f8fafc;
@@ -25,7 +22,6 @@
             --sativa: #fbbf24;
             --hybrid: #a78bfa;
             --indica: #60a5fa;
-
             --medical: #34d399;
             --exotic: #f472b6;
             --mids: #94a3b8;
@@ -35,21 +31,14 @@
 
             --stock: #4ade80;
             --oos: #f87171;
+            --limited: #f97316;
 
             --shadow-lg: 0 18px 40px rgba(0,0,0,0.34);
             --shadow-md: 0 10px 26px rgba(0,0,0,0.24);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        html { scroll-behavior: smooth; }
 
         body {
             background:
@@ -64,9 +53,7 @@
             justify-content: center;
         }
 
-        a {
-            color: inherit;
-        }
+        a { color: inherit; }
 
         .page-wrap {
             width: 100%;
@@ -74,9 +61,7 @@
             animation: pageIn 0.7s ease;
         }
 
-        .back-nav {
-            margin-bottom: 18px;
-        }
+        .back-nav { margin-bottom: 18px; }
 
         .back-link {
             text-decoration: none;
@@ -89,12 +74,9 @@
             align-items: center;
             gap: 8px;
         }
+        .back-link:hover { opacity: 1; transform: translateX(-2px); }
 
-        .back-link:hover {
-            opacity: 1;
-            transform: translateX(-2px);
-        }
-
+        /* ── Hero ── */
         .hero {
             position: relative;
             border: 1px solid var(--border);
@@ -106,7 +88,6 @@
             overflow: hidden;
             margin-bottom: 18px;
         }
-
         .hero::before {
             content: "";
             position: absolute;
@@ -148,17 +129,42 @@
             z-index: 1;
         }
 
+        /* Urgent hero pill — pulses */
         .status-pill {
-            border: 1px solid rgba(248,113,113,0.18);
-            background: rgba(248,113,113,0.08);
-            color: #fda4af;
-            padding: 8px 12px;
+            border: 1px solid rgba(249,115,22,0.35);
+            background: rgba(249,115,22,0.12);
+            color: #fdba74;
+            padding: 9px 14px;
             border-radius: 999px;
             font-size: 0.78rem;
-            font-weight: 700;
-            letter-spacing: 0.02em;
+            font-weight: 800;
+            letter-spacing: 0.03em;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            animation: pillPulse 2.4s ease-in-out infinite;
         }
 
+        .status-pill-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: #fb923c;
+            animation: dotBlink 1.1s ease-in-out infinite;
+            flex-shrink: 0;
+        }
+
+        @keyframes pillPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(249,115,22,0.0); }
+            50%       { box-shadow: 0 0 0 5px rgba(249,115,22,0.12); }
+        }
+
+        @keyframes dotBlink {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50%       { opacity: 0.4; transform: scale(0.7); }
+        }
+
+        /* ── Stats ── */
         .stats-row {
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -173,28 +179,11 @@
             padding: 14px;
             box-shadow: var(--shadow-md);
         }
+        .stat-label { color: var(--text-dim); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+        .stat-value { font-size: 1.15rem; font-weight: 800; color: var(--text-main); }
 
-        .stat-label {
-            color: var(--text-dim);
-            font-size: 0.72rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-bottom: 6px;
-        }
-
-        .stat-value {
-            font-size: 1.15rem;
-            font-weight: 800;
-            color: var(--text-main);
-        }
-
-        .controls-shell {
-            position: sticky;
-            top: 12px;
-            z-index: 20;
-            margin-bottom: 16px;
-        }
+        /* ── Controls ── */
+        .controls-shell { position: sticky; top: 12px; z-index: 20; margin-bottom: 16px; }
 
         .controls {
             display: flex;
@@ -208,10 +197,7 @@
             padding: 14px;
         }
 
-        .search-wrap {
-            flex: 1 1 260px;
-            position: relative;
-        }
+        .search-wrap { flex: 1 1 260px; position: relative; }
 
         .search-input {
             width: 100%;
@@ -224,11 +210,7 @@
             transition: 0.25s ease;
             font-size: 0.94rem;
         }
-
-        .search-input::placeholder {
-            color: #7c8aa0;
-        }
-
+        .search-input::placeholder { color: #7c8aa0; }
         .search-input:focus {
             border-color: rgba(96,165,250,0.55);
             background: rgba(59,130,246,0.08);
@@ -247,12 +229,7 @@
             min-width: 170px;
         }
 
-        .chip-row {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            width: 100%;
-        }
+        .chip-row { display: flex; gap: 8px; flex-wrap: wrap; width: 100%; }
 
         .filter-chip {
             border: 1px solid rgba(255,255,255,0.08);
@@ -268,12 +245,7 @@
             transition: 0.22s ease;
             user-select: none;
         }
-
-        .filter-chip:hover {
-            border-color: rgba(96,165,250,0.22);
-            color: white;
-        }
-
+        .filter-chip:hover { border-color: rgba(96,165,250,0.22); color: white; }
         .filter-chip.active {
             color: white;
             border-color: rgba(96,165,250,0.35);
@@ -281,6 +253,7 @@
             box-shadow: 0 0 0 1px rgba(96,165,250,0.06), 0 10px 20px rgba(37,99,235,0.08);
         }
 
+        /* ── Section meta ── */
         .section-meta {
             display: flex;
             justify-content: space-between;
@@ -290,10 +263,7 @@
             color: var(--text-dim);
             font-size: 0.84rem;
         }
-
-        .section-meta strong {
-            color: white;
-        }
+        .section-meta strong { color: white; }
 
         .category-header {
             display: flex;
@@ -321,6 +291,7 @@
             padding-right: 6px;
         }
 
+        /* ── Cards ── */
         .strain-card {
             background: linear-gradient(180deg, var(--card-top), var(--card-bottom));
             border: 1px solid var(--border);
@@ -332,24 +303,30 @@
             box-shadow: 0 6px 20px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.04);
             position: relative;
         }
-
         .strain-card:hover {
             transform: translateY(-2px);
             border-color: rgba(96,165,250,0.22);
             background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.025));
-            box-shadow:
-                0 12px 28px rgba(0,0,0,0.30),
-                0 0 0 1px rgba(96,165,250,0.04),
-                0 0 24px rgba(59,130,246,0.07);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.30), 0 0 0 1px rgba(96,165,250,0.04), 0 0 24px rgba(59,130,246,0.07);
         }
 
-        .strain-card.featured {
-            border-color: rgba(251,113,133,0.18);
-            box-shadow:
-                0 12px 28px rgba(0,0,0,0.26),
-                0 0 26px rgba(251,113,133,0.06);
+        /* Limited stock card gets amber glow */
+        .strain-card.limited {
+            border-color: rgba(249,115,22,0.22);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.26), 0 0 28px rgba(249,115,22,0.08);
+            animation: cardBreath 3s ease-in-out infinite;
+        }
+        .strain-card.limited:hover {
+            border-color: rgba(249,115,22,0.40);
+            box-shadow: 0 14px 32px rgba(0,0,0,0.32), 0 0 36px rgba(249,115,22,0.14);
         }
 
+        @keyframes cardBreath {
+            0%, 100% { box-shadow: 0 8px 24px rgba(0,0,0,0.26), 0 0 20px rgba(249,115,22,0.07); }
+            50%       { box-shadow: 0 8px 24px rgba(0,0,0,0.26), 0 0 34px rgba(249,115,22,0.15); }
+        }
+
+        /* Featured ribbon */
         .strain-card.featured::before {
             content: "FEATURED";
             position: absolute;
@@ -366,6 +343,57 @@
             border: 1px solid rgba(251,113,133,0.20);
         }
 
+        /* ── Urgent banner inside limited cards ── */
+        .urgency-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 18px;
+            background: linear-gradient(90deg, rgba(249,115,22,0.13), rgba(239,68,68,0.09), rgba(249,115,22,0.07));
+            border-bottom: 1px solid rgba(249,115,22,0.18);
+            font-size: 0.72rem;
+            font-weight: 800;
+            color: #fdba74;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* animated shimmer sweep */
+        .urgency-bar::after {
+            content: "";
+            position: absolute;
+            top: 0; left: -60%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+            animation: shimmer 2.6s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%   { left: -60%; }
+            100% { left: 130%; }
+        }
+
+        .urgency-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: #f97316;
+            animation: dotBlink 1s ease-in-out infinite;
+            flex-shrink: 0;
+        }
+
+        .urgency-bar-right {
+            margin-left: auto;
+            color: #fb923c;
+            font-size: 0.68rem;
+            opacity: 0.9;
+            white-space: nowrap;
+        }
+
+        /* ── Card internals ── */
         .strain-header {
             padding: 20px;
             display: flex;
@@ -374,10 +402,7 @@
             gap: 14px;
         }
 
-        .strain-main {
-            min-width: 0;
-            flex: 1;
-        }
+        .strain-main { min-width: 0; flex: 1; }
 
         .strain-name {
             font-size: 1.08rem;
@@ -394,11 +419,7 @@
             text-transform: capitalize;
         }
 
-        .badge-container {
-            display: flex;
-            gap: 7px;
-            flex-wrap: wrap;
-        }
+        .badge-container { display: flex; gap: 7px; flex-wrap: wrap; }
 
         .badge {
             font-size: 0.62rem;
@@ -412,26 +433,34 @@
             backdrop-filter: blur(8px);
         }
 
-        .sativa { color: var(--sativa); }
-        .indica { color: var(--indica); }
-        .hybrid { color: var(--hybrid); }
+        .sativa  { color: var(--sativa); }
+        .indica  { color: var(--indica); }
+        .hybrid  { color: var(--hybrid); }
         .medical { color: var(--medical); }
-        .exotic { color: var(--exotic); }
-        .mids { color: var(--mids); }
-        .edible { color: var(--edible); }
-        .mix { color: var(--mix); }
+        .exotic  { color: var(--exotic); }
+        .mids    { color: var(--mids); }
+        .edible  { color: var(--edible); }
+        .mix     { color: var(--mix); }
         .special { color: var(--special); }
-        .st-in { color: var(--stock); }
-        .st-out { color: var(--oos); }
+        .st-in   { color: var(--stock); }
+        .st-out  { color: var(--oos); }
         .potency { color: var(--text-dim); border-color: var(--border-strong); }
-        .mg { color: var(--text-dim); border-color: var(--border-strong); }
+        .mg      { color: var(--text-dim); border-color: var(--border-strong); }
 
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-shrink: 0;
+        /* Limited stock badge — animated */
+        .st-lim {
+            color: #fb923c;
+            border-color: #f97316;
+            background: rgba(249,115,22,0.10);
+            animation: badgePop 2s ease-in-out infinite;
         }
+
+        @keyframes badgePop {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(249,115,22,0); }
+            50%       { box-shadow: 0 0 0 3px rgba(249,115,22,0.18); }
+        }
+
+        .header-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
 
         .from-pill {
             font-size: 0.79rem;
@@ -445,16 +474,15 @@
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
         }
 
-        .chevron {
-            color: var(--text-dim);
-            font-size: 0.95rem;
-            transition: transform 0.25s ease;
-            flex-shrink: 0;
+        /* Limited card — price pill gets orange tint */
+        .strain-card.limited .from-pill {
+            border-color: rgba(249,115,22,0.30);
+            background: rgba(249,115,22,0.08);
+            color: #fed7aa;
         }
 
-        .strain-card.active .chevron {
-            transform: rotate(180deg);
-        }
+        .chevron { color: var(--text-dim); font-size: 0.95rem; transition: transform 0.25s ease; flex-shrink: 0; }
+        .strain-card.active .chevron { transform: rotate(180deg); }
 
         .strain-content {
             display: grid;
@@ -462,34 +490,23 @@
             transition: grid-template-rows 0.38s ease, border-top 0.2s ease;
             background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(0,0,0,0.12));
         }
-
         .strain-card.active .strain-content {
             grid-template-rows: 1fr;
             border-top: 1px solid var(--border);
         }
 
-        .inner-content {
-            overflow: hidden;
-        }
+        .inner-content { overflow: hidden; }
+        .inner-padding { padding: 20px; }
 
-        .inner-padding {
-            padding: 20px;
-        }
-
+        /* ── Image grids ── */
         .img-grid {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 12px;
             margin-bottom: 16px;
         }
-
-        .img-grid.single {
-            grid-template-columns: 1fr;
-        }
-
-        .img-grid.three {
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-        }
+        .img-grid.single { grid-template-columns: 1fr; }
+        .img-grid.three  { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
         .prod-img {
             width: 100%;
@@ -499,27 +516,118 @@
             border: 1px solid rgba(255,255,255,0.08);
             transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
             background: rgba(255,255,255,0.02);
+            cursor: zoom-in;
         }
-
         .prod-img:hover {
-            transform: scale(1.02);
-            border-color: rgba(255,255,255,0.14);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.24);
+            transform: scale(1.03);
+            border-color: rgba(96,165,250,0.30);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.30), 0 0 0 2px rgba(96,165,250,0.12);
         }
 
-        .desc {
-            color: var(--text-dim);
-            margin-bottom: 16px;
-            font-size: 0.9rem;
-            line-height: 1.55;
+        /* ── Lightbox ── */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: rgba(0,0,0,0.92);
+            backdrop-filter: blur(16px);
+            align-items: center;
+            justify-content: center;
         }
+        .lightbox.open { display: flex; animation: lbFadeIn 0.22s ease; }
 
-        .meta-line {
+        @keyframes lbFadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .lb-inner {
+            position: relative;
             display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 14px;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            padding: 20px;
+            max-width: min(90vw, 720px);
+            width: 100%;
         }
+
+        .lb-img-wrap {
+            position: relative;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lb-img {
+            width: 100%;
+            max-height: 72vh;
+            object-fit: contain;
+            border-radius: 18px;
+            border: 1px solid rgba(255,255,255,0.10);
+            box-shadow: 0 24px 60px rgba(0,0,0,0.60);
+        }
+
+        .lb-close {
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            width: 42px;
+            height: 42px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.14);
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease, transform 0.2s ease;
+            z-index: 1001;
+        }
+        .lb-close:hover { background: rgba(255,255,255,0.18); transform: scale(1.08); }
+
+        .lb-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.14);
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease, opacity 0.2s ease;
+            z-index: 2;
+            user-select: none;
+        }
+        .lb-nav:hover { background: rgba(255,255,255,0.18); }
+        .lb-nav.hidden { opacity: 0; pointer-events: none; }
+        .lb-prev { left: -58px; }
+        .lb-next { right: -58px; }
+
+        .lb-footer { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .lb-dots { display: flex; gap: 8px; align-items: center; }
+
+        .lb-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.25);
+            transition: background 0.2s ease, transform 0.2s ease;
+            cursor: pointer;
+        }
+        .lb-dot.active { background: white; transform: scale(1.35); }
+        .lb-counter { color: var(--text-dim); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; }
+
+        /* ── Content ── */
+        .desc { color: var(--text-dim); margin-bottom: 16px; font-size: 0.9rem; line-height: 1.55; }
+        .meta-line { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
 
         .meta-pill {
             font-size: 0.72rem;
@@ -531,10 +639,25 @@
             border: 1px solid rgba(255,255,255,0.08);
         }
 
-        .price-list {
-            display: grid;
-            gap: 8px;
+        /* Urgency note inside expanded card */
+        .urgency-note {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 11px 14px;
+            border-radius: 12px;
+            background: linear-gradient(90deg, rgba(249,115,22,0.10), rgba(239,68,68,0.07));
+            border: 1px solid rgba(249,115,22,0.20);
+            margin-bottom: 14px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #fdba74;
         }
+        .urgency-note-icon { font-size: 1rem; flex-shrink: 0; }
+        .urgency-note-text { line-height: 1.4; }
+        .urgency-note-text span { color: #fb923c; }
+
+        .price-list { display: grid; gap: 8px; }
 
         .price-row {
             display: flex;
@@ -547,18 +670,19 @@
             border: 1px solid rgba(255,255,255,0.07);
             transition: border-color 0.22s ease, transform 0.22s ease, background 0.22s ease;
         }
-
         .price-row:hover {
             border-color: rgba(96,165,250,0.18);
             background: rgba(255,255,255,0.04);
             transform: translateY(-1px);
         }
 
-        .price-left {
-            font-size: 0.92rem;
-            font-weight: 700;
-            color: white;
+        /* Limited card price rows get a warmer hover */
+        .strain-card.limited .price-row:hover {
+            border-color: rgba(249,115,22,0.22);
+            background: rgba(249,115,22,0.04);
         }
+
+        .price-left { font-size: 0.92rem; font-weight: 700; color: white; }
 
         .price-right {
             display: flex;
@@ -569,18 +693,8 @@
             text-align: right;
         }
 
-        .price-main {
-            font-size: 1rem;
-            font-weight: 800;
-            color: white;
-        }
-
-        .price-per-g {
-            color: var(--accent);
-            font-size: 0.73rem;
-            font-weight: 700;
-            opacity: 0.95;
-        }
+        .price-main { font-size: 1rem; font-weight: 800; color: white; }
+        .price-per-g { color: var(--accent); font-size: 0.73rem; font-weight: 700; opacity: 0.95; }
 
         .empty-state {
             text-align: center;
@@ -590,74 +704,49 @@
             border-radius: 20px;
             background: rgba(255,255,255,0.02);
         }
+        .empty-state h3 { color: white; font-size: 1.05rem; margin-bottom: 8px; }
 
-        .empty-state h3 {
-            color: white;
-            font-size: 1.05rem;
-            margin-bottom: 8px;
-        }
-
-        .footer-note {
-            color: var(--text-dim);
-            font-size: 0.76rem;
-            text-align: center;
-            margin-top: 18px;
-            opacity: 0.8;
-        }
+        .footer-note { color: var(--text-dim); font-size: 0.76rem; text-align: center; margin-top: 18px; opacity: 0.8; }
 
         @keyframes pageIn {
             from { opacity: 0; transform: translateY(14px); }
-            to { opacity: 1; transform: translateY(0); }
+            to   { opacity: 1; transform: translateY(0); }
         }
 
         @media (max-width: 700px) {
-            body {
-                padding: 16px;
-            }
-
-            .stats-row {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-
-            .hero {
-                padding: 20px;
-                border-radius: 24px;
-            }
-
-            .controls {
-                padding: 12px;
-                border-radius: 16px;
-            }
-
-            .strain-header {
-                align-items: flex-start;
-                flex-direction: column;
-            }
-
-            .header-right {
-                width: 100%;
-                justify-content: space-between;
-            }
-
-            .img-grid,
-            .img-grid.single,
-            .img-grid.three {
-                grid-template-columns: 1fr;
-            }
-
-            .price-row {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .price-right {
-                justify-content: flex-start;
-                text-align: left;
-            }
+            body { padding: 16px; }
+            .stats-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .hero { padding: 20px; border-radius: 24px; }
+            .controls { padding: 12px; border-radius: 16px; }
+            .strain-header { align-items: flex-start; flex-direction: column; }
+            .header-right { width: 100%; justify-content: space-between; }
+            .img-grid, .img-grid.single, .img-grid.three { grid-template-columns: 1fr; }
+            .price-row { flex-direction: column; align-items: flex-start; }
+            .price-right { justify-content: flex-start; text-align: left; }
+            .lb-prev { left: -8px; }
+            .lb-next { right: -8px; }
+            .lb-nav { width: 36px; height: 36px; font-size: 1rem; }
         }
     </style>
 </head>
 <body>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lb-close" onclick="closeLightbox()">✕</button>
+        <div class="lb-inner">
+            <div class="lb-img-wrap">
+                <button class="lb-nav lb-prev" id="lbPrev" onclick="lbNav(-1)">‹</button>
+                <img class="lb-img" id="lbImg" src="" alt="" />
+                <button class="lb-nav lb-next" id="lbNext" onclick="lbNav(1)">›</button>
+            </div>
+            <div class="lb-footer">
+                <div class="lb-dots" id="lbDots"></div>
+                <div class="lb-counter" id="lbCounter"></div>
+            </div>
+        </div>
+    </div>
+
     <div class="page-wrap">
         <div class="back-nav">
             <a href="index.html" class="back-link">← Home</a>
@@ -665,13 +754,12 @@
 
         <section class="hero">
             <h1>Available Products</h1>
-            <p class="page-subtitle">
-                Browse current flower, medical products and edibles!
-            </p>
-
+            <p class="page-subtitle">Browse current flower, medical products and edibles.</p>
             <div class="status-stack">
-                <!-- <div class="status-pill">Mids and Exotics in Stock!</div> -->
-                <div class="status-pill">Exotics have Limited Stock!</div>
+                <div class="status-pill">
+                    <div class="status-pill-dot"></div>
+                    Stock is moving fast — limited items won't last!
+                </div>
             </div>
         </section>
 
@@ -680,14 +768,9 @@
         <div class="controls-shell">
             <div class="controls">
                 <div class="search-wrap">
-                    <input
-                        type="text"
-                        id="searchInput"
-                        class="search-input"
-                        placeholder="Search name, category, type, flair or description..."
-                    />
+                    <input type="text" id="searchInput" class="search-input"
+                        placeholder="Search name, category, type, flair or description..." />
                 </div>
-
                 <select id="sortSelect" class="sort-select">
                     <option value="default">Category View</option>
                     <option value="p-low">Price: Low</option>
@@ -695,7 +778,6 @@
                     <option value="strength-high">Strength: High</option>
                     <option value="name-az">Name: A–Z</option>
                 </select>
-
                 <div class="chip-row" id="chipRow">
                     <button class="filter-chip active" data-filter="all">All</button>
                     <button class="filter-chip" data-filter="flower">Flower</button>
@@ -714,12 +796,19 @@
 
         <div id="inventory"></div>
 
-        <div class="footer-note">
-            THIS SITE IS ENTIRELY FAKE AND FOR ROLEPLAY PURPOSES!
-        </div>
+        <div class="footer-note">THIS SITE IS ENTIRELY FAKE AND FOR ROLEPLAY PURPOSES!</div>
     </div>
 
     <script>
+        /* ── Urgency messages — randomly rotated per card open ── */
+        const urgencyMessages = [
+            { icon: "🔥", text: "<span>Selling fast</span> — grab it before it's gone" },
+            { icon: "⚡", text: "<span>Very limited supply</span> — won't be restocked soon" },
+            { icon: "⏳", text: "Stock is <span>almost gone</span> — order while you can" },
+            { icon: "👀", text: "<span>High demand</span> — people are eyeing this right now" },
+            { icon: "🚨", text: "<span>Limited batch</span> — once it's sold out, it's gone" },
+        ];
+
         const products = [
             {
                 category: "Special Deals!",
@@ -731,14 +820,13 @@
                 cbdMg: 70,
                 pieces: 12,
                 inStock: true,
+                limitedStock: true,
                 price: 30,
-                desc: "A 12-piece chocolate bar with 200-250mg THC and 90mg CBD (2:1) Potent chocolates for a cheap price!",
+                desc: "A 12-piece chocolate bar with 200-250mg THC and 90mg CBD (2:1). Potent chocolates for a cheap price!",
                 imgBulk: "images/chocolate_open_cleaned.jpg",
                 imgClose: "images/chocolate_close_cleaned.jpg",
-                featured: true,
-                tiers: {
-                    "200-250mg THC, 90mg CBD, 12 piece chocolate bar": 30
-                }
+                featured: false,
+                tiers: { "200-250mg THC, 90mg CBD, 12 piece chocolate bar": 30 }
             },
             {
                 category: "Special Deals!",
@@ -749,15 +837,14 @@
                 potency: 22,
                 potency2: 26,
                 inStock: true,
+                limitedStock: true,
                 price: 180,
                 desc: "A balanced 10.5g high grade mix featuring 3.5g of Durban Poison, 3.5g of Northern Lights (both medical at 22% thc), and 3.5g Rainbow Sherbert #11 (26% thc). A solid split between uplifting daytime energy and heavier evening relaxation.",
                 imgBulk: "images/dp-close_cleaned.jpg",
                 imgClose: "images/nl-close_cleaned.jpg",
                 imgClose1: "images/rs11_close_cleaned.jpg",
-                featured: true,
-                tiers: {
-                    "10.5g Medical Mix": 180
-                }
+                featured: false,
+                tiers: { "10.5g Medical Mix": 180 }
             },
             {
                 category: "Special Deals!",
@@ -767,31 +854,27 @@
                 flare: "special",
                 potency: 26,
                 inStock: true,
+                limitedStock: true,
                 price: 230,
                 desc: "A 21g street deal combining 7g of Rainbow Sherbert #11 with 14g of AK47. A strong-value mix offering a smoother exotic profile alongside a lighter, more functional daytime option.",
                 imgBulk: "images/rs11_close_cleaned.jpg",
                 imgClose: "images/ak47_close_cleaned.jpg",
-                featured: true,
-                tiers: {
-                    "21g Street Deal": 230
-                }
+                featured: false,
+                tiers: { "21g Street Deal": 230 }
             },
             {
                 category: "Street Buds/Flower",
-                name: "Rainbow Sherbert #11 (RS#11) !LIMITED STOCK!",
+                name: "Rainbow Sherbert #11 (RS#11)",
                 type: "indica",
                 flare: "exotic",
                 potency: 26,
                 inStock: true,
+                limitedStock: true,
                 price: 70,
                 desc: "Exotic-grade flower with a sweet, creamy and fruity profile. Rainbow Sherbert #11 is known for its rich flavour, smooth smoke and heavier relaxing finish.",
                 imgBulk: "images/rs11_bulk_cleaned.jpg",
                 imgClose: "images/rs11_close_cleaned.jpg",
-                tiers: {
-                    "14g": 220,
-                    "7g": 120,
-                    "3.5g": 70
-                }
+                tiers: { "14g": 220, "7g": 120, "3.5g": 70 }
             },
             {
                 category: "Street Buds/Flower",
@@ -804,12 +887,7 @@
                 desc: "A sativa-dominant hybrid with a classic sharp, earthy profile and a lighter uplifting effect. A dependable mids option for a more functional daytime smoke.",
                 imgBulk: "images/ak47_bulk_cleaned.jpg",
                 imgClose: "images/ak47_close_cleaned.jpg",
-                tiers: {
-                    "28g": 250,
-                    "14g": 130,
-                    "7g": 70,
-                    "3.5g": 40
-                }
+                tiers: { "28g": 250, "14g": 130, "7g": 70, "3.5g": 40 }
             },
             {
                 category: "Medical Products",
@@ -818,13 +896,12 @@
                 flare: "medical",
                 potency: 22,
                 inStock: true,
+                limitedStock: true,
                 price: 18.5,
                 desc: "LSO-grown Northern Lights offering a classic indica profile. Best suited to slower evenings, body relaxation and a heavier overall finish.",
                 imgBulk: "images/nl-bulk_cleaned.jpg",
                 imgClose: "images/nl-close_cleaned.jpg",
-                tiers: {
-                    "1g Flat Rate": 18.5
-                }
+                tiers: { "1g Flat Rate": 18.5 }
             },
             {
                 category: "Medical Products",
@@ -833,13 +910,12 @@
                 flare: "medical",
                 potency: 22,
                 inStock: true,
+                limitedStock: true,
                 price: 18.5,
                 desc: "LSO-grown Durban Poison with a brighter, clearer sativa profile. A cleaner daytime option with a more energised and functional feel.",
                 imgBulk: "images/dp-bulk_cleaned.jpg",
                 imgClose: "images/dp-close_cleaned.jpg",
-                tiers: {
-                    "1g Flat Rate": 18.5
-                }
+                tiers: { "1g Flat Rate": 18.5 }
             },
             {
                 category: "Medical Products",
@@ -848,12 +924,11 @@
                 flare: "medical",
                 potency: 80,
                 inStock: false,
+                limitedStock: false,
                 price: 250,
                 desc: "Aura Therapeutics Watermelon Skittlez live resin cart in a 2g format. A brighter daytime profile with stronger flavour and a cleaner, more active finish.",
                 imgClose: "images/lr-day_cleaned.jpg",
-                tiers: {
-                    "2g Unit": 250
-                }
+                tiers: { "2g Unit": 250 }
             },
             {
                 category: "Medical Products",
@@ -862,288 +937,284 @@
                 flare: "medical",
                 potency: 80,
                 inStock: false,
+                limitedStock: false,
                 price: 250,
                 desc: "Aura Therapeutics Grandaddy Bruce live resin cart in a 2g format. A heavier night profile designed for slower sessions and a more relaxed finish.",
                 imgClose: "images/lr-night_cleaned.jpg",
-                tiers: {
-                    "2g Unit": 250
-                }
+                tiers: { "2g Unit": 250 }
             }
         ];
 
+        /* ── Lightbox ── */
+        let lbImages = [];
+        let lbIndex  = 0;
+
+        function openLightbox(images, startIndex) {
+            lbImages = images;
+            lbIndex  = startIndex;
+            updateLightbox();
+            document.getElementById("lightbox").classList.add("open");
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeLightbox() {
+            document.getElementById("lightbox").classList.remove("open");
+            document.body.style.overflow = "";
+        }
+
+        function lbNav(dir) {
+            lbIndex = Math.max(0, Math.min(lbImages.length - 1, lbIndex + dir));
+            updateLightbox();
+        }
+
+        function updateLightbox() {
+            const img     = document.getElementById("lbImg");
+            const prev    = document.getElementById("lbPrev");
+            const next    = document.getElementById("lbNext");
+            const dots    = document.getElementById("lbDots");
+            const counter = document.getElementById("lbCounter");
+
+            img.style.opacity   = "0";
+            img.style.transform = "scale(0.97)";
+            img.style.transition = "opacity 0.18s ease, transform 0.18s ease";
+            setTimeout(() => {
+                img.src = lbImages[lbIndex];
+                img.style.opacity   = "1";
+                img.style.transform = "scale(1)";
+            }, 80);
+
+            prev.classList.toggle("hidden", lbIndex === 0);
+            next.classList.toggle("hidden", lbIndex === lbImages.length - 1);
+
+            dots.innerHTML = lbImages.map((_, i) =>
+                `<div class="lb-dot${i === lbIndex ? " active" : ""}" onclick="lbIndex=${i};updateLightbox()"></div>`
+            ).join("");
+
+            counter.textContent = lbImages.length > 1 ? `${lbIndex + 1} / ${lbImages.length}` : "";
+        }
+
+        document.getElementById("lightbox").addEventListener("click", function(e) {
+            if (e.target === this) closeLightbox();
+        });
+
+        document.addEventListener("keydown", (e) => {
+            if (!document.getElementById("lightbox").classList.contains("open")) return;
+            if (e.key === "Escape")     closeLightbox();
+            if (e.key === "ArrowLeft")  lbNav(-1);
+            if (e.key === "ArrowRight") lbNav(1);
+        });
+
+        /* ── Helpers ── */
         let currentFilter = "all";
 
-        const searchInput = document.getElementById("searchInput");
-        const sortSelect = document.getElementById("sortSelect");
-        const inventory = document.getElementById("inventory");
-        const resultCount = document.getElementById("resultCount");
+        const searchInput       = document.getElementById("searchInput");
+        const sortSelect        = document.getElementById("sortSelect");
+        const inventory         = document.getElementById("inventory");
+        const resultCount       = document.getElementById("resultCount");
         const activeFilterLabel = document.getElementById("activeFilterLabel");
-        const statsRow = document.getElementById("statsRow");
-        const chipRow = document.getElementById("chipRow");
+        const statsRow          = document.getElementById("statsRow");
+        const chipRow           = document.getElementById("chipRow");
 
-        function escapeHtml(text) {
-            return String(text)
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
+        function escapeHtml(t) {
+            return String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
         }
 
-        function formatPrice(value) {
-            return Number.isInteger(value) ? `$${value}` : `$${value.toFixed(2)}`;
+        function formatPrice(v) { return Number.isInteger(v) ? `$${v}` : `$${v.toFixed(2)}`; }
+
+        function calcPerGram(label, price) {
+            const l = label.toLowerCase();
+            if (l.includes("piece")||l.includes("bar")||l.includes("unit")||l.includes("cart")) return "";
+            const m = label.match(/[\d.]+/);
+            if (!m) return "";
+            const w = parseFloat(m[0]);
+            if (!w||w<=0) return "";
+            return `$${(price/w).toFixed(2)}/g`;
         }
 
-        function calculatePerGram(label, price) {
-            const lowerLabel = label.toLowerCase();
-
-            if (
-                lowerLabel.includes("piece") ||
-                lowerLabel.includes("bar") ||
-                lowerLabel.includes("unit") ||
-                lowerLabel.includes("cart")
-            ) {
-                return "";
-            }
-
-            const weightMatch = label.match(/[\d.]+/);
-            if (!weightMatch) return "";
-
-            const weight = parseFloat(weightMatch[0]);
-            if (!weight || weight <= 0) return "";
-
-            return `$${(price / weight).toFixed(2)}/g`;
-        }
-
-        function getStrengthValue(product) {
-            if (typeof product.potency === "number") return product.potency;
-            if (typeof product.thcMg === "number") return product.thcMg;
+        function getStrengthValue(p) {
+            if (typeof p.potency==="number") return p.potency;
+            if (typeof p.thcMg==="number")   return p.thcMg;
             return 0;
         }
 
-        function getStrengthBadge(product) {
-            if (product.type === "edible") {
-                const badges = [];
-
-                if (typeof product.thcMg === "number") {
-                    badges.push(`<span class="badge mg">${product.thcMg}mg THC</span>`);
-                }
-
-                if (typeof product.cbdMg === "number") {
-                    badges.push(`<span class="badge mg">${product.cbdMg}mg CBD</span>`);
-                }
-
-                return badges.join("");
+        function getStrengthBadge(p) {
+            if (p.type==="edible") {
+                const b=[];
+                if (typeof p.thcMg==="number") b.push(`<span class="badge mg">${p.thcMg}mg THC</span>`);
+                if (typeof p.cbdMg==="number") b.push(`<span class="badge mg">${p.cbdMg}mg CBD</span>`);
+                return b.join("");
             }
-
-            if (typeof product.potency === "number") {
-                let badge = `<span class="badge potency">${product.potency}% THC</span>`;
-                if (typeof product.potency2 === "number") {
-                    badge += `<span class="badge potency">${product.potency2}% THC</span>`;
-                }
+            if (typeof p.potency==="number") {
+                let badge=`<span class="badge potency">${p.potency}% THC</span>`;
+                if (typeof p.potency2==="number") badge+=`<span class="badge potency">${p.potency2}% THC</span>`;
                 return badge;
             }
-
             return "";
         }
 
-        function getMetaPills(product) {
-            const pills = [];
+        function getStockBadge(p) {
+            if (!p.inStock)     return `<span class="badge st-out">Out of Stock</span>`;
+            if (p.limitedStock) return `<span class="badge st-lim">🔥 Limited Stock</span>`;
+            return                      `<span class="badge st-in">In Stock</span>`;
+        }
 
-            if (product.type === "edible" && typeof product.pieces === "number") {
-                pills.push(`<span class="meta-pill">${product.pieces} pieces</span>`);
-            }
+        function getUrgencyBar(p) {
+            if (!p.limitedStock) return "";
+            const random = urgencyMessages[Math.floor(Math.random() * urgencyMessages.length)];
+            return `
+                <div class="urgency-bar">
+                    <div class="urgency-dot"></div>
+                    ${random.icon} ${random.text.replace(/<span>/g,'').replace(/<\/span>/g,'')}
+                    <span class="urgency-bar-right">Limited Stock</span>
+                </div>`;
+        }
 
-            if (product.category) {
-                pills.push(`<span class="meta-pill">${escapeHtml(product.category)}</span>`);
-            }
+        function getUrgencyNote(p) {
+            if (!p.limitedStock) return "";
+            const msgs = [
+                { icon:"🔥", text:"This item is <span>selling fast</span> and won't be restocked until next batch — don't miss out." },
+                { icon:"⚡", text:"<span>Very limited quantity</span> available. Order now before stock runs out." },
+                { icon:"⏳", text:"Stock is <span>almost gone</span> — this is one of our most popular items right now." },
+            ];
+            const m = msgs[Math.floor(Math.random() * msgs.length)];
+            return `
+                <div class="urgency-note">
+                    <div class="urgency-note-icon">${m.icon}</div>
+                    <div class="urgency-note-text">${m.text}</div>
+                </div>`;
+        }
 
+        function getMetaPills(p) {
+            const pills=[];
+            if (p.type==="edible"&&typeof p.pieces==="number") pills.push(`<span class="meta-pill">${p.pieces} pieces</span>`);
+            if (p.category) pills.push(`<span class="meta-pill">${escapeHtml(p.category)}</span>`);
             return pills.join("");
         }
 
-        function getProductGroup(product) {
-            if (product.type === "edible") return "edible";
-            if (product.flare === "medical" || product.category.toLowerCase().includes("medical")) return "medical";
-            if (product.category.toLowerCase().includes("flower") || product.category.toLowerCase().includes("buds")) return "flower";
-            if (product.flare === "special" || product.category.toLowerCase().includes("special")) return "special";
+        function getProductGroup(p) {
+            if (p.type==="edible") return "edible";
+            if (p.flare==="medical"||p.category.toLowerCase().includes("medical")) return "medical";
+            if (p.category.toLowerCase().includes("flower")||p.category.toLowerCase().includes("buds")) return "flower";
+            if (p.flare==="special"||p.category.toLowerCase().includes("special")) return "special";
             return "other";
         }
 
-        function matchesFilter(product, filter) {
-            if (filter === "all") return true;
-            if (filter === "instock") return product.inStock === true;
-            return getProductGroup(product) === filter;
+        function matchesFilter(p, f) {
+            if (f==="all")     return true;
+            if (f==="instock") return p.inStock===true;
+            return getProductGroup(p)===f;
         }
 
-        function getFilterLabel(filter) {
-            const labels = {
-                all: "Viewing all products",
-                flower: "Viewing flower products",
-                medical: "Viewing medical products",
-                edible: "Viewing edible products",
-                special: "Viewing special deals",
-                instock: "Viewing in-stock products"
-            };
-            return labels[filter] || "Viewing products";
+        function getFilterLabel(f) {
+            return { all:"Viewing all products", flower:"Viewing flower products", medical:"Viewing medical products",
+                     edible:"Viewing edible products", special:"Viewing special deals", instock:"Viewing in-stock products" }[f]||"Viewing products";
         }
 
+        /* ── Stats ── */
         function buildStats() {
-            const totalProducts = products.length;
-            const inStockCount = products.filter(p => p.inStock).length;
-            const categoryCount = new Set(products.map(p => p.category)).size;
-            const featuredCount = products.filter(p => p.featured).length;
-
+            const total   = products.length;
+            const inStock = products.filter(p=>p.inStock).length;
+            const cats    = new Set(products.map(p=>p.category)).size;
+            const featured= products.filter(p=>p.featured).length;
             statsRow.innerHTML = `
-                <div class="stat-card">
-                    <div class="stat-label">Products</div>
-                    <div class="stat-value">${totalProducts}</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Categories</div>
-                    <div class="stat-value">${categoryCount}</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Featured</div>
-                    <div class="stat-value">${featuredCount}</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">In Stock</div>
-                    <div class="stat-value">${inStockCount}</div>
-                </div>
-            `;
+                <div class="stat-card"><div class="stat-label">Products</div><div class="stat-value">${total}</div></div>
+                <div class="stat-card"><div class="stat-label">Categories</div><div class="stat-value">${cats}</div></div>
+                <div class="stat-card"><div class="stat-label">Featured</div><div class="stat-value">${featured}</div></div>
+                <div class="stat-card"><div class="stat-label">In Stock</div><div class="stat-value">${inStock}</div></div>`;
         }
 
+        /* ── Images ── */
+        function getProductImages(p) {
+            const imgs = [p.imgBulk, p.imgClose, p.imgClose1].filter(Boolean);
+            return imgs.length ? imgs : ["https://via.placeholder.com/700x700?text=Image+Coming+Soon"];
+        }
+
+        function renderProductImages(p) {
+            const images = getProductImages(p);
+            const cls = images.length===1?"img-grid single":images.length===3?"img-grid three":"img-grid";
+            const encoded = encodeURIComponent(JSON.stringify(images));
+            return `
+                <div class="${cls}">
+                    ${images.map((src,i)=>`
+                        <img src="${escapeHtml(src)}" class="prod-img"
+                            alt="${escapeHtml(p.name)} image ${i+1}"
+                            data-images="${encoded}" data-index="${i}"
+                            onclick="event.stopPropagation();openLightbox(JSON.parse(decodeURIComponent(this.dataset.images)),parseInt(this.dataset.index))"
+                            onerror="this.src='https://via.placeholder.com/700x700?text=Image+Coming+Soon'">
+                    `).join("")}
+                </div>`;
+        }
+
+        /* ── Card toggle ── */
+        function toggleCard(card) {
+            const isActive = card.classList.contains("active");
+            document.querySelectorAll(".strain-card").forEach(c=>c.classList.remove("active"));
+            if (!isActive) card.classList.add("active");
+        }
+
+        /* ── Render ── */
         function getFilteredProducts() {
-            const searchTerm = searchInput.value.toLowerCase().trim();
+            const term   = searchInput.value.toLowerCase().trim();
             const sortBy = sortSelect.value;
 
-            let filtered = products.filter(product => {
-                const haystack = [
-                    product.name,
-                    product.category,
-                    product.type,
-                    product.flare,
-                    product.desc
-                ]
-                    .filter(Boolean)
-                    .join(" ")
-                    .toLowerCase();
-
-                return haystack.includes(searchTerm) && matchesFilter(product, currentFilter);
+            let filtered = products.filter(p=>{
+                const hay=[p.name,p.category,p.type,p.flare,p.desc].filter(Boolean).join(" ").toLowerCase();
+                return hay.includes(term)&&matchesFilter(p,currentFilter);
             });
 
-            if (sortBy === "p-low") {
-                filtered.sort((a, b) => a.price - b.price);
-            } else if (sortBy === "p-high") {
-                filtered.sort((a, b) => b.price - a.price);
-            } else if (sortBy === "strength-high") {
-                filtered.sort((a, b) => getStrengthValue(b) - getStrengthValue(a));
-            } else if (sortBy === "name-az") {
-                filtered.sort((a, b) => a.name.localeCompare(b.name));
-            }
+            if (sortBy==="p-low")          filtered.sort((a,b)=>a.price-b.price);
+            else if (sortBy==="p-high")    filtered.sort((a,b)=>b.price-a.price);
+            else if (sortBy==="strength-high") filtered.sort((a,b)=>getStrengthValue(b)-getStrengthValue(a));
+            else if (sortBy==="name-az")   filtered.sort((a,b)=>a.name.localeCompare(b.name));
 
             return filtered;
         }
 
-        function getCategoryCounts(items) {
-            return items.reduce((acc, item) => {
-                acc[item.category] = (acc[item.category] || 0) + 1;
-                return acc;
-            }, {});
-        }
-
-        function getProductImages(product) {
-            const images = [product.imgBulk, product.imgClose, product.imgClose1].filter(Boolean);
-            return images.length ? images : ["https://via.placeholder.com/700x700?text=Image+Coming+Soon"];
-        }
-
-        function renderProductImages(product) {
-            const images = getProductImages(product);
-            const gridClass = images.length === 1 ? "img-grid single" : images.length === 3 ? "img-grid three" : "img-grid";
-
-            return `
-                <div class="${gridClass}">
-                    ${images.map((src, i) => `
-                        <img
-                            src="${escapeHtml(src)}"
-                            class="prod-img"
-                            alt="${escapeHtml(product.name)} image ${i + 1}"
-                            onerror="this.src='https://via.placeholder.com/700x700?text=Image+Coming+Soon'"
-                        >
-                    `).join("")}
-                </div>
-            `;
-        }
-
-        function toggleCard(card) {
-            const isActive = card.classList.contains("active");
-            document.querySelectorAll(".strain-card").forEach(c => c.classList.remove("active"));
-            if (!isActive) {
-                card.classList.add("active");
-            }
-        }
-
         function renderList() {
             const filtered = getFilteredProducts();
-            const sortBy = sortSelect.value;
-            const categoryCounts = getCategoryCounts(filtered);
+            const sortBy   = sortSelect.value;
+            const catCounts = filtered.reduce((acc,p)=>{ acc[p.category]=(acc[p.category]||0)+1; return acc; },{});
 
-            resultCount.textContent = filtered.length;
+            resultCount.textContent       = filtered.length;
             activeFilterLabel.textContent = getFilterLabel(currentFilter);
 
-            if (filtered.length === 0) {
-                inventory.innerHTML = `
-                    <div class="empty-state">
-                        <h3>No matches found</h3>
-                        <p>Try adjusting your search, sort or active filter.</p>
-                    </div>
-                `;
+            if (!filtered.length) {
+                inventory.innerHTML=`<div class="empty-state"><h3>No matches found</h3><p>Try adjusting your search, sort or active filter.</p></div>`;
                 return;
             }
 
-            let html = "";
-            let lastCategory = "";
+            let html="", lastCat="";
 
-            filtered.forEach((product, index) => {
-                const shouldShowCategory = sortBy === "default" && product.category !== lastCategory;
-                if (shouldShowCategory) {
-                    html += `
-                        <div class="category-header">
-                            <span>${escapeHtml(product.category)}</span>
-                            <span class="category-count">${categoryCounts[product.category]} item${categoryCounts[product.category] !== 1 ? "s" : ""}</span>
-                        </div>
-                    `;
-                    lastCategory = product.category;
+            filtered.forEach((p,idx)=>{
+                if (sortBy==="default"&&p.category!==lastCat) {
+                    html+=`<div class="category-header"><span>${escapeHtml(p.category)}</span><span class="category-count">${catCounts[p.category]} item${catCounts[p.category]!==1?"s":""}</span></div>`;
+                    lastCat=p.category;
                 }
 
-                const classes = ["strain-card"];
-                if (product.featured) classes.push("featured");
+                const classes=["strain-card"];
+                if (p.featured) classes.push("featured");
+                if (p.limitedStock) classes.push("limited");
 
-                const subTextParts = [];
-                if (product.flare) subTextParts.push(product.flare);
-                if (product.type) subTextParts.push(product.type);
+                const subParts=[];
+                if (p.flare) subParts.push(p.flare);
+                if (p.type)  subParts.push(p.type);
 
-                html += `
-                    <div class="${classes.join(" ")}" onclick="toggleCard(this)" style="animation: pageIn 0.35s ease; animation-delay:${index * 0.03}s;">
+                html+=`
+                    <div class="${classes.join(" ")}" onclick="toggleCard(this)" style="animation:pageIn 0.35s ease;animation-delay:${idx*0.03}s;">
+                        ${getUrgencyBar(p)}
                         <div class="strain-header">
                             <div class="strain-main">
-                                <div class="strain-name" style="color:${product.nameColor || "var(--text-main)"};">
-                                    ${escapeHtml(product.name)}
-                                </div>
-                                <div class="strain-sub">
-                                    ${escapeHtml(subTextParts.join(" • "))}
-                                </div>
-
+                                <div class="strain-name" style="color:${p.nameColor||"var(--text-main)"};">${escapeHtml(p.name)}</div>
+                                <div class="strain-sub">${escapeHtml(subParts.join(" • "))}</div>
                                 <div class="badge-container">
-                                    <span class="badge ${escapeHtml(product.flare)}">${escapeHtml(product.flare)}</span>
-                                    <span class="badge ${escapeHtml(product.type)}">${escapeHtml(product.type)}</span>
-                                    ${getStrengthBadge(product)}
-                                    <span class="badge ${product.inStock ? "st-in" : "st-out"}">${product.inStock ? "In Stock" : "Out of Stock"}</span>
+                                    <span class="badge ${escapeHtml(p.flare)}">${escapeHtml(p.flare)}</span>
+                                    <span class="badge ${escapeHtml(p.type)}">${escapeHtml(p.type)}</span>
+                                    ${getStrengthBadge(p)}
+                                    ${getStockBadge(p)}
                                 </div>
                             </div>
-
                             <div class="header-right">
-                                <span class="from-pill">From ${formatPrice(product.price)}</span>
+                                <span class="from-pill">From ${formatPrice(p.price)}</span>
                                 <span class="chevron">▼</span>
                             </div>
                         </div>
@@ -1151,42 +1222,35 @@
                         <div class="strain-content">
                             <div class="inner-content">
                                 <div class="inner-padding">
-                                    ${renderProductImages(product)}
-
-                                    <div class="meta-line">
-                                        ${getMetaPills(product)}
-                                    </div>
-
-                                    <p class="desc">${escapeHtml(product.desc)}</p>
-
+                                    ${renderProductImages(p)}
+                                    <div class="meta-line">${getMetaPills(p)}</div>
+                                    ${getUrgencyNote(p)}
+                                    <p class="desc">${escapeHtml(p.desc)}</p>
                                     <div class="price-list">
-                                        ${Object.entries(product.tiers).map(([qty, val]) => `
+                                        ${Object.entries(p.tiers).map(([qty,val])=>`
                                             <div class="price-row">
                                                 <div class="price-left">${escapeHtml(qty)}</div>
                                                 <div class="price-right">
                                                     <div class="price-main">${formatPrice(val)}</div>
-                                                    ${calculatePerGram(qty, val) ? `<div class="price-per-g">${calculatePerGram(qty, val)}</div>` : ""}
+                                                    ${calcPerGram(qty,val)?`<div class="price-per-g">${calcPerGram(qty,val)}</div>`:""}
                                                 </div>
-                                            </div>
-                                        `).join("")}
+                                            </div>`).join("")}
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                `;
+                    </div>`;
             });
 
-            inventory.innerHTML = html;
+            inventory.innerHTML=html;
         }
 
-        chipRow.addEventListener("click", (e) => {
-            const chip = e.target.closest(".filter-chip");
+        chipRow.addEventListener("click",(e)=>{
+            const chip=e.target.closest(".filter-chip");
             if (!chip) return;
-
-            document.querySelectorAll(".filter-chip").forEach(btn => btn.classList.remove("active"));
+            document.querySelectorAll(".filter-chip").forEach(b=>b.classList.remove("active"));
             chip.classList.add("active");
-            currentFilter = chip.dataset.filter;
+            currentFilter=chip.dataset.filter;
             renderList();
         });
 
