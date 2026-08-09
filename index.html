@@ -1,983 +1,165 @@
 <!DOCTYPE html>
-<!-- RP build: accessories-catalogue-v7-image-refresh-2026-08-09 -->
+<!-- RP build: stock-restock-v3-2026-08-08 -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#050608">
     <meta name="color-scheme" content="dark">
-    <meta name="description" content="Fictional smoking accessories catalogue for a roleplay inventory showcase.">
-    <title>Accessories | Roleplay Portal</title>
+    <meta name="description" content="A fictional roleplay portal and inventory showcase.">
+    <title>RP Portal | Home</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #050608;
-            --panel: #0c0f15;
-            --panel-2: #11151d;
-            --glass: rgba(255,255,255,0.045);
-            --glass-strong: rgba(255,255,255,0.072);
+            --surface: #12141c;
+            --glass: rgba(255, 255, 255, 0.035);
+            --glass-hover: rgba(255, 255, 255, 0.075);
             --accent: #60a5fa;
-            --accent-strong: #3b82f6;
-            --accent-soft: rgba(96,165,250,0.12);
-            --border: rgba(255,255,255,0.095);
-            --border-strong: rgba(255,255,255,0.15);
+            --border: rgba(255, 255, 255, 0.1);
             --text-main: #f8fafc;
             --text-dim: #94a3b8;
-            --text-soft: #64748b;
-            --success: #86efac;
-            --danger: #fca5a5;
-            --warning: #fcd34d;
-            --order: #c4b5fd;
-            --order-strong: #8b5cf6;
-            --shadow: 0 18px 55px rgba(0,0,0,0.34);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        html, body, button, input, a { font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-        button, input { font: inherit; }
-        button { -webkit-tap-highlight-color: transparent; }
-        :focus-visible { outline: 3px solid rgba(96,165,250,0.72); outline-offset: 3px; }
+        html, body, a { font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+        html { background: var(--bg); }
+        :focus-visible { outline: 3px solid rgba(96,165,250,0.75); outline-offset: 3px; }
 
         body {
             background:
-                radial-gradient(circle at 50% -10%, rgba(59,130,246,0.18) 0%, transparent 34%),
-                radial-gradient(circle at 8% 24%, rgba(59,130,246,0.055), transparent 24%),
-                linear-gradient(180deg, #090c12 0%, #050608 42%, #030405 100%);
+                radial-gradient(circle at 50% -5%, rgba(59,130,246,0.22), transparent 32%),
+                radial-gradient(circle at 12% 30%, rgba(168,85,247,0.09), transparent 24%),
+                linear-gradient(180deg, #0a0d14 0%, var(--bg) 100%);
             color: var(--text-main);
-            min-height: 100vh;
-            min-height: 100dvh;
-            padding: max(14px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) max(34px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left));
-        }
-
-        body.modal-open { overflow: hidden; }
-        .page-wrap { width: min(100%, 1120px); margin: 0 auto; }
-
-        .top-nav {
-            min-height: 48px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            margin-bottom: 10px;
-        }
-        .back-link {
-            min-height: 44px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: #bfdbfe;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.9rem;
-            padding: 0 4px;
-        }
-        .page-label {
-            color: var(--text-soft);
-            text-transform: uppercase;
-            letter-spacing: 0.13em;
-            font-size: 0.67rem;
-            font-weight: 800;
+            justify-content: center;
+            min-height: 100vh;
+            min-height: 100dvh;
+            padding: max(20px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
         }
 
-        .hero {
-            position: relative;
-            overflow: hidden;
-            padding: clamp(22px, 5vw, 38px);
-            border: 1px solid var(--border);
-            border-radius: 28px;
-            background:
-                linear-gradient(135deg, rgba(96,165,250,0.13), transparent 38%),
-                linear-gradient(180deg, rgba(255,255,255,0.052), rgba(255,255,255,0.02));
-            box-shadow: var(--shadow);
-            margin-bottom: 16px;
+        .home-container {
+            width: min(100%, 520px);
+            text-align: center;
+            animation: fadeIn 0.65s ease-out;
         }
-        .hero::after {
-            content: '';
-            position: absolute;
-            width: 260px;
-            height: 260px;
-            right: -110px;
-            top: -130px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(96,165,250,0.14), transparent 66%);
-            pointer-events: none;
-        }
+
         .eyebrow {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            color: #bfdbfe;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.11em;
-            font-weight: 800;
-            margin-bottom: 10px;
-        }
-        .eyebrow-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 18px rgba(96,165,250,0.8); }
-        h1 { font-size: clamp(2rem, 7vw, 3.35rem); line-height: 0.98; letter-spacing: -0.055em; margin-bottom: 12px; }
-        .intro { color: #a8b4c6; line-height: 1.65; font-size: clamp(0.9rem, 2vw, 1rem); max-width: 690px; }
-
-        .hero-stats {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 18px;
-        }
-        .hero-stat {
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            min-height: 34px;
-            padding: 0 11px;
-            border-radius: 999px;
-            border: 1px solid var(--border);
-            background: rgba(0,0,0,0.18);
-            color: #cbd5e1;
-            font-size: 0.73rem;
-            font-weight: 700;
-        }
-        .hero-stat strong { color: #fff; }
-
-        .catalogue-tools {
-            position: sticky;
-            top: max(8px, env(safe-area-inset-top));
-            z-index: 30;
-            padding: 10px;
+            min-height: 32px;
             margin-bottom: 14px;
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            background: rgba(8,11,16,0.9);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.28);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-        }
-        .search-row { display: flex; gap: 8px; margin-bottom: 9px; }
-        .search-box {
-            flex: 1;
-            min-width: 0;
-            min-height: 44px;
-            border-radius: 13px;
-            border: 1px solid var(--border);
-            background: rgba(255,255,255,0.035);
-            color: var(--text-main);
-            padding: 0 13px;
-            outline: none;
-        }
-        .search-box::placeholder { color: #64748b; }
-        .search-box:focus { border-color: rgba(96,165,250,0.46); background: rgba(96,165,250,0.055); }
-        .result-count {
-            flex: 0 0 auto;
-            min-width: 76px;
-            min-height: 44px;
-            display: grid;
-            place-items: center;
-            padding: 0 11px;
-            border-radius: 13px;
-            border: 1px solid var(--border);
-            color: #9fb0c5;
-            background: rgba(255,255,255,0.028);
-            font-size: 0.72rem;
-            font-weight: 750;
-        }
-
-        .tabs-wrap { position: relative; }
-        .tabs {
-            display: flex;
-            gap: 7px;
-            overflow-x: auto;
-            overscroll-behavior-inline: contain;
-            scrollbar-width: none;
-            padding: 1px 1px 3px;
-            scroll-snap-type: x proximity;
-        }
-        .tabs::-webkit-scrollbar { display: none; }
-        .tab {
-            flex: 0 0 auto;
-            min-height: 38px;
+            padding: 7px 11px;
+            border: 1px solid rgba(96,165,250,0.18);
             border-radius: 999px;
-            border: 1px solid var(--border);
-            background: rgba(255,255,255,0.028);
-            color: #9aa9bd;
-            padding: 0 13px;
-            cursor: pointer;
-            font-size: 0.75rem;
-            font-weight: 750;
-            white-space: nowrap;
-            scroll-snap-align: start;
-            transition: 0.18s ease;
-        }
-        .tab.active {
-            color: #eff6ff;
-            border-color: rgba(96,165,250,0.4);
-            background: linear-gradient(180deg, rgba(96,165,250,0.2), rgba(59,130,246,0.11));
-            box-shadow: inset 0 0 0 1px rgba(96,165,250,0.05);
-        }
-
-        .catalogue-head {
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            gap: 12px;
-            padding: 5px 3px 11px;
-        }
-        .catalogue-title { font-size: 1rem; font-weight: 800; letter-spacing: -0.02em; }
-        .catalogue-subtitle { color: var(--text-soft); font-size: 0.74rem; margin-top: 3px; }
-
-        .accessory-grid {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 12px;
-        }
-
-        .accessory-card {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            min-width: 0;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            background: linear-gradient(180deg, rgba(255,255,255,0.047), rgba(255,255,255,0.018));
-            color: inherit;
-            text-align: left;
-            cursor: pointer;
-            box-shadow: 0 9px 25px rgba(0,0,0,0.18);
-            transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
-        }
-        .card-media {
-            position: relative;
-            aspect-ratio: 1 / 0.91;
-            overflow: hidden;
-            background:
-                radial-gradient(circle at 35% 25%, rgba(96,165,250,0.11), transparent 38%),
-                linear-gradient(145deg, #121722, #090c11);
-            border-bottom: 1px solid rgba(255,255,255,0.07);
-        }
-        .card-media img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transform: scale(1.001);
-            transition: transform 0.28s ease;
-        }
-        .placeholder-art {
-            width: 100%;
-            height: 100%;
-            display: grid;
-            place-items: center;
-            background:
-                radial-gradient(circle at 35% 30%, rgba(96,165,250,0.18), transparent 34%),
-                linear-gradient(145deg, #111722, #080b10);
-        }
-        .placeholder-glyph {
-            width: 72px;
-            height: 72px;
-            display: grid;
-            place-items: center;
-            border-radius: 22px;
-            border: 1px solid rgba(255,255,255,0.12);
-            background: linear-gradient(180deg, rgba(255,255,255,0.075), rgba(255,255,255,0.025));
-            color: #dbeafe;
-            font-size: 1.7rem;
-            font-weight: 700;
-            box-shadow: 0 14px 32px rgba(0,0,0,0.25), inset 0 0 28px rgba(96,165,250,0.06);
-        }
-        .media-badges {
-            position: absolute;
-            top: 9px;
-            left: 9px;
-            right: 9px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 6px;
-            pointer-events: none;
-        }
-        .category-chip, .feature-chip, .order-chip {
-            min-height: 25px;
-            display: inline-flex;
-            align-items: center;
-            padding: 0 8px;
-            border-radius: 999px;
-            border: 1px solid rgba(255,255,255,0.11);
-            background: rgba(5,7,10,0.72);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            font-size: 0.61rem;
-            font-weight: 800;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-            color: #cbd5e1;
-        }
-        .feature-chip { color: #bfdbfe; border-color: rgba(96,165,250,0.23); }
-        .badge-stack { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; }
-        .order-chip {
-            color: #ede9fe;
-            border-color: rgba(167,139,250,0.42);
-            background: linear-gradient(180deg, rgba(91,33,182,0.88), rgba(76,29,149,0.82));
-            box-shadow: 0 7px 18px rgba(76,29,149,0.28), inset 0 0 0 1px rgba(255,255,255,0.035);
-        }
-
-        .card-body {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-            padding: 12px;
-        }
-        .card-name {
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            font-size: 0.94rem;
-            line-height: 1.22;
-            letter-spacing: -0.02em;
-            font-weight: 800;
-            min-height: 2.42em;
-        }
-        .card-desc {
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            color: #7f8da1;
-            font-size: 0.7rem;
-            line-height: 1.45;
-            margin-top: 6px;
-            min-height: 2.9em;
-        }
-        .stock-row {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: var(--success);
-            margin-top: 10px;
-            font-size: 0.66rem;
-            font-weight: 750;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .stock-row.out { color: var(--danger); }
-        .stock-row.soon { color: var(--warning); }
-        .stock-row.order { color: var(--order); }
-        .stock-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex: 0 0 auto; box-shadow: 0 0 12px currentColor; }
-        .card-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 8px;
-            border-top: 1px solid rgba(255,255,255,0.07);
-            margin-top: 11px;
-            padding-top: 10px;
-        }
-        .price { font-weight: 850; font-size: 0.96rem; letter-spacing: -0.025em; }
-        .view-label { color: #93c5fd; font-weight: 750; font-size: 0.66rem; }
-
-        .empty-state {
-            grid-column: 1 / -1;
-            border: 1px dashed rgba(255,255,255,0.13);
-            border-radius: 20px;
-            padding: 34px 20px;
-            text-align: center;
-            color: var(--text-dim);
-            background: rgba(255,255,255,0.018);
-        }
-        .empty-state strong { display: block; color: #dbe5f0; margin-bottom: 5px; }
-
-        .footer-note {
-            color: var(--text-soft);
-            text-align: center;
-            font-size: 0.66rem;
-            margin-top: 28px;
-            opacity: 0.72;
-            text-transform: uppercase;
-            letter-spacing: 0.09em;
-        }
-
-        .modal-backdrop {
-            position: fixed;
-            inset: 0;
-            z-index: 100;
-            display: grid;
-            place-items: center;
-            padding: 18px;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.2s ease, visibility 0.2s ease;
-        }
-        .modal-backdrop.open { opacity: 1; visibility: visible; }
-        .product-modal {
-            width: min(100%, 760px);
-            max-height: min(88dvh, 720px);
-            overflow: auto;
-            border: 1px solid var(--border-strong);
-            border-radius: 26px;
-            background: linear-gradient(180deg, #10141c, #090c11);
-            box-shadow: 0 28px 90px rgba(0,0,0,0.58);
-            transform: translateY(14px) scale(0.985);
-            transition: transform 0.22s ease;
-        }
-        .modal-backdrop.open .product-modal { transform: translateY(0) scale(1); }
-        .modal-top { position: relative; }
-        .modal-media {
-            aspect-ratio: 16 / 9;
-            overflow: hidden;
-            background: linear-gradient(145deg, #121722, #080b10);
-            border-bottom: 1px solid var(--border);
-        }
-        .modal-media img { width: 100%; height: 100%; object-fit: contain; display: block; background: #f4f4f4; }
-        .modal-media .placeholder-glyph { width: 88px; height: 88px; font-size: 2rem; }
-        .modal-close {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            z-index: 2;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 1px solid rgba(255,255,255,0.14);
-            background: rgba(5,7,10,0.78);
-            color: white;
-            cursor: pointer;
-            font-size: 1.15rem;
-            backdrop-filter: blur(8px);
-        }
-        .modal-content { padding: 20px; }
-        .modal-kicker { color: #93c5fd; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 7px; }
-        .modal-title { font-size: clamp(1.45rem, 5vw, 2rem); letter-spacing: -0.045em; line-height: 1.05; }
-        .modal-description-label {
-            color: #64748b;
-            font-size: 0.62rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.09em;
-            margin-top: 15px;
-        }
-        .modal-description { color: #aab6c6; line-height: 1.68; margin-top: 6px; font-size: 0.9rem; }
-        .modal-info {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-top: 17px;
-        }
-        .info-box {
-            min-width: 0;
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            background: rgba(255,255,255,0.026);
-            padding: 12px;
-        }
-        .info-label { color: #64748b; font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 5px; }
-        .info-value { color: #e5edf7; font-size: 0.82rem; font-weight: 750; }
-        .modal-price-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 12px;
-            margin-top: 16px;
-            border-top: 1px solid var(--border);
-            padding-top: 16px;
-        }
-        .modal-price { font-size: 1.45rem; font-weight: 850; letter-spacing: -0.04em; }
-        .roleplay-pill {
-            min-height: 36px;
-            display: inline-flex;
-            align-items: center;
-            padding: 0 11px;
-            border-radius: 999px;
-            border: 1px solid rgba(96,165,250,0.24);
-            background: rgba(96,165,250,0.08);
+            background: rgba(59,130,246,0.07);
             color: #bfdbfe;
-            font-size: 0.67rem;
+            font-size: 0.68rem;
             font-weight: 800;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+        }
+
+        h1 {
+            font-weight: 900;
+            font-size: clamp(2.3rem, 10vw, 3.15rem);
+            line-height: 1;
+            margin-bottom: 12px;
+            letter-spacing: -0.055em;
+            background: linear-gradient(to right, #fff 0%, #dbeafe 45%, #64748b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .intro { color: var(--text-dim); margin: 0 auto 30px; max-width: 420px; line-height: 1.6; font-weight: 400; font-size: 0.94rem; }
+        .nav-menu { display: grid; gap: 12px; }
+
+        .nav-btn {
+            min-height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            text-align: left;
+            text-decoration: none;
+            background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.02));
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 17px 18px;
+            border-radius: 17px;
+            transition: border-color 0.22s ease, transform 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
+            box-shadow: 0 7px 22px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.035);
+            touch-action: manipulation;
+        }
+
+        .nav-copy { min-width: 0; }
+        .nav-title { display: block; font-size: 1rem; font-weight: 800; margin-bottom: 4px; }
+        .nav-sub { display: block; color: var(--text-dim); font-size: 0.76rem; font-weight: 400; line-height: 1.35; }
+        .nav-arrow { color: var(--accent); font-size: 1.2rem; flex: 0 0 auto; }
+
+        .footer-tag {
+            margin-top: 34px;
+            color: var(--text-dim);
+            font-size: 0.66rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            opacity: 0.62;
         }
 
         @media (hover: hover) {
-            .accessory-card:hover { transform: translateY(-3px); border-color: rgba(96,165,250,0.25); background: linear-gradient(180deg, rgba(96,165,250,0.075), rgba(255,255,255,0.02)); }
-            .accessory-card:hover .card-media img { transform: scale(1.045); }
-            .tab:hover { color: #dbeafe; border-color: rgba(96,165,250,0.25); }
-        }
-        @media (max-width: 900px) {
-            .accessory-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-        }
-        @media (max-width: 650px) {
-            body { padding-left: max(10px, env(safe-area-inset-left)); padding-right: max(10px, env(safe-area-inset-right)); }
-            .hero { border-radius: 22px; margin-bottom: 10px; }
-            .catalogue-tools { border-radius: 16px; margin-left: -2px; margin-right: -2px; }
-            .accessory-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
-            .card-body { padding: 10px; }
-            .card-name { font-size: 0.86rem; }
-            .card-desc {
-                display: -webkit-box;
-                -webkit-line-clamp: 2;
-                -webkit-box-orient: vertical;
-                overflow: hidden;
-                font-size: 0.63rem;
-                line-height: 1.38;
-                min-height: 2.76em;
-                margin-top: 5px;
+            .nav-btn:hover {
+                background: var(--glass-hover);
+                border-color: rgba(96,165,250,0.35);
+                transform: translateY(-2px);
+                box-shadow: 0 13px 28px rgba(0,0,0,0.28), 0 0 26px rgba(59,130,246,0.06);
             }
-            .card-media { aspect-ratio: 1 / 0.92; }
-            .category-chip, .feature-chip, .order-chip { font-size: 0.55rem; min-height: 23px; padding: 0 7px; }
-            .stock-row { margin-top: 8px; font-size: 0.6rem; }
-            .card-footer { margin-top: 9px; padding-top: 9px; }
-            .price { font-size: 0.88rem; }
-            .view-label { display: none; }
-            .modal-backdrop { align-items: end; padding: 0; }
-            .product-modal { width: 100%; max-height: 86dvh; border-radius: 24px 24px 0 0; border-bottom: 0; transform: translateY(45px); }
-            .modal-media { aspect-ratio: 16 / 8.5; }
-            .modal-content { padding: 17px 16px calc(18px + env(safe-area-inset-bottom)); }
         }
-        @media (max-width: 360px) {
-            .accessory-grid { gap: 7px; }
-            .card-body { padding: 9px; }
-            .media-badges { top: 7px; left: 7px; right: 7px; }
-            .feature-chip { display: none; }
-            .order-chip { font-size: 0.5rem; padding: 0 6px; }
+
+        @media (max-width: 420px) {
+            body { align-items: flex-start; }
+            .home-container { padding-top: max(6vh, 18px); }
+            .intro { margin-bottom: 24px; }
+            .nav-btn { min-height: 64px; padding: 15px 16px; }
+            .footer-tag { margin-top: 28px; }
         }
-        @media (hover: none) { .accessory-card:hover { transform: none; } }
+
         @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
-    <main class="page-wrap">
-        <nav class="top-nav" aria-label="Page navigation">
-            <a href="index.html" class="back-link">← <span>Home</span></a>
-            <span class="page-label">Accessories catalogue</span>
+    <main class="home-container">
+        <div class="eyebrow">Fictional RP Portal</div>
+        <h1>Welcome</h1>
+        <p class="intro">Select a section to continue. This site is a fictional interface created only for roleplay and storytelling.</p>
+
+        <nav class="nav-menu" aria-label="Main navigation">
+            <a href="products.html" class="nav-btn">
+                <span class="nav-copy"><span class="nav-title">Available Products</span><span class="nav-sub">Browse the fictional inventory showcase</span></span>
+                <span class="nav-arrow" aria-hidden="true">→</span>
+            </a>
+            <a href="accessories.html" class="nav-btn">
+                <span class="nav-copy"><span class="nav-title">Accessories</span><span class="nav-sub">View prop accessories and extras</span></span>
+                <span class="nav-arrow" aria-hidden="true">→</span>
+            </a>
+            <a href="about.html" class="nav-btn">
+                <span class="nav-copy"><span class="nav-title">About</span><span class="nav-sub">Read the roleplay and legal disclaimer</span></span>
+                <span class="nav-arrow" aria-hidden="true">→</span>
+            </a>
         </nav>
 
-        <section class="hero">
-            <div class="eyebrow"><span class="eyebrow-dot"></span> Roleplay inventory</div>
-            <h1>Accessories</h1>
-            <p class="intro">Browse accessories by category with clear photos, quick descriptions, stock status and special-order flares visible at a glance.</p>
-            <div class="hero-stats">
-                <span class="hero-stat"><strong id="heroItemCount">0</strong> items</span>
-                <span class="hero-stat"><strong id="heroCategoryCount">0</strong> categories</span>
-                <span class="hero-stat"><strong id="heroStockCount">0</strong> in stock</span>
-                <span class="hero-stat"><strong id="heroOrderCount">0</strong> order-in</span>
-            </div>
-        </section>
-
-        <section class="catalogue-tools" aria-label="Accessory filters">
-            <div class="search-row">
-                <input id="accessorySearch" class="search-box" type="search" placeholder="Search accessories…" autocomplete="off" aria-label="Search accessories">
-                <div class="result-count" id="resultCount">0 items</div>
-            </div>
-            <div class="tabs-wrap">
-                <div class="tabs" id="categoryTabs" role="tablist" aria-label="Accessory categories"></div>
-            </div>
-        </section>
-
-        <div class="catalogue-head">
-            <div>
-                <div class="catalogue-title" id="sectionTitle">All accessories</div>
-                <div class="catalogue-subtitle" id="sectionSubtitle">Everything in one place</div>
-            </div>
-        </div>
-
-        <section class="accessory-grid" id="accessoryGrid" aria-live="polite"></section>
-        <div class="footer-note">Entirely fictional · Roleplay purposes only</div>
+        <div class="footer-tag">Roleplay Purposes Only</div>
     </main>
-
-    <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
-        <section class="product-modal" id="productModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-            <div class="modal-top">
-                <div class="modal-media" id="modalMedia"></div>
-                <button type="button" class="modal-close" id="modalClose" aria-label="Close item details">×</button>
-            </div>
-            <div class="modal-content">
-                <div class="modal-kicker" id="modalCategory"></div>
-                <h2 class="modal-title" id="modalTitle"></h2>
-                <div class="modal-description-label">About this item</div>
-                <p class="modal-description" id="modalDescription"></p>
-                <div class="modal-info">
-                    <div class="info-box">
-                        <div class="info-label">Availability</div>
-                        <div class="info-value" id="modalStock"></div>
-                    </div>
-                    <div class="info-box">
-                        <div class="info-label">Category</div>
-                        <div class="info-value" id="modalType"></div>
-                    </div>
-                </div>
-                <div class="modal-price-row">
-                    <div class="modal-price" id="modalPrice"></div>
-                    <span class="roleplay-pill">Roleplay listing</span>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <script>
-        const accessories = [
-            {
-                name: "Clipper Lighter",
-                orderIn: true,
-                category: "Lighters",
-                price: "$3",
-                inStock: true,
-                stockUpdated: "2026-08-08",
-                desc: "Refillable flint lighter with a removable striker wheel and assorted artwork. Compact, reusable and easy to keep in a pocket or accessory pouch.",
-                img: "images/accessories/accessory-clipper-lighter-v7.webp",
-                featured: "Popular"
-            },
-            {
-                name: "BIC Maxi Lighter",
-                orderIn: true,
-                category: "Lighters",
-                price: "$3",
-                inStock: true,
-                stockUpdated: "2026-08-08",
-                desc: "Full-size BIC Maxi disposable lighter with reliable flint ignition and assorted colours. A simple everyday option with a familiar, durable design.",
-                img: "images/accessories/accessory-bic-lighter.webp"
-            },
-            {
-                name: "Mini Torch Lighter",
-                orderIn: true,
-                category: "Lighters",
-                price: "$15",
-                inStock: false,
-                desc: "Compact refillable butane torch lighter with a focused flame and pocket-size body. Supplied in assorted colours and styles depending on availability.",
-                img: "images/accessories/accessory-mini-torch-lighter-v7.webp",
-                featured: "Order In"
-            },
-
-            {
-                name: "RAW Ethereal Papers",
-                orderIn: true,
-                category: "Papers",
-                price: "$6",
-                inStock: true,
-                stockUpdated: "2026-08-08",
-                desc: "Ultra-thin RAW Ethereal papers with RAW's natural unbleached finish. A premium booklet option for anyone who prefers an especially light, minimal paper.",
-                img: "images/accessories/accessory-raw-ethereal-papers.webp",
-                featured: "Popular"
-            },
-            {
-                name: "RAW King Size Slim Papers",
-                orderIn: true,
-                category: "Papers",
-                price: "$6",
-                inStock: true,
-                stockUpdated: "2026-08-08",
-                desc: "RAW Classic King Size Slim papers in the familiar natural, unbleached finish. Longer slim-format sheets supplied in a compact booklet.",
-                img: "images/accessories/accessory-king-size-slim-papers.webp"
-            },
-            {
-                name: "RAW Organic Hemp King Size Slim",
-                orderIn: true,
-                category: "Papers",
-                price: "$6",
-                inStock: true,
-                desc: "RAW Organic Hemp King Size Slim papers made from unbleached hemp fibres. A natural-paper alternative in the same long, slim format.",
-                img: "images/accessories/accessory-hemp-papers.webp"
-            },
-
-            {
-                name: "RAW King Size Roller",
-                orderIn: true,
-                category: "Rollers",
-                price: "$12",
-                inStock: true,
-                desc: "Longer-format manual roller sized for king-size papers. The simple two-roller design helps keep larger papers even and consistent.",
-                img: "images/accessories/accessory-king-size-roller.webp"
-            },
-            {
-                name: "Cone Filling Tool",
-                orderIn: true,
-                category: "Rollers",
-                price: "$8",
-                inStock: false,
-                desc: "Small funnel-style filling tool for guiding loose material neatly into pre-shaped paper cones with less mess. Lightweight, reusable and easy to store.",
-                img: "images/accessories/accessory-cone-filling-tool.webp",
-                featured: "Order In"
-            },
-
-            {
-                name: "Aluminium Grinder",
-                orderIn: true,
-                category: "Grinders",
-                price: "$15",
-                inStock: true,
-                stockUpdated: "2026-08-08",
-                desc: "Four-piece aluminium grinder with sharp teeth, a magnetic lid and lower collection chambers. Durable metal construction with a textured outer edge for grip.",
-                img: "images/accessories/accessory-aluminium-grinder.webp",
-                featured: "Popular"
-            },
-            {
-                name: "Compact 2-Piece Grinder",
-                orderIn: true,
-                category: "Grinders",
-                price: "$8",
-                inStock: true,
-                stockUpdated: "2026-08-08",
-                desc: "Lightweight two-piece grinder with a simple tooth-and-lid design. Compact enough for pockets and bags while still giving an even grind.",
-                img: "images/accessories/accessory-compact-2-piece-grinder.webp"
-            },
-            {
-                name: "Clear Top Grinder",
-                orderIn: true,
-                category: "Grinders",
-                price: "$5",
-                inStock: true,
-                desc: "Colourful two-piece grinder with a transparent top so the contents remain visible while it turns. Compact acrylic construction with an easy screw-together design.",
-                img: "images/accessories/accessory-clear-top-grinder.webp",
-                featured: "New"
-            },
-
-            {
-                name: "RAW Filter Tips",
-                orderIn: true,
-                category: "Filters",
-                price: "$5",
-                inStock: true,
-                stockUpdated: "2026-08-08",
-                desc: "RAW perforated paper filter tips supplied in a pocket-size booklet. Tear-off sections make them easy to fold into your preferred tip shape.",
-                img: "images/accessories/accessory-raw-filter-tips-v7.webp",
-                featured: "Popular"
-            },
-            {
-                name: "RAW Pre-Rolled Tips",
-                orderIn: true,
-                category: "Filters",
-                price: "$15",
-                inStock: true,
-                stockUpdated: "2026-08-08",
-                desc: "RAW paper tips already rolled into a consistent shape and packed ready to use. Convenient when you want matching tips without folding each one yourself.",
-                img: "images/accessories/accessory-pre-rolled-tips.webp"
-            },
-            {
-                name: "Reusable Glass Tips x 3",
-                orderIn: true,
-                category: "Filters",
-                price: "$15",
-                inStock: false,
-                desc: "Reusable glass filter tips with a smooth body and shaped mouthpiece. Washable, sturdy and designed to be used again instead of being thrown away.",
-                img: "images/accessories/accessory-glass-tips.webp"
-            },
-
-            {
-                name: "Variable Voltage 510 Battery",
-                orderIn: false,
-                category: "Batteries",
-                price: "$20",
-                inStock: true,
-                desc: "Rechargeable 510-thread battery with adjustable voltage settings and a small digital display. A more configurable option than a fixed-output battery.",
-                img: "images/accessories/accessory-variable-voltage-battery-v7.webp",
-                featured: "New"
-            },
-
-            {
-                name: "Smell-Proof Lock Pouch",
-                orderIn: true,
-                category: "Storage",
-                price: "$30",
-                inStock: true,
-                desc: "Padded zip storage pouch with odour-resistant lining, carry handle and combination lock. Designed to keep smaller accessories organised and discreet in one case.",
-                img: "images/accessories/accessory-smell-proof-lock-pouch.webp"
-            },
-            {
-                name: "Aluminium Stash Container",
-                orderIn: true,
-                category: "Storage",
-                price: "$15",
-                inStock: true,
-                desc: "Screw-top aluminium storage container available in multiple colours and sizes. Lightweight, reusable and more rigid than a basic plastic container.",
-                img: "images/accessories/accessory-aluminium-stash-container.webp"
-            },
-            {
-                name: "Joint Holder Tubes",
-                orderIn: true,
-                category: "Storage",
-                price: "$5",
-                inStock: true,
-                desc: "Slim reusable plastic holder tubes with capped ends, designed to protect pre-rolled paper cones from being crushed in a pocket or bag. Available in assorted colours.",
-                img: "images/accessories/accessory-joint-holder-tubes.webp"
-            }
-        ];
-
-        const categoryMeta = {
-            "All": { title: "All accessories", subtitle: "Everything in one place" },
-            "Order In": { title: "Must be ordered in", subtitle: "Special-order items kept separate from regular stock" },
-            "Lighters": { title: "Lighters", subtitle: "Pocket, refillable and torch styles" },
-            "Papers": { title: "Papers", subtitle: "Slim, king size and hemp papers" },
-            "Rollers": { title: "Rollers & tools", subtitle: "Rolling machines and filling tools" },
-            "Grinders": { title: "Grinders", subtitle: "Compact and multi-piece options" },
-            "Filters": { title: "Filters & tips", subtitle: "Paper, pre-rolled and reusable tips" },
-            "Batteries": { title: "Batteries", subtitle: "Rechargeable accessory batteries" },
-            "Storage": { title: "Storage", subtitle: "Pouches, tins and pocket tubes" },
-        };
-
-        const categories = Object.keys(categoryMeta);
-        let activeCategory = "All";
-        let searchTerm = "";
-        let lastFocusedCard = null;
-
-        const grid = document.getElementById('accessoryGrid');
-        const tabs = document.getElementById('categoryTabs');
-        const searchInput = document.getElementById('accessorySearch');
-        const resultCount = document.getElementById('resultCount');
-        const sectionTitle = document.getElementById('sectionTitle');
-        const sectionSubtitle = document.getElementById('sectionSubtitle');
-        const backdrop = document.getElementById('modalBackdrop');
-        const modalClose = document.getElementById('modalClose');
-
-        function escapeHtml(value) {
-            return String(value).replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#039;', '"': '&quot;' })[char]);
-        }
-
-        function formatDate(value) {
-            if (!value) return '';
-            const [year, month, day] = value.split('-').map(Number);
-            return new Intl.DateTimeFormat('en-AU', { day: 'numeric', month: 'short', year: 'numeric' }).format(new Date(year, month - 1, day));
-        }
-
-        function stockMeta(item) {
-            if (item.orderIn) {
-                return { className: 'order', short: 'Must be ordered in', full: 'Must be ordered in · Message to arrange a special order' };
-            }
-            if (item.inStock) {
-                return { className: '', short: 'In stock', full: item.stockUpdated ? `In stock · Updated ${formatDate(item.stockUpdated)}` : 'In stock now' };
-            }
-            if (item.restockDate) {
-                return { className: 'soon', short: `Restock ${formatDate(item.restockDate).replace(/ 2026$/, '')}`, full: `Out of stock · Expected ${formatDate(item.restockDate)}` };
-            }
-            return { className: 'out', short: 'Out of stock', full: 'Out of stock · Restock date TBA' };
-        }
-
-        function mediaMarkup(item, modal = false) {
-            if (item.img) {
-                return `<img src="${escapeHtml(item.img)}" alt="${escapeHtml(item.name)}" loading="lazy" decoding="async">`;
-            }
-            return `<div class="placeholder-art"><div class="placeholder-glyph" aria-hidden="true">${escapeHtml(item.icon || '◇')}</div></div>`;
-        }
-
-        function renderTabs() {
-            tabs.innerHTML = categories.map(category => `
-                <button type="button" class="tab${category === activeCategory ? ' active' : ''}" data-category="${escapeHtml(category)}" role="tab" aria-selected="${category === activeCategory}">${escapeHtml(category)}</button>
-            `).join('');
-
-            tabs.querySelectorAll('.tab').forEach(tab => {
-                tab.addEventListener('click', () => {
-                    activeCategory = tab.dataset.category;
-                    renderTabs();
-                    renderGrid();
-                    tabs.querySelector(`[data-category="${CSS.escape(activeCategory)}"]`)?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-                });
-            });
-        }
-
-        function getFilteredItems() {
-            const query = searchTerm.trim().toLowerCase();
-            return accessories.filter(item => {
-                const matchesCategory = activeCategory === 'All' || (activeCategory === 'Order In' ? item.orderIn : item.category === activeCategory);
-                const matchesSearch = !query || `${item.name} ${item.category} ${item.desc} ${item.orderIn ? 'must be ordered in special order' : ''}`.toLowerCase().includes(query);
-                return matchesCategory && matchesSearch;
-            });
-        }
-
-        function renderGrid() {
-            const items = getFilteredItems();
-            const meta = categoryMeta[activeCategory];
-            sectionTitle.textContent = meta.title;
-            sectionSubtitle.textContent = searchTerm ? `Filtered by “${searchTerm}”` : meta.subtitle;
-            resultCount.textContent = `${items.length} ${items.length === 1 ? 'item' : 'items'}`;
-
-            if (!items.length) {
-                grid.innerHTML = `<div class="empty-state"><strong>No accessories found</strong>Try another category or search term.</div>`;
-                return;
-            }
-
-            grid.innerHTML = items.map(item => {
-                const stock = stockMeta(item);
-                const index = accessories.indexOf(item);
-                return `
-                    <button type="button" class="accessory-card" data-index="${index}" aria-label="View ${escapeHtml(item.name)} details">
-                        <span class="card-media">
-                            ${mediaMarkup(item)}
-                            <span class="media-badges">
-                                <span class="category-chip">${escapeHtml(item.category)}</span>
-                                <span class="badge-stack">
-                                    ${item.orderIn ? '<span class="order-chip">Must be ordered in</span>' : ''}
-                                    ${item.featured && item.featured !== 'Order In' ? `<span class="feature-chip">${escapeHtml(item.featured)}</span>` : ''}
-                                </span>
-                            </span>
-                        </span>
-                        <span class="card-body">
-                            <span class="card-name">${escapeHtml(item.name)}</span>
-                            <span class="card-desc">${escapeHtml(item.desc)}</span>
-                            <span class="stock-row ${stock.className}"><span class="stock-dot"></span>${escapeHtml(stock.short)}</span>
-                            <span class="card-footer">
-                                <span class="price">${escapeHtml(item.price)}</span>
-                                <span class="view-label">View details →</span>
-                            </span>
-                        </span>
-                    </button>
-                `;
-            }).join('');
-
-            grid.querySelectorAll('.accessory-card').forEach(card => {
-                card.addEventListener('click', () => {
-                    lastFocusedCard = card;
-                    openModal(accessories[Number(card.dataset.index)]);
-                });
-            });
-        }
-
-        function openModal(item) {
-            const stock = stockMeta(item);
-            document.getElementById('modalMedia').innerHTML = mediaMarkup(item, true);
-            document.getElementById('modalCategory').textContent = item.category;
-            document.getElementById('modalTitle').textContent = item.name;
-            document.getElementById('modalDescription').textContent = item.desc;
-            document.getElementById('modalStock').textContent = stock.full;
-            document.getElementById('modalType').textContent = item.category;
-            document.getElementById('modalPrice').textContent = item.price;
-            backdrop.classList.add('open');
-            backdrop.setAttribute('aria-hidden', 'false');
-            document.body.classList.add('modal-open');
-            requestAnimationFrame(() => modalClose.focus());
-        }
-
-        function closeModal() {
-            backdrop.classList.remove('open');
-            backdrop.setAttribute('aria-hidden', 'true');
-            document.body.classList.remove('modal-open');
-            if (lastFocusedCard) lastFocusedCard.focus();
-        }
-
-        searchInput.addEventListener('input', event => {
-            searchTerm = event.target.value;
-            renderGrid();
-        });
-
-        modalClose.addEventListener('click', closeModal);
-        backdrop.addEventListener('click', event => {
-            if (event.target === backdrop) closeModal();
-        });
-        document.addEventListener('keydown', event => {
-            if (event.key === 'Escape' && backdrop.classList.contains('open')) closeModal();
-        });
-
-        document.getElementById('heroItemCount').textContent = accessories.length;
-        document.getElementById('heroCategoryCount').textContent = categories.length - 2;
-        document.getElementById('heroStockCount').textContent = accessories.filter(item => item.inStock && !item.orderIn).length;
-        document.getElementById('heroOrderCount').textContent = accessories.filter(item => item.orderIn).length;
-
-        renderTabs();
-        renderGrid();
-    </script>
 </body>
 </html>
