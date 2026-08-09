@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- RP build: accessories-catalogue-v5-order-in-2026-08-09 -->
+<!-- RP build: accessories-catalogue-v6-photo-refresh-2026-08-09 -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -261,7 +261,7 @@
             height: 100%;
             object-fit: cover;
             display: block;
-            transform: scale(1.01);
+            transform: scale(1.001);
             transition: transform 0.28s ease;
         }
         .placeholder-art {
@@ -453,7 +453,15 @@
         .modal-content { padding: 20px; }
         .modal-kicker { color: #93c5fd; font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 7px; }
         .modal-title { font-size: clamp(1.45rem, 5vw, 2rem); letter-spacing: -0.045em; line-height: 1.05; }
-        .modal-description { color: #9aa8ba; line-height: 1.65; margin-top: 11px; font-size: 0.9rem; }
+        .modal-description-label {
+            color: #64748b;
+            font-size: 0.62rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+            margin-top: 15px;
+        }
+        .modal-description { color: #aab6c6; line-height: 1.68; margin-top: 6px; font-size: 0.9rem; }
         .modal-info {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -509,7 +517,16 @@
             .accessory-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
             .card-body { padding: 10px; }
             .card-name { font-size: 0.86rem; }
-            .card-desc { display: none; }
+            .card-desc {
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                font-size: 0.63rem;
+                line-height: 1.38;
+                min-height: 2.76em;
+                margin-top: 5px;
+            }
             .card-media { aspect-ratio: 1 / 0.92; }
             .category-chip, .feature-chip, .order-chip { font-size: 0.55rem; min-height: 23px; padding: 0 7px; }
             .stock-row { margin-top: 8px; font-size: 0.6rem; }
@@ -544,7 +561,7 @@
         <section class="hero">
             <div class="eyebrow"><span class="eyebrow-dot"></span> Roleplay inventory</div>
             <h1>Accessories</h1>
-            <p class="intro">Browse the accessory wall by category. Everything is organised for quick mobile browsing, with stock and special-order status visible before you open an item.</p>
+            <p class="intro">Browse accessories by category with clear photos, quick descriptions, stock status and special-order flares visible at a glance.</p>
             <div class="hero-stats">
                 <span class="hero-stat"><strong id="heroItemCount">0</strong> items</span>
                 <span class="hero-stat"><strong id="heroCategoryCount">0</strong> categories</span>
@@ -583,6 +600,7 @@
             <div class="modal-content">
                 <div class="modal-kicker" id="modalCategory"></div>
                 <h2 class="modal-title" id="modalTitle"></h2>
+                <div class="modal-description-label">About this item</div>
                 <p class="modal-description" id="modalDescription"></p>
                 <div class="modal-info">
                     <div class="info-box">
@@ -604,36 +622,211 @@
 
     <script>
         const accessories = [
-            { name: "Clipper Lighter", orderIn: false, category: "Lighters", price: "$2", inStock: true, stockUpdated: "2026-08-08", desc: "Refillable pocket lighter in assorted colours.", img: "images/lighter-1_cleaned.webp", featured: "Popular" },
-            { name: "Bic Lighter", orderIn: true, category: "Lighters", price: "$2", inStock: true, stockUpdated: "2026-08-08", desc: "Maxi Bic lighter.", icon: "✦" },
-            { name: "Mini Torch Lighter", orderIn: true, category: "Lighters", price: "$8", inStock: false, restockDate: "2026-08-18", desc: "Small refillable torch-style lighter with adjustable flame.", icon: "△" },
+            {
+                name: "Clipper Lighter",
+                orderIn: false,
+                category: "Lighters",
+                price: "$2",
+                inStock: true,
+                stockUpdated: "2026-08-08",
+                desc: "Refillable flint lighter with a removable striker wheel and assorted artwork. Compact, reusable and easy to keep in a pocket or accessory pouch.",
+                img: "images/accessories/accessory-clipper-lighter.webp",
+                featured: "Popular"
+            },
+            {
+                name: "BIC Maxi Lighter",
+                orderIn: false,
+                category: "Lighters",
+                price: "$2",
+                inStock: true,
+                stockUpdated: "2026-08-08",
+                desc: "Full-size BIC Maxi disposable lighter with reliable flint ignition and assorted colours. A simple everyday option with a familiar, durable design.",
+                img: "images/accessories/accessory-bic-lighter.webp"
+            },
+            {
+                name: "Mini Torch Lighter",
+                orderIn: true,
+                category: "Lighters",
+                price: "$8",
+                inStock: false,
+                desc: "Compact refillable butane torch lighter with a focused flame and pocket-size body. Supplied in assorted colours and styles depending on availability.",
+                img: "images/accessories/accessory-mini-torch-lighter.webp",
+                featured: "Order In"
+            },
 
-            { name: "RAW Ethereal Papers", orderIn: true, category: "Papers", price: "$10", inStock: true, stockUpdated: "2026-08-08", desc: "Ultra-thin paper booklet presented as a fictional roleplay listing.", img: "images/raw-1_cleaned.webp", featured: "Popular" },
-            { name: "King Size Slim Papers", orderIn: true, category: "Papers", price: "$6", inStock: true, stockUpdated: "2026-08-08", desc: "Long-format slim rolling papers in a compact booklet.", icon: "≋" },
-            { name: "Hemp Papers", orderIn: true, category: "Papers", price: "$5", inStock: true, stockUpdated: "2026-08-08", desc: "Natural-style hemp rolling paper booklet.", icon: "≋" },
+            {
+                name: "RAW Ethereal Papers",
+                orderIn: false,
+                category: "Papers",
+                price: "$10",
+                inStock: true,
+                stockUpdated: "2026-08-08",
+                desc: "Ultra-thin RAW Ethereal papers with RAW's natural unbleached finish. A premium booklet option for anyone who prefers an especially light, minimal paper.",
+                img: "images/accessories/accessory-raw-ethereal-papers.webp",
+                featured: "Popular"
+            },
+            {
+                name: "RAW King Size Slim Papers",
+                orderIn: false,
+                category: "Papers",
+                price: "$6",
+                inStock: true,
+                stockUpdated: "2026-08-08",
+                desc: "RAW Classic King Size Slim papers in the familiar natural, unbleached finish. Longer slim-format sheets supplied in a compact booklet.",
+                img: "images/accessories/accessory-king-size-slim-papers.webp"
+            },
+            {
+                name: "RAW Organic Hemp King Size Slim",
+                orderIn: true,
+                category: "Papers",
+                price: "$5",
+                inStock: true,
+                desc: "RAW Organic Hemp King Size Slim papers made from unbleached hemp fibres. A natural-paper alternative in the same long, slim format.",
+                img: "images/accessories/accessory-hemp-papers.webp"
+            },
 
-            { name: "Rolling Machine", orderIn: true, category: "Rollers", price: "$10", inStock: true, stockUpdated: "2026-08-08", desc: "Compact hand rolling machine for a consistent shape.", img: "images/rolling-1_cleaned.webp", featured: "Popular" },
-            { name: "King Size Roller", orderIn: true, orderIn: true, category: "Rollers", price: "$12", inStock: true, stockUpdated: "2026-08-08", desc: "Long-format manual roller for king size papers.", icon: "↻" },
-            { name: "Cone Filling Tool", orderIn: true, category: "Rollers", price: "$8", inStock: false, restockDate: "2026-08-22", desc: "Simple filling and packing tool for pre-shaped paper cones.", icon: "▽", featured: "Restock" },
+            {
+                name: "Rolling Machine",
+                orderIn: false,
+                category: "Rollers",
+                price: "$10",
+                inStock: true,
+                stockUpdated: "2026-08-08",
+                desc: "Compact manual rolling machine that keeps paper aligned and helps produce a neat, consistent shape. Small enough to store with the rest of your accessories.",
+                img: "images/accessories/accessory-rolling-machine.webp",
+                featured: "Popular"
+            },
+            {
+                name: "RAW King Size Roller",
+                orderIn: true,
+                category: "Rollers",
+                price: "$12",
+                inStock: true,
+                desc: "Longer-format manual roller sized for king-size papers. The simple two-roller design helps keep larger papers even and consistent.",
+                img: "images/accessories/accessory-king-size-roller.webp"
+            },
+            {
+                name: "Cone Filling Tool",
+                orderIn: true,
+                category: "Rollers",
+                price: "$8",
+                inStock: false,
+                desc: "Small funnel-style filling tool for guiding loose material neatly into pre-shaped paper cones with less mess. Lightweight, reusable and easy to store.",
+                img: "images/accessories/accessory-cone-filling-tool.webp",
+                featured: "Order In"
+            },
 
-            { name: "Aluminium Grinder", orderIn: true, category: "Grinders", price: "$15", inStock: true, stockUpdated: "2026-08-08", desc: "Four-piece aluminium grinder with lower collection chamber.", img: "images/grind-1_cleaned.webp", featured: "Popular" },
-            { name: "Compact 2-Piece Grinder", orderIn: true, category: "Grinders", price: "$10", inStock: true, stockUpdated: "2026-08-08", desc: "Small two-piece grinder designed for pockets and travel.", icon: "✣" },
-            { name: "Clear Top Grinder", orderIn: true, orderIn: true, category: "Grinders", price: "$18", inStock: true, stockUpdated: "2026-08-08", desc: "Multi-piece grinder with a clear viewing lid.", icon: "✣", featured: "New" },
+            {
+                name: "Aluminium Grinder",
+                orderIn: false,
+                category: "Grinders",
+                price: "$15",
+                inStock: true,
+                stockUpdated: "2026-08-08",
+                desc: "Four-piece aluminium grinder with sharp teeth, a magnetic lid and lower collection chambers. Durable metal construction with a textured outer edge for grip.",
+                img: "images/accessories/accessory-aluminium-grinder.webp",
+                featured: "Popular"
+            },
+            {
+                name: "Compact 2-Piece Grinder",
+                orderIn: false,
+                category: "Grinders",
+                price: "$10",
+                inStock: true,
+                stockUpdated: "2026-08-08",
+                desc: "Lightweight two-piece grinder with a simple tooth-and-lid design. Compact enough for pockets and bags while still giving an even grind.",
+                img: "images/accessories/accessory-compact-2-piece-grinder.webp"
+            },
+            {
+                name: "Clear Top Grinder",
+                orderIn: true,
+                category: "Grinders",
+                price: "$18",
+                inStock: true,
+                desc: "Colourful two-piece grinder with a transparent top so the contents remain visible while it turns. Compact acrylic construction with an easy screw-together design.",
+                img: "images/accessories/accessory-clear-top-grinder.webp",
+                featured: "New"
+            },
 
-            { name: "RAW Filter Tips", orderIn: true, category: "Filters", price: "$5", inStock: true, stockUpdated: "2026-08-08", desc: "Booklet of perforated paper filter tips.", img: "images/filter-1_cleaned.webp", featured: "Popular" },
-            { name: "Pre-Rolled Tips", orderIn: true, category: "Filters", price: "$4", inStock: true, stockUpdated: "2026-08-08", desc: "Ready-shaped paper tips in a small carry pack.", icon: "≡" },
-            { name: "Glass Tips", orderIn: true, orderIn: true, category: "Filters", price: "$8", inStock: false, restockDate: "2026-08-26", desc: "Reusable smooth glass tips supplied in a protective tube.", icon: "◇" },
+            {
+                name: "RAW Filter Tips",
+                orderIn: false,
+                category: "Filters",
+                price: "$5",
+                inStock: true,
+                stockUpdated: "2026-08-08",
+                desc: "RAW perforated paper filter tips supplied in a pocket-size booklet. Tear-off sections make them easy to fold into your preferred tip shape.",
+                img: "images/accessories/accessory-raw-filter-tips.webp",
+                featured: "Popular"
+            },
+            {
+                name: "RAW Pre-Rolled Tips",
+                orderIn: false,
+                category: "Filters",
+                price: "$4",
+                inStock: true,
+                stockUpdated: "2026-08-08",
+                desc: "RAW paper tips already rolled into a consistent shape and packed ready to use. Convenient when you want matching tips without folding each one yourself.",
+                img: "images/accessories/accessory-pre-rolled-tips.webp"
+            },
+            {
+                name: "Reusable Glass Tips",
+                orderIn: true,
+                category: "Filters",
+                price: "$8",
+                inStock: false,
+                desc: "Reusable glass filter tips with a smooth body and shaped mouthpiece. Washable, sturdy and designed to be used again instead of being thrown away.",
+                img: "images/accessories/accessory-glass-tips.webp"
+            },
 
-            { name: "510 Thread Battery", orderIn: false, category: "Batteries", price: "$15", inStock: true, stockUpdated: "2026-08-08", desc: "Compact rechargeable 510-thread battery.", img: "images/bat-1_cleaned.webp" },
-            { name: "Variable Voltage Battery", orderIn: true, orderIn: true, category: "Batteries", price: "$22", inStock: true, stockUpdated: "2026-08-08", desc: "Rechargeable battery with multiple voltage settings.", icon: "⚡", featured: "New" },
+            {
+                name: "510 Thread Battery",
+                orderIn: false,
+                category: "Batteries",
+                price: "$15",
+                inStock: true,
+                stockUpdated: "2026-08-08",
+                desc: "Slim rechargeable 510-thread battery with a compact button-operated design. Built around the common 510 connection used by compatible accessories.",
+                img: "images/accessories/accessory-510-battery.webp"
+            },
+            {
+                name: "Variable Voltage 510 Battery",
+                orderIn: true,
+                category: "Batteries",
+                price: "$22",
+                inStock: true,
+                desc: "Rechargeable 510-thread battery with adjustable voltage settings and a small digital display. A more configurable option than a fixed-output battery.",
+                img: "images/accessories/accessory-variable-voltage-battery.webp",
+                featured: "New"
+            },
 
-            { name: "Smell-Resistant Pouch", orderIn: true, orderIn: true, category: "Storage", price: "$12", inStock: true, stockUpdated: "2026-08-08", desc: "Compact zip pouch for keeping small accessories together.", icon: "◇" },
-            { name: "Metal Stash Tin", orderIn: true, category: "Storage", price: "$8", inStock: true, stockUpdated: "2026-08-08", desc: "Small hard-shell metal storage tin with fitted lid.", icon: "□" },
-            { name: "Pocket Storage Tube", orderIn: true, category: "Storage", price: "$4", inStock: true, stockUpdated: "2026-08-08", desc: "Slim reusable storage tube for small accessories.", icon: "│" },
-
-            { name: "Cleaning Brush Set", orderIn: true, orderIn: true, category: "Cleaning", price: "$5", inStock: true, stockUpdated: "2026-08-08", desc: "Small multi-size brush set for accessory maintenance.", icon: "✧" },
-            { name: "Cleaning Swab Pack", orderIn: true, category: "Cleaning", price: "$4", inStock: true, stockUpdated: "2026-08-08", desc: "Pack of compact cleaning swabs for hard-to-reach areas.", icon: "·" },
-            { name: "Microfibre Cleaning Cloth", orderIn: true, category: "Cleaning", price: "$3", inStock: false, restockDate: "2026-08-20", desc: "Soft reusable cloth for wiping down accessory surfaces.", icon: "▱" }
+            {
+                name: "Smell-Proof Lock Pouch",
+                orderIn: true,
+                category: "Storage",
+                price: "$12",
+                inStock: true,
+                desc: "Padded zip storage pouch with odour-resistant lining, carry handle and combination lock. Designed to keep smaller accessories organised and discreet in one case.",
+                img: "images/accessories/accessory-smell-proof-lock-pouch.webp"
+            },
+            {
+                name: "Aluminium Stash Container",
+                orderIn: true,
+                category: "Storage",
+                price: "$8",
+                inStock: true,
+                desc: "Screw-top aluminium storage container available in multiple colours and sizes. Lightweight, reusable and more rigid than a basic plastic container.",
+                img: "images/accessories/accessory-aluminium-stash-container.webp"
+            },
+            {
+                name: "Joint Holder Tubes",
+                orderIn: true,
+                category: "Storage",
+                price: "$4",
+                inStock: true,
+                desc: "Slim reusable plastic holder tubes with capped ends, designed to protect pre-rolled paper cones from being crushed in a pocket or bag. Available in assorted colours.",
+                img: "images/accessories/accessory-joint-holder-tubes.webp"
+            }
         ];
 
         const categoryMeta = {
@@ -646,7 +839,6 @@
             "Filters": { title: "Filters & tips", subtitle: "Paper, pre-rolled and reusable tips" },
             "Batteries": { title: "Batteries", subtitle: "Rechargeable accessory batteries" },
             "Storage": { title: "Storage", subtitle: "Pouches, tins and pocket tubes" },
-            "Cleaning": { title: "Cleaning", subtitle: "Small maintenance essentials" }
         };
 
         const categories = Object.keys(categoryMeta);
@@ -675,7 +867,7 @@
 
         function stockMeta(item) {
             if (item.orderIn) {
-                return { className: 'order', short: 'Must be ordered in', full: 'Must be ordered in · Special-order item' };
+                return { className: 'order', short: 'Must be ordered in', full: 'Must be ordered in · Message to arrange a special order' };
             }
             if (item.inStock) {
                 return { className: '', short: 'In stock', full: item.stockUpdated ? `In stock · Updated ${formatDate(item.stockUpdated)}` : 'In stock now' };
@@ -740,7 +932,7 @@
                                 <span class="category-chip">${escapeHtml(item.category)}</span>
                                 <span class="badge-stack">
                                     ${item.orderIn ? '<span class="order-chip">Must be ordered in</span>' : ''}
-                                    ${item.featured ? `<span class="feature-chip">${escapeHtml(item.featured)}</span>` : ''}
+                                    ${item.featured && item.featured !== 'Order In' ? `<span class="feature-chip">${escapeHtml(item.featured)}</span>` : ''}
                                 </span>
                             </span>
                         </span>

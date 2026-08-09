@@ -1,16 +1,13 @@
-# Roleplay Portal
+# Roleplay site — stock/restock build v3
 
-A static fictional roleplay interface designed for GitHub Pages.
+This ZIP is intentionally **flat**: `index.html`, `products.html`, `accessories.html` and `about.html` belong directly in the GitHub Pages publishing root.
 
-## Mobile-focused improvements
+## Deploying to GitHub Pages
 
-- Responsive layouts tuned for phones and desktop browsers.
-- Safe-area support for modern iPhones and other edge-to-edge displays.
-- Touch-friendly controls and keyboard/focus accessibility.
-- Product image galleries swipe horizontally on narrow screens.
-- Full-screen product viewer supports swipe navigation.
-- Collapsed cards defer image loading until they are opened.
-- Source photos were converted to WebP and resized for much faster page loads.
-- Reduced-motion support is included for users who disable animations.
+1. Open the exact branch/folder configured under **Settings → Pages → Build and deployment**.
+2. Replace the existing root HTML files with the files in this ZIP. Do **not** upload the outer folder as a nested directory.
+3. Upload/replace the `images` folder as well because this build uses `.webp` images.
+4. Wait for the Pages deployment to finish, then hard-refresh the site.
+5. To verify the correct build is live, open page source and search for `stock-restock-v3-2026-08-08`.
 
-This project is fictional and intended only for roleplay/storytelling.
+Product cards show stock twice for clarity: a compact dated badge in the collapsed header and a more descriptive availability line beneath it.
